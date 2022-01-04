@@ -8,8 +8,10 @@ public class PlayerMove : MonoBehaviour
     SpriteRenderer sprite;
     Animator animator;
     public float maxSpeed;
+    public float JumpPower;
+    float direction;
 
-    void Awake()
+void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         sprite = GetComponent<SpriteRenderer>();
@@ -17,8 +19,22 @@ public class PlayerMove : MonoBehaviour
     }
     void Update()
     {
+
+        // Jump
+        if (Input.GetButtonDown("Jump") && !animator.GetBool("isJumping"))
+        {
+            rigid.AddForce(Vector2.up * JumpPower, ForceMode2D.Impulse);
+            animator.SetBool("isJumping", true);
+        }
+        /*
+        if(animator.GetBool("isJumping") == true && rigid.velocity.y < 0)
+        {
+            animator.SetBool("isJumping", false);
+        }
+        */
+
         // Is Walking
-        if (rigid.velocity.normalized.x == 0)
+        if (Mathf.Abs(rigid.velocity.x) < 0.4f)
         {
             animator.SetBool("isWalking", false);
         }
@@ -31,10 +47,17 @@ public class PlayerMove : MonoBehaviour
         if (Input.GetButtonUp("Horizontal"))
         {
             rigid.velocity = new Vector2(rigid.velocity.normalized.x*0.5f, rigid.velocity.y);
+            // 미끄러짐 없음
+            //rigid.velocity = new Vector2(0, rigid.velocity.y);
         }
 
-        // Direction Sprite
-        sprite.flipX = Input.GetAxisRaw("Horizontal") == -1;    // flip default false
+        // Direction Sprite (수정됨 2022-01-01)
+        direction = Input.GetAxisRaw("Horizontal");
+        if (direction != 0)
+        {
+            sprite.flipX =  direction == -1;    // flip default false
+        }
+
     }
 
     void FixedUpdate()
@@ -50,6 +73,22 @@ public class PlayerMove : MonoBehaviour
         else if (rigid.velocity.x < maxSpeed*(-1)) // Left Max Speed
         {
             rigid.velocity = new Vector2(maxSpeed * (-1), rigid.velocity.y);
+        }
+
+        // Landing Platform
+        Debug.DrawRay(rigid.position, Vector3.down, Color.green);
+
+        if (rigid.velocity.y < 0) { 
+            RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1, LayerMask.GetMask("Platform"));
+            // 빔을 아래로 쏴서 맞으면 동작
+            if (rayHit.collider != null)
+            {
+                // 플레이어의 절반크기
+                if (rayHit.distance < 0.5f)
+                {
+                    animator.SetBool("isJumping", false);
+                }
+            }
         }
     }
 }
