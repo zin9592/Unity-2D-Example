@@ -7,6 +7,7 @@ public class EnemyMove : MonoBehaviour
     Rigidbody2D rigid;
     Animator animator;
     SpriteRenderer spriteRenderer;
+    CapsuleCollider2D capsuleCollider;
 
     // 행동지표를 결정할 변수 하나 생성
     public int nextMove;
@@ -17,6 +18,7 @@ public class EnemyMove : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        capsuleCollider = GetComponent<CapsuleCollider2D>();
 
         // 주어진 시간이 지난 뒤 지정된 함수를 실행하는 함수
         Invoke("Think", 3);
@@ -45,7 +47,7 @@ public class EnemyMove : MonoBehaviour
     {
         // Random.Range() : 최소 ~ 최대 범위의 랜덤 수 생성(최대는 제외됨)
         // RandomMoveSpeed
-        nextMove = Random.Range(-1,2);
+        nextMove = Random.Range(-1, 2);
         ChangeAnimation(nextMove);
 
         //Recursive
@@ -71,5 +73,36 @@ public class EnemyMove : MonoBehaviour
         // 모든 인보크 정지
         CancelInvoke();
         Invoke("Think", 1);
+    }
+
+    // 데미지 입음
+    public void OnDamaged()
+    {
+        // CancleInvoke
+        CancelInvoke();
+
+        // nextMove 0
+        nextMove = 0;
+        ChangeAnimation(nextMove);
+
+        // Sprite Alpha
+        spriteRenderer.color = new Color(1, 1, 1, 0.4f);
+
+        // Sprite Flip Y
+        spriteRenderer.flipY = true;
+
+        // Collider disable
+        capsuleCollider.enabled = false;
+
+        // Die Effect Jump
+        rigid.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
+
+        // Destroy
+        Invoke("DeActive", 5);
+    }
+
+    void DeActive()
+    {
+        gameObject.SetActive(false);
     }
 }
