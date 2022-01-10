@@ -7,6 +7,7 @@ public class PlayerMove : MonoBehaviour
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
     Animator animator;
+    public GameManager gameManager;
     public float maxSpeed;
     public float JumpPower;
     float direction;
@@ -89,19 +90,56 @@ public class PlayerMove : MonoBehaviour
         //  Character and Enemy Collision 
         if (collision.gameObject.tag == "Enemy")
         {
-            
-            if (rigid.velocity.y < 0 && 
-                transform.position.y > collision.contacts[0].point.y && 
+
+            // transform.localScale.y * 0.2f 이유, 가만히 있어도 y좌표가 적의 좌표보다 높아서..
+            if (rigid.velocity.y < 0 &&
+                transform.position.y - transform.localScale.y * 0.2f > collision.contacts[0].point.y &&
                 collision.gameObject.name == "Enemy")
             {
                 // 만약 캐릭터가 적보다 위에있고, 낙하중이라면 공격
                 OnAttack(collision.transform);
+                gameManager.stagePoint += 100;
             }
             else
             {
                 // 아니라면 데미지입음
                 OnDamaged(collision);
             }
+        }
+    }
+
+    void OnTriggerEnter2D(Collider2D collider)
+    {
+        // 동전 획득시 발동
+        if (collider.gameObject.tag == "Item")
+        {
+            //item get sound
+
+            //add score
+            bool isBronze = collider.gameObject.name.Contains("Bronze");
+            bool isSilver = collider.gameObject.name.Contains("Silver");
+            bool isGold = collider.gameObject.name.Contains("Gold");
+
+            if (isBronze)
+            {
+                gameManager.stagePoint += 50;
+            }
+            else if (isSilver)
+            {
+                gameManager.stagePoint += 100;
+            }
+            else if (isGold)
+            {
+                gameManager.stagePoint += 300;
+            }
+            //disable object
+            collider.gameObject.SetActive(false);
+        }
+        else if (collider.gameObject.tag == "Finish")
+        {
+            //next stage (GameManager)
+            gameManager.NextStage();
+
         }
     }
 
@@ -119,8 +157,11 @@ public class PlayerMove : MonoBehaviour
     void OnDamaged(Collision2D collision)
     {
         // First collision point x
-        Debug.Log(collision.contacts[0].point.x); 
-        
+        // Debug.Log(collision.contacts[0].point.x);
+
+        //Health down
+        gameManager.health--;
+
         // Change Layer (Immotal Active)
         this.gameObject.layer = 9;
 
