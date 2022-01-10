@@ -6,6 +6,7 @@ public class PlayerMove : MonoBehaviour
 {
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
+    CapsuleCollider2D capsuleCollider;
     Animator animator;
     public GameManager gameManager;
     public float maxSpeed;
@@ -17,6 +18,7 @@ public class PlayerMove : MonoBehaviour
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
+        capsuleCollider = GetComponent<CapsuleCollider2D>();
     }
     void Update()
     {
@@ -73,12 +75,12 @@ public class PlayerMove : MonoBehaviour
 
         if (rigid.velocity.y < 0)
         {
-            RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1, LayerMask.GetMask("Platform"));
+            RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 2, LayerMask.GetMask("Platform"));
             // 빔을 아래로 쏴서 맞으면 동작
             if (rayHit.collider != null)
             {
                 // 플레이어의 절반크기
-                if (rayHit.distance < 0.5f)
+                if (rayHit.distance < 1f)
                 {
                     animator.SetBool("isJumping", false);
                 }
@@ -146,7 +148,7 @@ public class PlayerMove : MonoBehaviour
     void OnAttack(Transform enemy)
     {
         // Point
-        rigid.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
+        rigid.AddForce(Vector2.up * 15, ForceMode2D.Impulse);
 
         // Enemy Die
         EnemyMove enemyMove = enemy.GetComponent<EnemyMove>();
@@ -160,7 +162,7 @@ public class PlayerMove : MonoBehaviour
         // Debug.Log(collision.contacts[0].point.x);
 
         //Health down
-        gameManager.health--;
+        gameManager.HealthDown();
 
         // Change Layer (Immotal Active)
         this.gameObject.layer = 9;
@@ -187,5 +189,26 @@ public class PlayerMove : MonoBehaviour
 
         // View Alpha
         spriteRenderer.color = new Color(1, 1, 1, 1);
+    }
+
+    public void OnDie()
+    {
+        // Sprite Alpha
+        spriteRenderer.color = new Color(1, 1, 1, 0.4f);
+
+        // Sprite Flip Y
+        spriteRenderer.flipY = true;
+
+        // Collider disable
+        capsuleCollider.enabled = false;
+
+        // Die Effect Jump
+        rigid.AddForce(Vector2.up * 5, ForceMode2D.Impulse);
+    }
+
+    // 캐릭터 정지
+    public void VelocityZero()
+    {
+        rigid.velocity = Vector2.zero;
     }
 }
