@@ -4,21 +4,65 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
+    public GameManager gameManager;
+    public AudioClip audioJump;
+    public AudioClip audioAttack;
+    public AudioClip audioDamaged;
+    public AudioClip audioItem;
+    public AudioClip audioDie;
+    public AudioClip audioFinish;
+    public float maxSpeed;
+    public float JumpPower;
+    public float direction;
+
     Rigidbody2D rigid;
     SpriteRenderer spriteRenderer;
     CapsuleCollider2D capsuleCollider;
     Animator animator;
-    public GameManager gameManager;
-    public float maxSpeed;
-    public float JumpPower;
-    float direction;
+    AudioSource audioSource;
 
+    enum SoundType
+    {
+        Jump,
+        Attack,
+        Damaged,
+        Item,
+        Die,
+        Finish
+    }
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         animator = GetComponent<Animator>();
         capsuleCollider = GetComponent<CapsuleCollider2D>();
+        audioSource = GetComponent<AudioSource>();
+    }
+
+    void PlaySound(SoundType action)
+    {
+        switch (action)
+        {
+            case SoundType.Jump:
+                audioSource.clip = audioJump;
+                break;
+            case SoundType.Attack:
+                audioSource.clip = audioAttack;
+                break;
+            case SoundType.Damaged:
+                audioSource.clip = audioDamaged;
+                break;
+            case SoundType.Item:
+                audioSource.clip = audioItem;
+                break;
+            case SoundType.Die:
+                audioSource.clip = audioDie;
+                break;
+            case SoundType.Finish:
+                audioSource.clip = audioFinish;
+                break;
+        }
+        audioSource.Play();
     }
     void Update()
     {
@@ -28,6 +72,7 @@ public class PlayerMove : MonoBehaviour
         {
             rigid.AddForce(Vector2.up * JumpPower, ForceMode2D.Impulse);
             animator.SetBool("isJumping", true);
+            PlaySound(SoundType.Jump);
         }
 
         // Is Walking
@@ -75,12 +120,12 @@ public class PlayerMove : MonoBehaviour
 
         if (rigid.velocity.y < 0)
         {
-            RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 2, LayerMask.GetMask("Platform"));
+            RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, Vector3.down, 1, LayerMask.GetMask("Platform"));
             // 빔을 아래로 쏴서 맞으면 동작
             if (rayHit.collider != null)
             {
                 // 플레이어의 절반크기
-                if (rayHit.distance < 1f)
+                if (rayHit.distance < 0.7f)
                 {
                     animator.SetBool("isJumping", false);
                 }
@@ -116,7 +161,7 @@ public class PlayerMove : MonoBehaviour
         if (collider.gameObject.tag == "Item")
         {
             //item get sound
-
+            PlaySound(SoundType.Item);
             //add score
             bool isBronze = collider.gameObject.name.Contains("Bronze");
             bool isSilver = collider.gameObject.name.Contains("Silver");
@@ -139,6 +184,8 @@ public class PlayerMove : MonoBehaviour
         }
         else if (collider.gameObject.tag == "Finish")
         {
+            //FinishSound
+            PlaySound(SoundType.Finish);
             //next stage (GameManager)
             gameManager.NextStage();
 
@@ -147,6 +194,9 @@ public class PlayerMove : MonoBehaviour
 
     void OnAttack(Transform enemy)
     {
+        // AttackSound
+        PlaySound(SoundType.Attack);
+
         // Point
         rigid.AddForce(Vector2.up * 15, ForceMode2D.Impulse);
 
@@ -158,6 +208,9 @@ public class PlayerMove : MonoBehaviour
     // Character On Damaged
     void OnDamaged(Collision2D collision)
     {
+        //DamagedSound
+        PlaySound(SoundType.Damaged);
+
         // First collision point x
         // Debug.Log(collision.contacts[0].point.x);
 
@@ -193,6 +246,9 @@ public class PlayerMove : MonoBehaviour
 
     public void OnDie()
     {
+        //DieSound
+        PlaySound(SoundType.Die);
+
         // Sprite Alpha
         spriteRenderer.color = new Color(1, 1, 1, 0.4f);
 

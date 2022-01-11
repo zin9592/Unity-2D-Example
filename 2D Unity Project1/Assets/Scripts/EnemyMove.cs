@@ -33,7 +33,7 @@ public class EnemyMove : MonoBehaviour
         // Platform Check
         Vector2 frontVec = new Vector2(rigid.position.x + (nextMove * 0.5f), rigid.position.y);
         Debug.DrawRay(frontVec, Vector3.down, Color.green);
-        RaycastHit2D rayHit = Physics2D.Raycast(frontVec, Vector3.down, 2, LayerMask.GetMask("Platform"));
+        RaycastHit2D rayHit = Physics2D.Raycast(frontVec, Vector3.down, 1.5f, LayerMask.GetMask("Platform"));
         // 빔을 아래로 쏴서 맞으면 동작
         if (rayHit.collider == null)
         {

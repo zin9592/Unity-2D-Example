@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +13,16 @@ public class GameManager : MonoBehaviour
     public PlayerMove player;
     public GameObject[] Stages;
 
+    // UI
+    public Image[] UIHealth;
+    public Text UIPoint;
+    public Text UIStage;
+    public GameObject UIRestartBtn;
+
+    void Update()
+    {
+        UIPoint.text = (totalPoint + stagePoint).ToString();
+    }
     public void NextStage()
     {
         //Change Stage
@@ -20,6 +32,8 @@ public class GameManager : MonoBehaviour
             stageIndex++;
             Stages[stageIndex].SetActive(true);
             PlayerReposition();
+
+            UIStage.text = "STAGE " + (stageIndex+1);
         }
         else
         {
@@ -29,7 +43,9 @@ public class GameManager : MonoBehaviour
             // Result UI
             Debug.Log("게임 클리어");
             // Restart Button UI
-
+            Text btnText = UIRestartBtn.GetComponentInChildren<Text>();
+            btnText.text = "Clear!";
+            UIRestartBtn.SetActive(true);
         }
 
         //Calculate Point
@@ -41,6 +57,7 @@ public class GameManager : MonoBehaviour
         if (health > 1)
         {
             health--;
+            UIHealth[health].color = new Color(1, 0, 0, 0.4f);
         }
         else
         {
@@ -48,8 +65,9 @@ public class GameManager : MonoBehaviour
             player.OnDie();
             // Result UI
             Debug.Log("죽었습니다!");
+            UIHealth[0].color = new Color(1, 0, 0, 0.4f);
             // Retry Button UI
-
+            UIRestartBtn.SetActive(true);
         }
     }
 
@@ -73,5 +91,11 @@ public class GameManager : MonoBehaviour
         player.VelocityZero();
         // ResetPosition
         player.transform.position = new Vector3(-5, 0, 0);
+    }
+
+    public void Restart()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
     }
 }
