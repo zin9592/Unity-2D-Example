@@ -15,11 +15,11 @@ C:/Users/USER/Desktop/Unity/TopDown_Example
 -logFile
 Logs/AssetImportWorker0.log
 -srvPort
-13148
+4198
 Successfully changed project path to: C:/Users/USER/Desktop/Unity/TopDown_Example
 C:/Users/USER/Desktop/Unity/TopDown_Example
 Using Asset Import Pipeline V2.
-Refreshing native plugins compatible for Editor in 66.70 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 105.18 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Initialize engine version: 2020.3.26f1 (7298b473bc1a)
 [Subsystems] Discovering subsystems at path C:/Program Files/2020.3.26f1/Editor/Data/Resources/UnitySubsystems
@@ -35,89 +35,89 @@ Initialize mono
 Mono path[0] = 'C:/Program Files/2020.3.26f1/Editor/Data/Managed'
 Mono path[1] = 'C:/Program Files/2020.3.26f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
 Mono config path = 'C:/Program Files/2020.3.26f1/Editor/Data/MonoBleedingEdge/etc'
-Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56344
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56936
 Begin MonoManager ReloadAssembly
 Registering precompiled unity dll's ...
 Register platform support module: C:/Program Files/2020.3.26f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
-Registered in 0.005491 seconds.
+Registered in 0.016139 seconds.
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 61.93 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 87.12 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  1.167 seconds
+- Completed reload, in  1.697 seconds
 Domain Reload Profiling:
-	ReloadAssembly (1167ms)
-		BeginReloadAssembly (111ms)
+	ReloadAssembly (1698ms)
+		BeginReloadAssembly (312ms)
 			ExecutionOrderSort (0ms)
 			DisableScriptedObjects (0ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (1ms)
-		EndReloadAssembly (923ms)
-			LoadAssemblies (105ms)
+			CreateAndSetChildDomain (2ms)
+		EndReloadAssembly (1080ms)
+			LoadAssemblies (306ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (273ms)
+			SetupTypeCache (351ms)
 			ReleaseScriptCaches (0ms)
-			RebuildScriptCaches (51ms)
-			SetupLoadedEditorAssemblies (423ms)
+			RebuildScriptCaches (65ms)
+			SetupLoadedEditorAssemblies (430ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (7ms)
+				InitializePlatformSupportModulesInManaged (11ms)
 				SetLoadedEditorAssemblies (0ms)
-				RefreshPlugins (62ms)
-				BeforeProcessingInitializeOnLoad (25ms)
-				ProcessInitializeOnLoadAttributes (215ms)
-				ProcessInitializeOnLoadMethodAttributes (114ms)
+				RefreshPlugins (87ms)
+				BeforeProcessingInitializeOnLoad (34ms)
+				ProcessInitializeOnLoadAttributes (181ms)
+				ProcessInitializeOnLoadMethodAttributes (116ms)
 				AfterProcessingInitializeOnLoad (0ms)
-				EditorAssembliesLoaded (0ms)
+				EditorAssembliesLoaded (1ms)
 			ExecutionOrderSort2 (0ms)
 			AwakeInstancesAfterBackupRestoration (0ms)
 Platform modules already initialized, skipping
 Registering precompiled user dll's ...
-Registered in 0.030004 seconds.
+Registered in 0.035128 seconds.
 Begin MonoManager ReloadAssembly
 Native extension for WindowsStandalone target not found
-Refreshing native plugins compatible for Editor in 79.28 ms, found 3 plugins.
+Refreshing native plugins compatible for Editor in 103.18 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Mono: successfully reloaded assembly
-- Completed reload, in  2.324 seconds
+- Completed reload, in  2.761 seconds
 Domain Reload Profiling:
-	ReloadAssembly (2325ms)
-		BeginReloadAssembly (254ms)
+	ReloadAssembly (2763ms)
+		BeginReloadAssembly (324ms)
 			ExecutionOrderSort (0ms)
-			DisableScriptedObjects (8ms)
+			DisableScriptedObjects (14ms)
 			BackupInstance (0ms)
 			ReleaseScriptingObjects (0ms)
-			CreateAndSetChildDomain (33ms)
-		EndReloadAssembly (1902ms)
-			LoadAssemblies (184ms)
+			CreateAndSetChildDomain (31ms)
+		EndReloadAssembly (2303ms)
+			LoadAssemblies (261ms)
 			RebuildTransferFunctionScriptingTraits (0ms)
-			SetupTypeCache (696ms)
+			SetupTypeCache (632ms)
 			ReleaseScriptCaches (1ms)
-			RebuildScriptCaches (96ms)
-			SetupLoadedEditorAssemblies (645ms)
+			RebuildScriptCaches (107ms)
+			SetupLoadedEditorAssemblies (1009ms)
 				LogAssemblyErrors (0ms)
-				InitializePlatformSupportModulesInManaged (8ms)
+				InitializePlatformSupportModulesInManaged (18ms)
 				SetLoadedEditorAssemblies (1ms)
-				RefreshPlugins (79ms)
-				BeforeProcessingInitializeOnLoad (187ms)
-				ProcessInitializeOnLoadAttributes (324ms)
-				ProcessInitializeOnLoadMethodAttributes (27ms)
-				AfterProcessingInitializeOnLoad (19ms)
-				EditorAssembliesLoaded (0ms)
+				RefreshPlugins (103ms)
+				BeforeProcessingInitializeOnLoad (223ms)
+				ProcessInitializeOnLoadAttributes (515ms)
+				ProcessInitializeOnLoadMethodAttributes (91ms)
+				AfterProcessingInitializeOnLoad (59ms)
+				EditorAssembliesLoaded (1ms)
 			ExecutionOrderSort2 (0ms)
-			AwakeInstancesAfterBackupRestoration (10ms)
+			AwakeInstancesAfterBackupRestoration (20ms)
 Platform modules already initialized, skipping
 ========================================================================
 Worker process is ready to serve import requests
-Launched and connected shader compiler UnityShaderCompiler.exe after 0.10 seconds
-Refreshing native plugins compatible for Editor in 1.04 ms, found 3 plugins.
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.13 seconds
+Refreshing native plugins compatible for Editor in 1.13 ms, found 3 plugins.
 Preloading 0 native plugins for Editor in 0.00 ms.
 Unloading 2224 Unused Serialized files (Serialized files now loaded: 0)
 System memory in use before: 99.9 MB.
 System memory in use after: 100.0 MB.
 
 Unloading 28 unused Assets to reduce memory usage. Loaded Objects now: 2658.
-Total: 7.562800 ms (FindLiveObjects: 0.425800 ms CreateObjectMapping: 0.208800 ms MarkObjects: 6.798100 ms  DeleteObjects: 0.127300 ms)
+Total: 4.638500 ms (FindLiveObjects: 0.260600 ms CreateObjectMapping: 0.135000 ms MarkObjects: 4.157200 ms  DeleteObjects: 0.083800 ms)
 
 AssetImportParameters requested are different than current active one (requested -> active):
   custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
@@ -131,16 +131,161 @@ AssetImportParameters requested are different than current active one (requested
   custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
 ========================================================================
 Received Import Request.
-  path: Assets/TopDown 2D RPG BE3/Readme.asset
-  artifactKey: Guid(4ff280a9fdc784d46beb69b6da783245) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/TopDown 2D RPG BE3/Readme.asset using Guid(4ff280a9fdc784d46beb69b6da783245) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b59de4685eeb2979ea2a1f367259aaae') in 0.066352 seconds 
-  Import took 0.071402 seconds .
+  path: Assets/Tiles/Tree.asset
+  artifactKey: Guid(7f8531792ba3b6847abea8f990cf2fbb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tiles/Tree.asset using Guid(7f8531792ba3b6847abea8f990cf2fbb) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5f4289de44e3bd640503acc4e42aadff') in 0.172007 seconds 
+  Import took 0.179355 seconds .
 
 ========================================================================
 Received Import Request.
-  Time since last request: 0.000328 seconds.
-  path: Assets/TopDown 2D RPG BE3/App Icon.png
-  artifactKey: Guid(e15a0aaf619d8aa429bd091186fb29a2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
-Start importing Assets/TopDown 2D RPG BE3/App Icon.png using Guid(e15a0aaf619d8aa429bd091186fb29a2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cb408ffc1b8de8dc4333cd8a722ac94b') in 0.207068 seconds 
-  Import took 0.212090 seconds .
+  Time since last request: 0.000411 seconds.
+  path: Assets/Tiles/Grass.asset
+  artifactKey: Guid(dc58c8015ad84834ab19226fac97cebc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tiles/Grass.asset using Guid(dc58c8015ad84834ab19226fac97cebc) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a06206bbd118c087841e09a41d7c6e6e') in 0.016161 seconds 
+  Import took 0.025633 seconds .
 
+========================================================================
+Received Import Request.
+  Time since last request: 0.000420 seconds.
+  path: Assets/Tiles/Topdown Palette.prefab
+  artifactKey: Guid(191b7605a032f5049b62acfee93c7d46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tiles/Topdown Palette.prefab using Guid(191b7605a032f5049b62acfee93c7d46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4a4d36327376d409ea389831c8701a61') in 0.110071 seconds 
+  Import took 0.116857 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000283 seconds.
+  path: Assets/Tiles/Water.asset
+  artifactKey: Guid(5107fdc6e7e0788448e5ac21f6bfe80e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tiles/Water.asset using Guid(5107fdc6e7e0788448e5ac21f6bfe80e) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eb455c68d567fc65e86fadd89575a9ef') in 0.017800 seconds 
+  Import took 0.023691 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000387 seconds.
+  path: Assets/Tiles/Soil.asset
+  artifactKey: Guid(7a73b5cae5700d745a0d06be31290fa9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tiles/Soil.asset using Guid(7a73b5cae5700d745a0d06be31290fa9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dde3f369f7bca5a1c3b0332997041ecc') in 0.018730 seconds 
+  Import took 0.027183 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 5.535640 seconds.
+  path: Assets/Tiles/Topdown Palette.prefab
+  artifactKey: Guid(191b7605a032f5049b62acfee93c7d46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tiles/Topdown Palette.prefab using Guid(191b7605a032f5049b62acfee93c7d46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ab69e79a9d39d89dd5fbd64db29bce6f') in 0.026654 seconds 
+  Import took 0.034763 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 1.586340 seconds.
+  path: Assets/TopDown 2D RPG BE3/Sprites/Objects.png
+  artifactKey: Guid(20d6cce5c7ac33b4e97f0f98a09aa347) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TopDown 2D RPG BE3/Sprites/Objects.png using Guid(20d6cce5c7ac33b4e97f0f98a09aa347) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '94c536d36fc198f1c53f14c4b99ede6e') in 0.463361 seconds 
+  Import took 0.480425 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 26.545362 seconds.
+  path: Assets/TopDown 2D RPG BE3/Sprites/Player.png
+  artifactKey: Guid(23748c298f885bf4c89671f6d30f562b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TopDown 2D RPG BE3/Sprites/Player.png using Guid(23748c298f885bf4c89671f6d30f562b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '2289c79f34084c34311b3f8df1de19f1') in 0.109325 seconds 
+  Import took 0.117522 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000310 seconds.
+  path: Assets/TopDown 2D RPG BE3/Sprites/Tiles.png
+  artifactKey: Guid(dc747d0a3cdf6594f9f275fdd2a48b4b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TopDown 2D RPG BE3/Sprites/Tiles.png using Guid(dc747d0a3cdf6594f9f275fdd2a48b4b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '730ac6e73171cafebfa73f3e47e23cde') in 0.197220 seconds 
+  Import took 0.210098 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000339 seconds.
+  path: Assets/TopDown 2D RPG BE3/Sprites/User Interface.png
+  artifactKey: Guid(1c9bc0d104c01934da10d4333b9dc48b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TopDown 2D RPG BE3/Sprites/User Interface.png using Guid(1c9bc0d104c01934da10d4333b9dc48b) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7106572395f5471cff4678dcce736ecc') in 0.084180 seconds 
+  Import took 0.090998 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 34.359212 seconds.
+  path: Assets/Tiles/Topdown Palette.prefab
+  artifactKey: Guid(191b7605a032f5049b62acfee93c7d46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tiles/Topdown Palette.prefab using Guid(191b7605a032f5049b62acfee93c7d46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ea5e471154cc2c35de41d9e9c087ec19') in 0.030822 seconds 
+  Import took 0.037671 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 51.681231 seconds.
+  path: Assets/Tiles
+  artifactKey: Guid(424acd02b2800ca4c9e3660fbb7fbf80) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tiles using Guid(424acd02b2800ca4c9e3660fbb7fbf80) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bdd3c25e85f918efd8f7ca7e23fffe71') in 0.004396 seconds 
+  Import took 0.012066 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 16.420379 seconds.
+  path: Assets/Tiles/Flower.asset
+  artifactKey: Guid(defa11b53a45ce04b8271808334dd223) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tiles/Flower.asset using Guid(defa11b53a45ce04b8271808334dd223) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0e0967a8c183ee859ea11aeddbee7af1') in 0.011338 seconds 
+  Import took 0.022121 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 7.169222 seconds.
+  path: Assets/TopDown 2D RPG BE3/ReadMe
+  artifactKey: Guid(d4391cd3fdc202a488cbf195cfa84bc1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TopDown 2D RPG BE3/ReadMe using Guid(d4391cd3fdc202a488cbf195cfa84bc1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '92513522ca2c75f271e34c1d769bed87') in 0.008657 seconds 
+  Import took 0.016038 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.430124 seconds.
+  path: Assets/TopDown 2D RPG BE3/Sprites
+  artifactKey: Guid(24208ecbe2041c34db5f5403b9304207) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TopDown 2D RPG BE3/Sprites using Guid(24208ecbe2041c34db5f5403b9304207) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bcb799d537c47649714c8f8786e73f7f') in 0.009440 seconds 
+  Import took 0.016583 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.054705 seconds.
+  path: Assets/TopDown 2D RPG BE3/Sprites/NPC Portrait.png
+  artifactKey: Guid(d79edf18a76e2654a9ac99f15de8b2b3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TopDown 2D RPG BE3/Sprites/NPC Portrait.png using Guid(d79edf18a76e2654a9ac99f15de8b2b3) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '67962111c606429663af966db7c96184') in 0.059589 seconds 
+  Import took 0.068044 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000554 seconds.
+  path: Assets/TopDown 2D RPG BE3/Sprites/NPC.png
+  artifactKey: Guid(2f90eb840bd0cf4438d49759bc08d718) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TopDown 2D RPG BE3/Sprites/NPC.png using Guid(2f90eb840bd0cf4438d49759bc08d718) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4231a3cb9f7a332acb6bbdc498312952') in 0.041025 seconds 
+  Import took 0.047080 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 99.665500 seconds.
+  path: Assets/Tiles/House.asset
+  artifactKey: Guid(f91dedbdfcb4f4f48affbb1372435bb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tiles/House.asset using Guid(f91dedbdfcb4f4f48affbb1372435bb0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'fa01231231e68dda02650d1dc7af32e8') in 0.011815 seconds 
+  Import took 0.019858 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 121.669297 seconds.
+  path: Assets/Tiles/Topdown Palette.prefab
+  artifactKey: Guid(191b7605a032f5049b62acfee93c7d46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tiles/Topdown Palette.prefab using Guid(191b7605a032f5049b62acfee93c7d46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a4c53fe829f19c96c332c2276a3a045b') in 0.029436 seconds 
+  Import took 0.036302 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 92.602472 seconds.
+  path: Assets/Tiles/Topdown Palette.prefab
+  artifactKey: Guid(191b7605a032f5049b62acfee93c7d46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/Tiles/Topdown Palette.prefab using Guid(191b7605a032f5049b62acfee93c7d46) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '18983bf4bcc7ed0935f08593eb1ff88a') in 0.034493 seconds 
+  Import took 0.044450 seconds .
+
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
