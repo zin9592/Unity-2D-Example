@@ -4,15 +4,7 @@ using UnityEngine;
 
 public class ObjectData : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    // 오브젝트 ID와 NPC여부 변수
+    public int _id;
+    public bool _isNPC;
 }

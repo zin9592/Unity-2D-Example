@@ -4,114 +4,113 @@ using UnityEngine;
 
 public class PlayerAction : MonoBehaviour
 {
-    float h;
-    float v;
-    bool isHorizonMove;
+    float _h;
+    float _v;
+    bool _isHorizonMove;
 
-    public float moveSpeed;
-    public GameManager gameManager;
+    public float _moveSpeed;
+    public GameManager _gameManager;
 
-    Rigidbody2D rigid;
-    Animator anim;
-    Vector3 dirVec;
-    GameObject scanObject;
+    Rigidbody2D _rigid;
+    Animator _anim;
+    Vector3 _dirVec;
+    GameObject _scanObject;
 
     void Awake()
     {
-        rigid = GetComponent<Rigidbody2D>();
-        anim = GetComponent<Animator>();
+        _rigid = GetComponent<Rigidbody2D>();
+        _anim = GetComponent<Animator>();
     }
 
     void Update()
     {
         //Move Value
-        h = gameManager.isAction ? 0 : Input.GetAxisRaw("Horizontal");
-        v = gameManager.isAction ? 0 : Input.GetAxisRaw("Vertical");
+        _h = _gameManager._isAction ? 0 : Input.GetAxisRaw("Horizontal");
+        _v = _gameManager._isAction ? 0 : Input.GetAxisRaw("Vertical");
 
         //Check Button Down & Up
-        bool hDown = gameManager.isAction ? false : Input.GetButtonDown("Horizontal");
-        bool vDown = gameManager.isAction ? false : Input.GetButtonDown("Vertical");
-        bool hUp = gameManager.isAction ? false : Input.GetButtonUp("Horizontal");
-        bool vUp = gameManager.isAction ? false : Input.GetButtonUp("Vertical");
+        bool hDown = _gameManager._isAction ? false : Input.GetButtonDown("Horizontal");
+        bool vDown = _gameManager._isAction ? false : Input.GetButtonDown("Vertical");
+        bool hUp = _gameManager._isAction ? false : Input.GetButtonUp("Horizontal");
+        bool vUp = _gameManager._isAction ? false : Input.GetButtonUp("Vertical");
 
         //Check Horizontal Move
         if (hDown)
         {
-            isHorizonMove = true;
+            _isHorizonMove = true;
         }
         else if (vDown)
         {
-            isHorizonMove = false;
+            _isHorizonMove = false;
         }
         else if (hUp || vUp)
         {
-            isHorizonMove = h != 0;
+            _isHorizonMove = _h != 0;
         }
 
         //Animation
-        if (anim.GetInteger("hAxisRaw") != h)
+        if (_anim.GetInteger("hAxisRaw") != _h)
         {
-            anim.SetBool("isChange", true);
-            anim.SetInteger("hAxisRaw", (int)h);
+            _anim.SetBool("isChange", true);
+            _anim.SetInteger("hAxisRaw", (int)_h);
         }
-        else if (anim.GetInteger("vAxisRaw") != v)
+        else if (_anim.GetInteger("vAxisRaw") != _v)
         {
-            anim.SetBool("isChange", true);
-            anim.SetInteger("vAxisRaw", (int)v);
+            _anim.SetBool("isChange", true);
+            _anim.SetInteger("vAxisRaw", (int)_v);
         }
         else
         {
-            anim.SetBool("isChange", false);
+            _anim.SetBool("isChange", false);
         }
 
         // Direction
-        if (hDown && h == -1)
+        if (hDown && _h == -1)
         {
             //left
-            dirVec = Vector3.left;
+            _dirVec = Vector3.left;
         }
-        else if (hDown && h == 1)
+        else if (hDown && _h == 1)
         {
             //right
-            dirVec = Vector3.right;
+            _dirVec = Vector3.right;
         }
-        else if (vDown && v == -1)
+        else if (vDown && _v == -1)
         {
             //down
-            dirVec = Vector3.down;
+            _dirVec = Vector3.down;
         }
-        else if (vDown && v == 1)
+        else if (vDown && _v == 1)
         {
             //up
-            dirVec = Vector3.up;
+            _dirVec = Vector3.up;
         }
 
         //Scan Object
-        if (Input.GetButtonDown("Jump") && scanObject != null)
+        if (Input.GetButtonDown("Jump") && _scanObject != null)
         {
-
-            gameManager.Action(scanObject);
+            _gameManager.Action(_scanObject);
         }
     }
 
     void FixedUpdate()
     {
         // Character Move
-        Vector2 moveVec = isHorizonMove ? new Vector2(h, 0) : new Vector2(0, v);
-        rigid.velocity = moveVec * moveSpeed;
+        Vector2 moveVec = _isHorizonMove ? new Vector2(_h, 0) : new Vector2(0, _v);
+        _rigid.velocity = moveVec * _moveSpeed;
 
         // Ray
         //Scan Object
-        Debug.DrawRay(rigid.position, dirVec * 0.7f, new Color(0, 1, 0));
-        RaycastHit2D rayHit = Physics2D.Raycast(rigid.position, dirVec, 0.7f, LayerMask.GetMask("Object"));
+        Debug.DrawRay(_rigid.position, _dirVec * 0.7f, new Color(0, 1, 0));
+        RaycastHit2D rayHit = Physics2D.Raycast(_rigid.position, _dirVec, 0.7f, LayerMask.GetMask("Object"));
 
         if(rayHit.collider != null)
         {
-            scanObject = rayHit.collider.gameObject;
+            _scanObject = rayHit.collider.gameObject;
         }
         else
         {
-            scanObject = null;
+            _scanObject = null;
         }
     }
 }

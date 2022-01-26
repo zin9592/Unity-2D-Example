@@ -5,25 +5,45 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject talkPanel;
-    public Text talkText;
-    public bool isAction;
-    public GameObject scanObject;
+    public GameObject _talkPanel;
+    public Text _talkText;
+    public bool _isAction;
+    public GameObject _scanObject;
+    public TalkManager _talkManager;
+    public int _talkIndex;
+    public Image portraitImg;
 
     //상호작용
-    public void Action(GameObject _scanObject)
+    public void Action(GameObject scanObject)
     {
-        if (isAction)
+        _scanObject = scanObject;
+        ObjectData objectData = _scanObject.GetComponent<ObjectData>();
+        Talk(objectData._id, objectData._isNPC);
+        _talkPanel.SetActive(_isAction);
+    }
+
+    void Talk(int id, bool isNPC)
+    {
+        string talkData = _talkManager.GetTalk(id, _talkIndex);
+
+        if (talkData == null)
         {
-            //Exit Action
-            isAction = false;
+            _isAction = false;
+            _talkIndex = 0;
+            return;
+        }
+
+        if (isNPC)
+        {
+            _talkText.text = talkData;
+            portraitImg.color = new Color(1, 1, 1, 1);
         }
         else
-        {   //Enter Action
-            isAction = true;
-            scanObject = _scanObject;
-            talkText.text = "이것의 이름은" + scanObject.name + "입니다.";
+        {
+            _talkText.text = talkData;
+            portraitImg.color = new Color(1, 1, 1, 0);
         }
-        talkPanel.SetActive(isAction);
+        _isAction = true;
+        _talkIndex++;
     }
 }
