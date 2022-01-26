@@ -62,10 +62,11 @@
     <Compile Include="Assets\2d-extras-2018.3\Assets\Tilemap\Tiles\Rule Override Tile\Scripts\RuleOverrideTile.cs" />
     <Compile Include="Assets\2d-extras-2018.3\Assets\Tilemap\Tiles\Isometric Rule Tile\IsometricRuleTile.cs" />
     <Compile Include="Assets\2d-extras-2018.3\Assets\Tilemap\Tiles\Hexagonal Rule Tile\HexagonalRuleTile.cs" />
+    <Compile Include="Assets\Script\PlayerAction.cs" />
     <Compile Include="Assets\2d-extras-2018.3\Assets\Tilemap\Tiles\Rule Tile\Scripts\RuleTile.cs" />
     <Compile Include="Assets\2d-extras-2018.3\Assets\Tilemap\Tiles\Animated Tile\Scripts\AnimatedTile.cs" />
     <Compile Include="Assets\2d-extras-2018.3\Assets\Tilemap\Tiles\Weighted Random Tile\WeightedRandomTile.cs" />
-    <Compile Include="Assets\Script\PlayerAction.cs" />
+    <Compile Include="Assets\Script\GameManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\2d-extras-2018.3\Assets\Tilemap\Tiles\Rule Tile\ScriptTemplates\NewCustomRuleTile.cs.txt" />

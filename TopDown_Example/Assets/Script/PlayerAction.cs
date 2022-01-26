@@ -9,6 +9,7 @@ public class PlayerAction : MonoBehaviour
     bool isHorizonMove;
 
     public float moveSpeed;
+    public GameManager gameManager;
 
     Rigidbody2D rigid;
     Animator anim;
@@ -24,14 +25,14 @@ public class PlayerAction : MonoBehaviour
     void Update()
     {
         //Move Value
-        h = Input.GetAxisRaw("Horizontal");
-        v = Input.GetAxisRaw("Vertical");
+        h = gameManager.isAction ? 0 : Input.GetAxisRaw("Horizontal");
+        v = gameManager.isAction ? 0 : Input.GetAxisRaw("Vertical");
 
         //Check Button Down & Up
-        bool hDown = Input.GetButtonDown("Horizontal");
-        bool vDown = Input.GetButtonDown("Vertical");
-        bool hUp = Input.GetButtonUp("Horizontal");
-        bool vUp = Input.GetButtonUp("Vertical");
+        bool hDown = gameManager.isAction ? false : Input.GetButtonDown("Horizontal");
+        bool vDown = gameManager.isAction ? false : Input.GetButtonDown("Vertical");
+        bool hUp = gameManager.isAction ? false : Input.GetButtonUp("Horizontal");
+        bool vUp = gameManager.isAction ? false : Input.GetButtonUp("Vertical");
 
         //Check Horizontal Move
         if (hDown)
@@ -88,7 +89,8 @@ public class PlayerAction : MonoBehaviour
         //Scan Object
         if (Input.GetButtonDown("Jump") && scanObject != null)
         {
-            Debug.Log("This is :" + scanObject.name);
+
+            gameManager.Action(scanObject);
         }
     }
 
