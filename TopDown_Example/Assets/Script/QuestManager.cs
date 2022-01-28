@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class QuestManager : MonoBehaviour
 {
-    public int _questId;
-    public int _questActionIndex;
-    public GameObject[] _questObject;
+    public int _questId;                    //현재 진행 퀘스트 ID
+    public int _questActionIndex;           //퀘스트 대화순서
+    public GameObject[] _questObject;       //퀘스트관련 오브젝트
 
-    Dictionary<int, QuestData> _questList;
+    Dictionary<int, QuestData> _questList;  //퀘스트 목록
     
 
     void Awake()
@@ -27,17 +27,22 @@ public class QuestManager : MonoBehaviour
                                             new int[] { 0 }));
     }
 
+    // NPC ID를 받고 퀘스트 번호를 반환하는 함수
+    // _questId : 퀘스트 번호
+    // _questActionIndex : 퀘스트 진행순서
     public int GetQuestTalkIndex(int id)
     {
-        // NPC ID를 받고 퀘스트 번호를 반환하는 함수
         return _questId + _questActionIndex;
+    }
+
+    // Overloading
+    public string CheckQuest()
+    {
+        return _questList[_questId]._questName;
     }
 
     public string CheckQuest(int id)
     {
-
-
-
         // Next Talk Quset
         if (id == _questList[_questId]._npcId[_questActionIndex])
         {
