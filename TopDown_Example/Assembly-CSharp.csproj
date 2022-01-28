@@ -53,6 +53,7 @@
     <UnityVersion>2020.3.26f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Assets\Script\QuestManager.cs" />
     <Compile Include="Assets\2d-extras-2018.3\Assets\Tilemap\Tiles\Random Tile\Scripts\RandomTile.cs" />
     <Compile Include="Assets\2d-extras-2018.3\Assets\Tilemap\GridInformation\Scripts\GridInformation.cs" />
     <Compile Include="Assets\2d-extras-2018.3\Assets\Tilemap\Tiles\Terrain Tile\Scripts\TerrainTile.cs" />
@@ -66,11 +67,10 @@
     <Compile Include="Assets\Script\PlayerAction.cs" />
     <Compile Include="Assets\2d-extras-2018.3\Assets\Tilemap\Tiles\Rule Tile\Scripts\RuleTile.cs" />
     <Compile Include="Assets\Script\ObjectData.cs" />
+    <Compile Include="Assets\Script\QuestData.cs" />
     <Compile Include="Assets\Script\GameManager.cs" />
     <Compile Include="Assets\2d-extras-2018.3\Assets\Tilemap\Tiles\Animated Tile\Scripts\AnimatedTile.cs" />
     <Compile Include="Assets\2d-extras-2018.3\Assets\Tilemap\Tiles\Weighted Random Tile\WeightedRandomTile.cs" />
-    <Compile Include="Assets\Script\QuestManager.cs" />
-    <Compile Include="Assets\Script\QuestData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\2d-extras-2018.3\Assets\Tilemap\Tiles\Rule Tile\ScriptTemplates\NewCustomRuleTile.cs.txt" />
