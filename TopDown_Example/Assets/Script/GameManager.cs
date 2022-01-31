@@ -16,6 +16,11 @@ public class GameManager : MonoBehaviour
     public TalkManager _talkManager;
     public QuestManager _questManager;
 
+    void Start()
+    {
+        Debug.Log(_questManager.CheckQuest());    
+    }
+
     //상호작용
     public void Action(GameObject scanObject)
     {
