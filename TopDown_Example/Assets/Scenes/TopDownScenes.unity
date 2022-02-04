@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 64633534}
   - component: {fileID: 64633536}
   - component: {fileID: 64633535}
+  - component: {fileID: 64633537}
   m_Layer: 5
   m_Name: Portrait
   m_TagString: Untagged
@@ -198,6 +199,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 64633533}
   m_CullTransparentMesh: 1
+--- !u!95 &64633537
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 64633533}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d10a76940d92ee2419a59d98ee0f92ae, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &311207506
 GameObject:
   m_ObjectHideFlags: 0
@@ -786,9 +806,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _scanObject: {fileID: 0}
   _isAction: 0
-  _talkPanel: {fileID: 2018945021}
   _portraitImg: {fileID: 64633535}
+  _protraitAnimator: {fileID: 64633537}
   _talkText: {fileID: 879740590}
+  _talkPanel: {fileID: 2018945025}
   _talkIndex: 0
   _talkManager: {fileID: 872160769}
   _questManager: {fileID: 1072640246}
@@ -7239,6 +7260,7 @@ GameObject:
   - component: {fileID: 2018945022}
   - component: {fileID: 2018945024}
   - component: {fileID: 2018945023}
+  - component: {fileID: 2018945025}
   m_Layer: 5
   m_Name: TalkPanel
   m_TagString: Untagged
@@ -7265,7 +7287,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 20}
+  m_AnchoredPosition: {x: 0, y: -450}
   m_SizeDelta: {x: -40, y: 150}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!114 &2018945023
@@ -7306,6 +7328,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2018945021}
   m_CullTransparentMesh: 1
+--- !u!95 &2018945025
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2018945021}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 94af637560af27b4bab007b466bb7103, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &2091694237
 GameObject:
   m_ObjectHideFlags: 0
