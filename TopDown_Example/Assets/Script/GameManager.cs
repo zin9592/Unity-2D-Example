@@ -12,11 +12,11 @@ public class GameManager : MonoBehaviour
     public Image _portraitImg;
     public Animator _protraitAnimator;
     public Sprite _prevPortrait;
-    public Text _talkText;
     public Animator _talkPanel;
     public int _talkIndex;
     public TalkManager _talkManager;
     public QuestManager _questManager;
+    public TypeEffect _typeEffect;
 
 
     void Start()
@@ -38,10 +38,20 @@ public class GameManager : MonoBehaviour
 
     void Talk(int id, bool isNPC)
     {
-        //Set Talk Data
-        int questTalkIndex = _questManager.GetQuestTalkIndex(id);
-        string talkData = _talkManager.GetTalk(id+questTalkIndex, _talkIndex);
+        int questTalkIndex = 0;
+        string talkData = "";
 
+        //Set Talk Data
+        if (_typeEffect._isAnimation)
+        {
+            _typeEffect.SetMes("");
+            return;
+        }
+        else
+        {
+            questTalkIndex = _questManager.GetQuestTalkIndex(id);
+            talkData = _talkManager.GetTalk(id + questTalkIndex, _talkIndex);
+        }
         //End Talk
         if (talkData == null)
         {
@@ -53,7 +63,7 @@ public class GameManager : MonoBehaviour
         if (isNPC)
         {
             //NPC Talk
-            _talkText.text = talkData.Split(':')[0];
+            _typeEffect.SetMes(talkData.Split(':')[0]);
 
             //Show Portrait
             _portraitImg.sprite = _talkManager.GetPortrait(id, int.Parse(talkData.Split(':')[1]));
@@ -69,7 +79,7 @@ public class GameManager : MonoBehaviour
         else
         {
             //Object Talk
-            _talkText.text = talkData;
+            _typeEffect.SetMes(talkData);
 
             //Hide Portrait
             _portraitImg.color = new Color(1, 1, 1, 0);
