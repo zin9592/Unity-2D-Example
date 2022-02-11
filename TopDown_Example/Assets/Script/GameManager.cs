@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
-
-
     public GameObject _scanObject;
     public bool _isAction;
     public Image _portraitImg;
@@ -17,11 +15,38 @@ public class GameManager : MonoBehaviour
     public TalkManager _talkManager;
     public QuestManager _questManager;
     public TypeEffect _typeEffect;
+    public GameObject _menuSet;
+    AudioSource _menuAudio;
+    public Text _questTalk;
 
+
+    void Awake()
+    {
+        _menuAudio = GetComponent<AudioSource>(); 
+    }
 
     void Start()
     {
-        Debug.Log(_questManager.CheckQuest());    
+        _questTalk.text = _questManager.CheckQuest();    
+    }
+
+    void Update()
+    {
+
+        // 단발성 입력은 Update에서
+        // Sub Menu
+        if (Input.GetButtonDown("Cancel"))
+        {
+            if (_menuSet.activeSelf)
+            {
+                _menuSet.SetActive(false);
+            }
+            else
+            {
+                _menuSet.SetActive(true);
+                _menuAudio.Play();
+            }
+        }
     }
 
     //상호작용
@@ -57,7 +82,7 @@ public class GameManager : MonoBehaviour
         {
             _isAction = false;
             _talkIndex = 0;
-            Debug.Log(_questManager.CheckQuest(id));
+            _questTalk.text = _questManager.CheckQuest(id);
             return;
         }
         if (isNPC)
@@ -86,5 +111,10 @@ public class GameManager : MonoBehaviour
         }
         _isAction = true;
         _talkIndex++;
+    }
+
+    public void GameExit()
+    {
+        Application.Quit();
     }
 }
