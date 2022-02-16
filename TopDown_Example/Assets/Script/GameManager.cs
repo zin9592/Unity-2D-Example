@@ -18,16 +18,18 @@ public class GameManager : MonoBehaviour
     public GameObject _menuSet;
     AudioSource _menuAudio;
     public Text _questTalk;
+    public GameObject _player;
 
 
     void Awake()
     {
-        _menuAudio = GetComponent<AudioSource>(); 
+        _menuAudio = GetComponent<AudioSource>();
     }
 
     void Start()
     {
-        _questTalk.text = _questManager.CheckQuest();    
+        GameLoad();
+        _questTalk.text = _questManager.CheckQuest();
     }
 
     void Update()
@@ -93,7 +95,7 @@ public class GameManager : MonoBehaviour
             //Show Portrait
             _portraitImg.sprite = _talkManager.GetPortrait(id, int.Parse(talkData.Split(':')[1]));
             _portraitImg.color = new Color(1, 1, 1, 1);
-            
+
             //Animation Portait
             if (_prevPortrait != _portraitImg.sprite)
             {
@@ -111,6 +113,35 @@ public class GameManager : MonoBehaviour
         }
         _isAction = true;
         _talkIndex++;
+    }
+
+    public void GameSave()
+    {
+        PlayerPrefs.SetFloat("PlayerX", _player.transform.position.x);
+        PlayerPrefs.SetFloat("PlayerY", _player.transform.position.y);
+        PlayerPrefs.SetInt("QuestId", _questManager._questId);
+        PlayerPrefs.SetInt("QuestActionIndex", _questManager._questActionIndex);
+        PlayerPrefs.Save();
+
+        _menuSet.SetActive(false);
+    }
+
+    public void GameLoad()
+    {
+        if (!PlayerPrefs.HasKey("PlayerX"))
+        {
+            return;
+        }
+
+        float x = PlayerPrefs.GetFloat("PlayerX");
+        float y = PlayerPrefs.GetFloat("PlayerY");
+        int questId = PlayerPrefs.GetInt("QuestId");
+        int questActionIndex = PlayerPrefs.GetInt("QuestActionIndex");
+
+        _player.transform.position = new Vector3(x, y, -2);
+        _questManager._questId = questId;
+        _questManager._questActionIndex = questActionIndex;
+        _questManager.ControlObject();
     }
 
     public void GameExit()

@@ -69,7 +69,7 @@ public class QuestManager : MonoBehaviour
     }
 
     // 퀘스트 오브젝트 관리
-    void ControlObject()
+    public void ControlObject()
     {
         switch (_questId)
         {
@@ -80,7 +80,11 @@ public class QuestManager : MonoBehaviour
                 }
                 break;
             case 20:
-                if (_questActionIndex == 1)
+                if (_questActionIndex == 0)
+                {
+                    _questObject[0].SetActive(true);
+                }
+                else if (_questActionIndex == 1)
                 {
                     _questObject[0].SetActive(false);
                 }

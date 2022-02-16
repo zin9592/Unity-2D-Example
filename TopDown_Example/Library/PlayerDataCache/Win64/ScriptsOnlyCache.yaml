@@ -7,7 +7,6 @@ ScriptsOnlyBuild:
     - QuestManager
     - TalkManager
     - TypeEffect
-    - UnityEngine.RuleTile
     Unity.2D.Animation.Editor.dll:
     - UnityEditor.U2D.Animation.BoneGizmo
     Unity.2D.IK.Editor.dll:
@@ -25,12 +24,6 @@ ScriptsOnlyBuild:
     - UnityEditor.Tilemaps.TilemapPrefabStageHelper
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.UnitTesting.CallbackData
-    UnityEditor.Graphs.dll:
-    - UnityEditor.Graphs.AnimationBlendTree.Graph
-    - UnityEditor.Graphs.AnimationBlendTree.GraphGUI
-    - UnityEditor.Graphs.AnimationStateMachine.Graph
-    - UnityEditor.Graphs.AnimationStateMachine.GraphGUI
-    - UnityEditor.Graphs.AnimatorControllerTool
     UnityEditor.TestRunner.dll:
     - UnityEditor.TestTools.TestRunner.Api.CallbacksHolder
     - UnityEditor.TestTools.TestRunner.TestListCacheData
@@ -84,31 +77,31 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 1554}
     - Class: 114
-      Script: {instanceID: 2278}
+      Script: {instanceID: 2274}
     - Class: 114
-      Script: {instanceID: 2354}
+      Script: {instanceID: 2350}
     - Class: 114
-      Script: {instanceID: 2708}
+      Script: {instanceID: 2704}
     - Class: 114
-      Script: {instanceID: 2884}
+      Script: {instanceID: 2880}
     - Class: 114
-      Script: {instanceID: 2958}
+      Script: {instanceID: 2954}
     - Class: 114
-      Script: {instanceID: 3130}
+      Script: {instanceID: 3126}
     - Class: 114
-      Script: {instanceID: 3378}
+      Script: {instanceID: 3374}
     - Class: 114
-      Script: {instanceID: 3498}
+      Script: {instanceID: 3494}
     - Class: 114
-      Script: {instanceID: 3856}
+      Script: {instanceID: 3852}
     - Class: 114
-      Script: {instanceID: 3990}
+      Script: {instanceID: 3986}
     - Class: 114
-      Script: {instanceID: 4660}
+      Script: {instanceID: 4656}
     - Class: 114
-      Script: {instanceID: 5156}
+      Script: {instanceID: 5152}
     - Class: 114
-      Script: {instanceID: 5358}
+      Script: {instanceID: 5354}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -162,12 +155,6 @@ ScriptsOnlyBuild:
     className: TMP_InputField
   - hash:
       serializedVersion: 2
-      Hash: 92583f5c853ea78ec8d05eed0dcbb497
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: UnityEngine.Tilemaps
-    className: RandomTile
-  - hash:
-      serializedVersion: 2
       Hash: 71b711096c6c32621c1d4c02310898b7
     assemblyName: Unity.2D.Animation.Runtime.dll
     namespaceName: UnityEngine.U2D.Animation
@@ -186,18 +173,6 @@ ScriptsOnlyBuild:
     className: Toggle
   - hash:
       serializedVersion: 2
-      Hash: 3b3bf14021899a113dbb5c9e4f0d86ad
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: UnityEngine.Tilemaps
-    className: GridInformation
-  - hash:
-      serializedVersion: 2
-      Hash: 7ba35897a6eb27627ed456c682c34253
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: UnityEngine.Tilemaps
-    className: TerrainTile
-  - hash:
-      serializedVersion: 2
       Hash: 0dbc3be398b4869a5c8d0d8481ee402c
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
@@ -208,12 +183,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.2D.IK.Runtime.dll
     namespaceName: UnityEngine.U2D.IK
     className: CCDSolver2D
-  - hash:
-      serializedVersion: 2
-      Hash: 58e68364412c67eae2bdb4954be2dcc2
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: ReadmeBE3
   - hash:
       serializedVersion: 2
       Hash: 6bc76e17f0d5e93f3eea7f5a2fe227f3
@@ -238,12 +207,6 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Shadow
-  - hash:
-      serializedVersion: 2
-      Hash: 7ba35897a6eb27627ed456c682c34253
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: UnityEngine.Tilemaps
-    className: PipelineTile
   - hash:
       serializedVersion: 2
       Hash: 300fd99066f8c288e85f5e81ce65fe34
@@ -348,18 +311,6 @@ ScriptsOnlyBuild:
     className: TypeEffect
   - hash:
       serializedVersion: 2
-      Hash: 490a4632ae50fb0b65bba5aaaf7edebd
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: 
-    className: TintTextureGenerator
-  - hash:
-      serializedVersion: 2
-      Hash: afba73b5760bfc33f483b74d15c065ee
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: UnityEngine
-    className: RuleOverrideTile
-  - hash:
-      serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
     assemblyName: UnityEngine.TestRunner.dll
     namespaceName: UnityEngine.TestRunner.Utils
@@ -444,12 +395,6 @@ ScriptsOnlyBuild:
     className: Button
   - hash:
       serializedVersion: 2
-      Hash: 3a01bc12e3cd18b19c10a4184fb07a84
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: UnityEngine
-    className: IsometricRuleTile
-  - hash:
-      serializedVersion: 2
       Hash: 349d08daa6108b9a28f8c38fd40ce96f
     assemblyName: Unity.2D.SpriteShape.Runtime.dll
     namespaceName: UnityEngine.U2D
@@ -466,12 +411,6 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: ContentSizeFitter
-  - hash:
-      serializedVersion: 2
-      Hash: 25d6a61a60f20a3fbc57140f20663630
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: UnityEngine
-    className: HexagonalRuleTile
   - hash:
       serializedVersion: 2
       Hash: caa533b001ae39b864ba8425019e2268
@@ -508,12 +447,6 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.EventSystems
     className: BaseInput
-  - hash:
-      serializedVersion: 2
-      Hash: 3a01bc12e3cd18b19c10a4184fb07a84
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: UnityEngine
-    className: RuleTile
   - hash:
       serializedVersion: 2
       Hash: 18c222bef9ae745ce69ddde9b74337ca
@@ -696,7 +629,7 @@ ScriptsOnlyBuild:
     className: TMP_SpriteAsset
   - hash:
       serializedVersion: 2
-      Hash: dd2fe2998540e99ec7fe08e1bddddcb0
+      Hash: 3ec9196a59ed3f0b75ac6f3b06405cce
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameManager
@@ -706,18 +639,6 @@ ScriptsOnlyBuild:
     assemblyName: Unity.TextMeshPro.dll
     namespaceName: TMPro
     className: TMP_ScrollbarEventHandler
-  - hash:
-      serializedVersion: 2
-      Hash: aef908e94a9c4eb953102e26170ff9c8
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: UnityEngine.Tilemaps
-    className: AnimatedTile
-  - hash:
-      serializedVersion: 2
-      Hash: cdf089f6cdbdaf804990606672273b73
-    assemblyName: Assembly-CSharp.dll
-    namespaceName: UnityEngine.Tilemaps
-    className: WeightedRandomTile
   - hash:
       serializedVersion: 2
       Hash: 71bb6a6b6c8f052f948db64c7dd3ca4f
