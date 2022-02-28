@@ -16,6 +16,20 @@ public class PlayerAction : MonoBehaviour
     Vector3 _dirVec;
     GameObject _scanObject;
 
+    //Mobile Key Var
+    int _upValue;
+    int _downValue;
+    int _leftValue;
+    int _rightValue;
+    bool _upKeyDown;
+    bool _downKeyDown;
+    bool _leftKeyDown;
+    bool _rightKeyDown;
+    bool _upKeyUp;
+    bool _downKeyUp;
+    bool _leftKeyUp;
+    bool _rightKeyUp;
+
     void Awake()
     {
         _rigid = GetComponent<Rigidbody2D>();
@@ -25,14 +39,17 @@ public class PlayerAction : MonoBehaviour
     void Update()
     {
         //Move Value
-        _h = _gameManager._isAction ? 0 : Input.GetAxisRaw("Horizontal");
-        _v = _gameManager._isAction ? 0 : Input.GetAxisRaw("Vertical");
+        //PC + Mobile
+        _h = _gameManager._isAction ? 0 : Input.GetAxisRaw("Horizontal") + _leftValue + _rightValue;
+        _v = _gameManager._isAction ? 0 : Input.GetAxisRaw("Vertical") + _upValue + _downValue;
+
 
         //Check Button Down & Up
-        bool hDown = _gameManager._isAction ? false : Input.GetButtonDown("Horizontal");
-        bool vDown = _gameManager._isAction ? false : Input.GetButtonDown("Vertical");
-        bool hUp = _gameManager._isAction ? false : Input.GetButtonUp("Horizontal");
-        bool vUp = _gameManager._isAction ? false : Input.GetButtonUp("Vertical");
+        //PC + Mobile
+        bool hDown = _gameManager._isAction ? false : Input.GetButtonDown("Horizontal") || _leftKeyDown || _rightKeyDown;
+        bool vDown = _gameManager._isAction ? false : Input.GetButtonDown("Vertical") || _upKeyDown || _downKeyDown;
+        bool hUp = _gameManager._isAction ? false : Input.GetButtonUp("Horizontal") || _leftKeyUp || _rightKeyUp;
+        bool vUp = _gameManager._isAction ? false : Input.GetButtonUp("Vertical") || _upKeyUp || _downKeyUp;
 
         //Check Horizontal Move
         if (hDown)
@@ -91,6 +108,16 @@ public class PlayerAction : MonoBehaviour
         {
             _gameManager.Action(_scanObject);
         }
+
+        //Mobile Var Init
+        _upKeyDown = false;
+        _downKeyDown = false;
+        _leftKeyDown = false;
+        _rightKeyDown = false;
+        _upKeyUp = false;
+        _downKeyUp = false;
+        _leftKeyUp = false;
+        _rightKeyUp = false;
     }
 
     void FixedUpdate()
@@ -111,6 +138,52 @@ public class PlayerAction : MonoBehaviour
         else
         {
             _scanObject = null;
+        }
+    }
+
+    public void ButtonDown(string type)
+    {
+        switch (type)
+        {
+            case "up":
+                _upValue = 1;
+                _upKeyDown = true;
+                break;
+            case "down":
+                _downValue = -1;
+                _downKeyDown = true;
+                break;
+            case "left":
+                _leftValue = -1;
+                _leftKeyDown = true;
+                break;
+            case "right":
+                _rightValue = 1;
+                _rightKeyDown = true;
+                break;
+        }
+    }
+
+    public void ButtonUp(string type)
+    {
+        switch (type)
+        {
+            case "up":
+                _upValue = 0;
+                _upKeyUp = true;
+                break;
+            case "down":
+                _downValue = 0;
+                _downKeyUp = true;
+                break;
+            case "left":
+                _leftValue = 0;
+                _leftKeyUp = true;
+                break;
+            case "right":
+                _rightValue = 0;
+                _rightKeyUp = true;
+                break;
         }
     }
 }
