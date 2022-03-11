@@ -1,0 +1,605 @@
+Using pre-set license
+Built from '2020.3/staging' branch; Version is '2020.3.26f1 (7298b473bc1a) revision 7510196'; Using compiler version '192528614'; Build Type 'Release'
+OS: 'Windows 7  (6.1.0) 64bit Professional' Language: 'ko' Physical Memory: 16271 MB
+BatchMode: 1, IsHumanControllingUs: 0, StartBugReporterOnCrash: 0, Is64bit: 1, IsPro: 0
+
+COMMAND LINE ARGUMENTS:
+C:\Program Files\2020.3.26f1\Editor\Unity.exe
+-adb2
+-batchMode
+-noUpm
+-name
+AssetImportWorker0
+-projectPath
+E:/Project/Unity/2D Unity Project1
+-logFile
+Logs/AssetImportWorker0.log
+-srvPort
+50640
+Successfully changed project path to: E:/Project/Unity/2D Unity Project1
+E:/Project/Unity/2D Unity Project1
+Using Asset Import Pipeline V2.
+Refreshing native plugins compatible for Editor in 45.79 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Initialize engine version: 2020.3.26f1 (7298b473bc1a)
+[Subsystems] Discovering subsystems at path C:/Program Files/2020.3.26f1/Editor/Data/Resources/UnitySubsystems
+[Subsystems] Discovering subsystems at path E:/Project/Unity/2D Unity Project1/Assets
+GfxDevice: creating device client; threaded=0
+d3d11: CreateDXGIFactory2(...) not found, fallbacking to CreateDXGIFactory1(...).
+d3d11: QueryInterface(IDXGIFactory5) failed (80004002).
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX 1080 (ID=0x1b80)
+    Vendor:   
+    VRAM:     8077 MB
+    Driver:   30.0.14.7141
+Initialize mono
+Mono path[0] = 'C:/Program Files/2020.3.26f1/Editor/Data/Managed'
+Mono path[1] = 'C:/Program Files/2020.3.26f1/Editor/Data/MonoBleedingEdge/lib/mono/unityjit'
+Mono config path = 'C:/Program Files/2020.3.26f1/Editor/Data/MonoBleedingEdge/etc'
+Using monoOptions --debugger-agent=transport=dt_socket,embedding=1,server=y,suspend=n,address=127.0.0.1:56800
+Begin MonoManager ReloadAssembly
+Registering precompiled unity dll's ...
+Register platform support module: C:/Program Files/2020.3.26f1/Editor/Data/PlaybackEngines/WindowsStandaloneSupport/UnityEditor.WindowsStandalone.Extensions.dll
+Registered in 0.002667 seconds.
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 44.42 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.612 seconds
+Domain Reload Profiling:
+	ReloadAssembly (612ms)
+		BeginReloadAssembly (71ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (0ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (1ms)
+		EndReloadAssembly (463ms)
+			LoadAssemblies (66ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (149ms)
+			ReleaseScriptCaches (0ms)
+			RebuildScriptCaches (33ms)
+			SetupLoadedEditorAssemblies (172ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (4ms)
+				SetLoadedEditorAssemblies (1ms)
+				RefreshPlugins (44ms)
+				BeforeProcessingInitializeOnLoad (17ms)
+				ProcessInitializeOnLoadAttributes (79ms)
+				ProcessInitializeOnLoadMethodAttributes (26ms)
+				AfterProcessingInitializeOnLoad (0ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (0ms)
+Platform modules already initialized, skipping
+Registering precompiled user dll's ...
+Registered in 0.002806 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Refreshing native plugins compatible for Editor in 44.26 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.194 seconds
+Domain Reload Profiling:
+	ReloadAssembly (1195ms)
+		BeginReloadAssembly (160ms)
+			ExecutionOrderSort (0ms)
+			DisableScriptedObjects (5ms)
+			BackupInstance (0ms)
+			ReleaseScriptingObjects (0ms)
+			CreateAndSetChildDomain (21ms)
+		EndReloadAssembly (967ms)
+			LoadAssemblies (123ms)
+			RebuildTransferFunctionScriptingTraits (0ms)
+			SetupTypeCache (305ms)
+			ReleaseScriptCaches (1ms)
+			RebuildScriptCaches (53ms)
+			SetupLoadedEditorAssemblies (372ms)
+				LogAssemblyErrors (0ms)
+				InitializePlatformSupportModulesInManaged (4ms)
+				SetLoadedEditorAssemblies (0ms)
+				RefreshPlugins (44ms)
+				BeforeProcessingInitializeOnLoad (90ms)
+				ProcessInitializeOnLoadAttributes (204ms)
+				ProcessInitializeOnLoadMethodAttributes (18ms)
+				AfterProcessingInitializeOnLoad (12ms)
+				EditorAssembliesLoaded (0ms)
+			ExecutionOrderSort2 (0ms)
+			AwakeInstancesAfterBackupRestoration (6ms)
+Platform modules already initialized, skipping
+========================================================================
+Worker process is ready to serve import requests
+Launched and connected shader compiler UnityShaderCompiler.exe after 0.04 seconds
+Refreshing native plugins compatible for Editor in 0.53 ms, found 3 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 2202 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 98.6 MB.
+System memory in use after: 98.7 MB.
+
+Unloading 28 unused Assets to reduce memory usage. Loaded Objects now: 2636.
+Total: 3.567832 ms (FindLiveObjects: 0.256894 ms CreateObjectMapping: 0.169954 ms MarkObjects: 3.077893 ms  DeleteObjects: 0.062488 ms)
+
+AssetImportParameters requested are different than current active one (requested -> active):
+  custom:framework-win-MediaFoundation: 216162199b28c13a410421893ffa2e32 -> 
+  custom:video-decoder-ogg-theora: a1e56fd34408186e4bbccfd4996cb3dc -> 
+  custom:container-muxer-webm: aa71ff27fc2769a1b78a27578f13a17b -> 
+  custom:container-demuxer-webm: 4f35f7cbe854078d1ac9338744f61a02 -> 
+  custom:container-demuxer-ogg: 62fdf1f143b41e24485cea50d1cbac27 -> 
+  custom:video-encoder-webm-vp8: eb34c28f22e8b96e1ab97ce403110664 -> 
+  custom:video-decoder-webm-vp8: 9c59270c3fd7afecdb556c50c9e8de78 -> 
+  custom:audio-decoder-ogg-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+  custom:audio-encoder-webm-vorbis: bf7c407c2cedff20999df2af8eb42d56 -> 
+========================================================================
+Received Import Request.
+  path: Assets/CasualGameSounds/DM-CGS-34.wav
+  artifactKey: Guid(881e3f52c86c94f26a60718d35627cd8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-34.wav using Guid(881e3f52c86c94f26a60718d35627cd8) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f08dfa4752506a2987f1b851e381a1d9') in 0.175260 seconds 
+  Import took 0.178980 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000243 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-18.wav
+  artifactKey: Guid(2667a0a008b044e218b63df62e2be749) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-18.wav using Guid(2667a0a008b044e218b63df62e2be749) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0173bee78ff4930a3dd972b6479c940e') in 0.008578 seconds 
+  Import took 0.012441 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000232 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-22.wav
+  artifactKey: Guid(d8d04c6f80a1140db85ede568dab1f51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-22.wav using Guid(d8d04c6f80a1140db85ede568dab1f51) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '662400b16b61b0ec7d5dd956bf4b36e8') in 0.009837 seconds 
+  Import took 0.013792 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000240 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-16.wav
+  artifactKey: Guid(724131bc8a7f34041bb9f1701f0cb58d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-16.wav using Guid(724131bc8a7f34041bb9f1701f0cb58d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'c8af914a79a8b01683658ee3b3c2fc8b') in 0.010771 seconds 
+  Import took 0.014690 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000237 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-19.wav
+  artifactKey: Guid(81652031b64c342cc8dbc59c138d77c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-19.wav using Guid(81652031b64c342cc8dbc59c138d77c5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b12d31232c000cd4e32ee0358defc31a') in 0.007583 seconds 
+  Import took 0.011850 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000232 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-12.wav
+  artifactKey: Guid(7478151cf36724a7dada558f746c3633) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-12.wav using Guid(7478151cf36724a7dada558f746c3633) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '06b24fc7aeddc2b7f36fbbcb5c1ef3cc') in 0.007409 seconds 
+  Import took 0.011183 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000215 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-20.wav
+  artifactKey: Guid(6e8772b49f34d402a90016ed445d8a2f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-20.wav using Guid(6e8772b49f34d402a90016ed445d8a2f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '12c3cc02a2bbbf75e50ca67f89b097f2') in 0.007972 seconds 
+  Import took 0.011984 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000196 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-11.wav
+  artifactKey: Guid(a0010a1a0c474473b81729eb770c485f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-11.wav using Guid(a0010a1a0c474473b81729eb770c485f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '29cb50bda7eff05f832d20ff6e9f53c0') in 0.007792 seconds 
+  Import took 0.011988 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000269 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-30.wav
+  artifactKey: Guid(130a177e727814a2ea78a886ab72213d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-30.wav using Guid(130a177e727814a2ea78a886ab72213d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bd61cd8f7a43bb2238bae098156a5e43') in 0.007252 seconds 
+  Import took 0.010991 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000187 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-32.wav
+  artifactKey: Guid(29bde6326b4c34ad8a12da475f79b50a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-32.wav using Guid(29bde6326b4c34ad8a12da475f79b50a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '24586f428bdea82fe63a88e534540c51') in 0.007652 seconds 
+  Import took 0.011647 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000190 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-24.wav
+  artifactKey: Guid(657578e4be6b64dbf9b09deada272e55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-24.wav using Guid(657578e4be6b64dbf9b09deada272e55) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ad6ab3c1e21938fe2c99917a4b32d5fd') in 0.007236 seconds 
+  Import took 0.010907 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000198 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-25.wav
+  artifactKey: Guid(5fdb13d3756c84fecac96f5a2d124370) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-25.wav using Guid(5fdb13d3756c84fecac96f5a2d124370) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '83286da6d2cabf8be91f40b9caa60b67') in 0.007439 seconds 
+  Import took 0.011510 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000191 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-26.wav
+  artifactKey: Guid(7bd6b897eb5ca4b7d88a205c4a51640c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-26.wav using Guid(7bd6b897eb5ca4b7d88a205c4a51640c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'da5d4896ca45dc1072b8b32feb42f714') in 0.007913 seconds 
+  Import took 0.012083 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000154 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-10.wav
+  artifactKey: Guid(cabfae866cab347928b74b7d0ca6bfa9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-10.wav using Guid(cabfae866cab347928b74b7d0ca6bfa9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ffafc4bb2b38493cbead90060d6ae408') in 0.007259 seconds 
+  Import took 0.011226 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000178 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-17.wav
+  artifactKey: Guid(b9eff218e132a4e76be78840eca96fb2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-17.wav using Guid(b9eff218e132a4e76be78840eca96fb2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9d07c69ed8f4e3b1721a574cc85053ef') in 0.007673 seconds 
+  Import took 0.011153 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000143 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-15.wav
+  artifactKey: Guid(0c008ee3ee72a4362a35be25fa5de043) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-15.wav using Guid(0c008ee3ee72a4362a35be25fa5de043) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5ec16b9d32e0adbfee125c4e5c505089') in 0.007383 seconds 
+  Import took 0.011047 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000166 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-29.wav
+  artifactKey: Guid(80e397195ea2940b69ee7bdbded856a5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-29.wav using Guid(80e397195ea2940b69ee7bdbded856a5) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '9676c257d0210061b32b27b811d9c6e5') in 0.006647 seconds 
+  Import took 0.010241 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000166 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-07.wav
+  artifactKey: Guid(2c5292ba5cf254919a6b9e2b18e04f49) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-07.wav using Guid(2c5292ba5cf254919a6b9e2b18e04f49) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'cd30160d58e35a601dea1538d1efd538') in 0.006704 seconds 
+  Import took 0.010093 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000158 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-23.wav
+  artifactKey: Guid(a0ca8964c08d54c5dbebf245bdc474ca) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-23.wav using Guid(a0ca8964c08d54c5dbebf245bdc474ca) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '563ca88439d58bb5feac9b65d921aa7d') in 0.006567 seconds 
+  Import took 0.010192 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000151 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-35.wav
+  artifactKey: Guid(89e6bc608da7b47d4914f3d9c2484e48) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-35.wav using Guid(89e6bc608da7b47d4914f3d9c2484e48) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e62aa84ee6728e31f43dcbaaaf2c5102') in 0.006584 seconds 
+  Import took 0.009823 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000152 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-08.wav
+  artifactKey: Guid(4e1ff8faed12a475eba9be0e46072269) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-08.wav using Guid(4e1ff8faed12a475eba9be0e46072269) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'eec8ebd46a17c60a80901247c27a6c5b') in 0.006578 seconds 
+  Import took 0.009727 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000148 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-36.wav
+  artifactKey: Guid(df729d213c4be44a9b55cd109f5cd4f9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-36.wav using Guid(df729d213c4be44a9b55cd109f5cd4f9) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3c9353b35ac5b1098207d29cb05d65a1') in 0.009744 seconds 
+  Import took 0.013036 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000178 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-04.wav
+  artifactKey: Guid(c5e2a73ad4706440f93bf05df0b465fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-04.wav using Guid(c5e2a73ad4706440f93bf05df0b465fe) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '80e07b7789a3529c8825e00a0d0f6de4') in 0.006786 seconds 
+  Import took 0.010116 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000148 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-05.wav
+  artifactKey: Guid(b99da9a57308d4ba1bee1cf1d9038376) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-05.wav using Guid(b99da9a57308d4ba1bee1cf1d9038376) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3067abac0d3924f2db8b7187aa715a3a') in 0.006777 seconds 
+  Import took 0.010193 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000150 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-01.wav
+  artifactKey: Guid(32d4b1811dda14a6cb9e059ee8ad17d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-01.wav using Guid(32d4b1811dda14a6cb9e059ee8ad17d2) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f5242936307de7c233fd16a61198fcb2') in 0.006456 seconds 
+  Import took 0.009962 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000194 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-14.wav
+  artifactKey: Guid(b6428d4edb06344ba829da4edd9967c1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-14.wav using Guid(b6428d4edb06344ba829da4edd9967c1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4c05acf47fcaa68c58e8d54b90c0aba5') in 0.006904 seconds 
+  Import took 0.010357 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000168 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-31.wav
+  artifactKey: Guid(cf6c0e7fbef9449c98a0cdb5ea0c4d9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-31.wav using Guid(cf6c0e7fbef9449c98a0cdb5ea0c4d9f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bc6ac5a0303084c9c83d74977f8f289f') in 0.006970 seconds 
+  Import took 0.010294 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000151 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-09.wav
+  artifactKey: Guid(ff5f85da24bc943d1abdc5760a22bc81) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-09.wav using Guid(ff5f85da24bc943d1abdc5760a22bc81) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3663bd0762ae139096900196cfc47a0f') in 0.006721 seconds 
+  Import took 0.009872 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000165 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-33.wav
+  artifactKey: Guid(35fbad8cdde724f11ba6481f1e64af71) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-33.wav using Guid(35fbad8cdde724f11ba6481f1e64af71) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b1640ecce4c6ef74ab4857d5ebb6da7c') in 0.006352 seconds 
+  Import took 0.009756 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000137 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-13.wav
+  artifactKey: Guid(72127805eb2bc4e7fbf2e02eca266cfa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-13.wav using Guid(72127805eb2bc4e7fbf2e02eca266cfa) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '0971f2980d2501b18b774a1a7d13b044') in 0.008427 seconds 
+  Import took 0.011921 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000180 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-03.wav
+  artifactKey: Guid(19f89c6e740e7447f9e12a8310d3e973) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-03.wav using Guid(19f89c6e740e7447f9e12a8310d3e973) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '317e432e78212216422dcecb0ee65988') in 0.006537 seconds 
+  Import took 0.009926 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000135 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-21.wav
+  artifactKey: Guid(ffb159a21c8a04135a5616979c828fab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-21.wav using Guid(ffb159a21c8a04135a5616979c828fab) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '24259b4c1bc0e5c52063dc70504d160b') in 0.006459 seconds 
+  Import took 0.009767 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000157 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-06.wav
+  artifactKey: Guid(a235d590ef2a04d1b85b61ef4c21337c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-06.wav using Guid(a235d590ef2a04d1b85b61ef4c21337c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd5d24ad5de4891ab4066c4b8d321922a') in 0.006699 seconds 
+  Import took 0.009906 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000154 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-02.wav
+  artifactKey: Guid(dc6614beca09347ec9b258f12d154bdd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-02.wav using Guid(dc6614beca09347ec9b258f12d154bdd) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bd61bd9b596fda45c7459593b059f15b') in 0.007307 seconds 
+  Import took 0.010707 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000138 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-28.wav
+  artifactKey: Guid(79180f511d89441b9aa23ccae1992fe0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-28.wav using Guid(79180f511d89441b9aa23ccae1992fe0) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'dd50d26b5e4003966a2d7d40aa1d3bb8') in 0.006421 seconds 
+  Import took 0.009773 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000143 seconds.
+  path: Assets/CasualGameSounds/DM-CGS-27.wav
+  artifactKey: Guid(5039414d94a6e4e70a5ab9e8833e992a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/CasualGameSounds/DM-CGS-27.wav using Guid(5039414d94a6e4e70a5ab9e8833e992a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '7d97fc0dc9accecf73405664c5c217b6') in 0.006644 seconds 
+  Import took 0.010005 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 3.517597 seconds.
+  path: Assets/TileMap/Platform Palette.prefab
+  artifactKey: Guid(2e2260880e39a8444a0f54017328424f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TileMap/Platform Palette.prefab using Guid(2e2260880e39a8444a0f54017328424f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '554f20dc146777fb1c9b90670aee3e01') in 0.059308 seconds 
+  Import took 0.063602 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000235 seconds.
+  path: Assets/TileMap/Platforms_13.asset
+  artifactKey: Guid(98ce9e02935551f4fabf49e37198c116) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TileMap/Platforms_13.asset using Guid(98ce9e02935551f4fabf49e37198c116) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '84841742591e9aebf7b6bab85461bbb5') in 0.016405 seconds 
+  Import took 0.020856 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000209 seconds.
+  path: Assets/TileMap/Platforms_3.asset
+  artifactKey: Guid(1d92ac6d4d1e8b14698d3525de11d1c1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TileMap/Platforms_3.asset using Guid(1d92ac6d4d1e8b14698d3525de11d1c1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'b9844f0dc5635354ca1bf5309e3aa901') in 0.007230 seconds 
+  Import took 0.011236 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000216 seconds.
+  path: Assets/TileMap/Platforms_2.asset
+  artifactKey: Guid(2aec968525dc7e84092be8a7c3aa1a61) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TileMap/Platforms_2.asset using Guid(2aec968525dc7e84092be8a7c3aa1a61) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '84c51ac3bcc9fae7aeb9aab281735375') in 0.006961 seconds 
+  Import took 0.010598 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000276 seconds.
+  path: Assets/TileMap/Platforms_5.asset
+  artifactKey: Guid(c44ff42b9d67b824b9f307da7f079171) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TileMap/Platforms_5.asset using Guid(c44ff42b9d67b824b9f307da7f079171) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bda83be16accfc3c95895fe1bf88509a') in 0.005991 seconds 
+  Import took 0.010068 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000235 seconds.
+  path: Assets/TileMap/Platforms_7.asset
+  artifactKey: Guid(ae1976735d8fe654c89cde44d0d40d88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TileMap/Platforms_7.asset using Guid(ae1976735d8fe654c89cde44d0d40d88) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'f8a5e14c276326fdd8d678de90f54cde') in 0.005557 seconds 
+  Import took 0.010034 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000236 seconds.
+  path: Assets/TileMap/Platforms_0.asset
+  artifactKey: Guid(00b432f1aff273f479fc8fb0885518de) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TileMap/Platforms_0.asset using Guid(00b432f1aff273f479fc8fb0885518de) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '236bf4801b10b81f0c83ddaf19943802') in 0.005552 seconds 
+  Import took 0.009840 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000199 seconds.
+  path: Assets/TileMap/Platforms_6.asset
+  artifactKey: Guid(b61f3417e2863be45b22eec53fb3033d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TileMap/Platforms_6.asset using Guid(b61f3417e2863be45b22eec53fb3033d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '65c84b80168d47c0f180117913c94f1f') in 0.005754 seconds 
+  Import took 0.009410 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000157 seconds.
+  path: Assets/TileMap/Platforms_11.asset
+  artifactKey: Guid(5c88144dacbd7d547a4f46e8f5da77e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TileMap/Platforms_11.asset using Guid(5c88144dacbd7d547a4f46e8f5da77e7) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '6a3b8f553335ad0e024663ee7d4fb9c2') in 0.005378 seconds 
+  Import took 0.009217 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000200 seconds.
+  path: Assets/TileMap/Platforms_14.asset
+  artifactKey: Guid(bcc7898d579363a49a3890d6a438ad0d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TileMap/Platforms_14.asset using Guid(bcc7898d579363a49a3890d6a438ad0d) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd2d3ff462664ab59c029565a3d002374') in 0.006358 seconds 
+  Import took 0.010857 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000199 seconds.
+  path: Assets/TileMap/Platforms_4.asset
+  artifactKey: Guid(f8c0c6f075333ae4b86695838a6bd557) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TileMap/Platforms_4.asset using Guid(f8c0c6f075333ae4b86695838a6bd557) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'bb2f0ca56c0f29e49ea28a2386b51fad') in 0.006421 seconds 
+  Import took 0.010358 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000162 seconds.
+  path: Assets/TileMap/Platforms_15.asset
+  artifactKey: Guid(7c43e60e1a7dd2f468cccacdbe9dd482) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TileMap/Platforms_15.asset using Guid(7c43e60e1a7dd2f468cccacdbe9dd482) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ea9f71d9c42f04e09d9963a8809017d7') in 0.005302 seconds 
+  Import took 0.009156 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000203 seconds.
+  path: Assets/TileMap/Platforms_8.asset
+  artifactKey: Guid(804833f832a7fe248ae976e401f020f4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TileMap/Platforms_8.asset using Guid(804833f832a7fe248ae976e401f020f4) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'daa785aab01716e95b733107e8d55be0') in 0.006756 seconds 
+  Import took 0.010503 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000199 seconds.
+  path: Assets/TileMap/Platforms_9.asset
+  artifactKey: Guid(59579ff9fd35922499c13d3782676897) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TileMap/Platforms_9.asset using Guid(59579ff9fd35922499c13d3782676897) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '3d61c9236394089be8cbf86afc7e5d4e') in 0.005401 seconds 
+  Import took 0.009425 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000269 seconds.
+  path: Assets/TileMap/Platforms_12.asset
+  artifactKey: Guid(67c7be280d449c94985b2b1dab72f611) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TileMap/Platforms_12.asset using Guid(67c7be280d449c94985b2b1dab72f611) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'e80acac05e14fbc377f026eb0450c489') in 0.006119 seconds 
+  Import took 0.010324 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000203 seconds.
+  path: Assets/TileMap/Spike.asset
+  artifactKey: Guid(8145629a66667d04d941410a69c51907) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TileMap/Spike.asset using Guid(8145629a66667d04d941410a69c51907) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ac2211e62ee0174a76fc607c6a2529eb') in 0.006573 seconds 
+  Import took 0.010351 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000203 seconds.
+  path: Assets/TileMap/Platforms_10.asset
+  artifactKey: Guid(76cc858aeb97223448da35e5ea7b394a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TileMap/Platforms_10.asset using Guid(76cc858aeb97223448da35e5ea7b394a) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '4180e7acf25532173cd0c93ea03b8094') in 0.006123 seconds 
+  Import took 0.010794 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 0.000202 seconds.
+  path: Assets/TileMap/Platforms_1.asset
+  artifactKey: Guid(fd910505f80116e47a27d521b990e13c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TileMap/Platforms_1.asset using Guid(fd910505f80116e47a27d521b990e13c) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ca6b1f55f676b7f33997c1e28f490b75') in 0.005803 seconds 
+  Import took 0.010150 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 2.731700 seconds.
+  path: Assets/TileMap
+  artifactKey: Guid(0ca835eeafe6c1d4bbbcc1af3899faa1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TileMap using Guid(0ca835eeafe6c1d4bbbcc1af3899faa1) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'd719edaaa609e066ec7d10401983b7f8') in 0.002335 seconds 
+  Import took 0.006923 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 505.954093 seconds.
+  path: Assets/TileMap/Platform Palette.prefab
+  artifactKey: Guid(2e2260880e39a8444a0f54017328424f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TileMap/Platform Palette.prefab using Guid(2e2260880e39a8444a0f54017328424f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a9eeda0b4f6d36e6052eae464fb99764') in 0.017983 seconds 
+  Import took 0.023128 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 8.489977 seconds.
+  path: Assets/TileMap/Platform Palette.prefab
+  artifactKey: Guid(2e2260880e39a8444a0f54017328424f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TileMap/Platform Palette.prefab using Guid(2e2260880e39a8444a0f54017328424f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'a6c8720cdbb5ae569abd9bf23e57ae6a') in 0.020605 seconds 
+  Import took 0.025529 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 8.772926 seconds.
+  path: Assets/TileMap/Platform Palette.prefab
+  artifactKey: Guid(2e2260880e39a8444a0f54017328424f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TileMap/Platform Palette.prefab using Guid(2e2260880e39a8444a0f54017328424f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: '5a34e1229f75cab4f3edec8f8e2380f2') in 0.030891 seconds 
+  Import took 0.035733 seconds .
+
+========================================================================
+Received Import Request.
+  Time since last request: 12.385224 seconds.
+  path: Assets/TileMap/Platform Palette.prefab
+  artifactKey: Guid(2e2260880e39a8444a0f54017328424f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)
+Start importing Assets/TileMap/Platform Palette.prefab using Guid(2e2260880e39a8444a0f54017328424f) Importer(815301076,1909f56bfc062723c751e8b465ee728b)  -> (artifact id: 'ff85808b1ac2ee3482fdf40740268eab') in 0.034021 seconds 
+  Import took 0.038794 seconds .
+
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file
