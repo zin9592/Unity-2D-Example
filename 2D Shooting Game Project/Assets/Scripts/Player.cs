@@ -4,17 +4,25 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    // 플레이어 기체
     public float _moveSpeed;
+
+    // 경계선
     public bool _isTouchTop;
     public bool _isTouchBottom;
     public bool _isTouchLeft;
     public bool _isTouchRight;
 
-    public GameObject _bulletObjA;
-    public GameObject _bulletObjB;
+    // 발사체
     public float _bulletSpeed;
+    public float _bulletPower;
     public float _curShotDelay;         // 한발쏜 다음 충전되기 위한 딜레이
     public float _maxShotDelay;         // 실제 딜레이
+
+    // 발사체 오브젝트
+    public GameObject _bulletObjA;
+    public GameObject _bulletObjB;
+
     Animator _animator;
 
     void Awake()
@@ -60,14 +68,41 @@ public class Player : MonoBehaviour
             return;
         }
 
-        if(_curShotDelay < _maxShotDelay)
+        if (_curShotDelay < _maxShotDelay)
         {
             return;
         }
-        // 프리펩 장면에 추가 매개변수(오리지널 오브젝트, 생성될 위치, 방향)
-        GameObject bullet = Instantiate(_bulletObjA, transform.position, transform.rotation);
-        Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
-        rigid.AddForce(Vector2.up * _bulletSpeed, ForceMode2D.Impulse);
+
+        switch (_bulletPower)
+        {
+            case 1:
+                // Power 1
+                GameObject bullet = Instantiate(_bulletObjA, transform.position, transform.rotation);
+                Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
+                rigid.AddForce(Vector2.up * _bulletSpeed, ForceMode2D.Impulse);
+                break;
+            case 2:
+                // Power 2 : Double Shot
+                GameObject doubleBulletL = Instantiate(_bulletObjA, transform.position + Vector3.left * 0.1f, transform.rotation);
+                GameObject doubleBulletR = Instantiate(_bulletObjA, transform.position + Vector3.right * 0.1f, transform.rotation);
+                Rigidbody2D doubleBulletRigidL = doubleBulletL.GetComponent<Rigidbody2D>();
+                Rigidbody2D doubleBulletRigidR = doubleBulletR.GetComponent<Rigidbody2D>();
+                doubleBulletRigidL.AddForce(Vector2.up * _bulletSpeed, ForceMode2D.Impulse);
+                doubleBulletRigidR.AddForce(Vector2.up * _bulletSpeed, ForceMode2D.Impulse);
+                break;
+            case 3:
+                // Power 3 : Triple Shot
+                GameObject TriplebulletL = Instantiate(_bulletObjA, transform.position + Vector3.left * 0.4f, transform.rotation);
+                GameObject TripleBulletC = Instantiate(_bulletObjB, transform.position, transform.rotation);
+                GameObject TripleBulletR = Instantiate(_bulletObjA, transform.position + Vector3.right * 0.4f, transform.rotation);
+                Rigidbody2D TripleBulletRigidL = TriplebulletL.GetComponent<Rigidbody2D>();
+                Rigidbody2D TripleBulletRigidC = TripleBulletC.GetComponent<Rigidbody2D>();
+                Rigidbody2D TripleBulletRigidR = TripleBulletR.GetComponent<Rigidbody2D>();
+                TripleBulletRigidL.AddForce(Vector2.up * _bulletSpeed, ForceMode2D.Impulse);
+                TripleBulletRigidC.AddForce(Vector2.up * _bulletSpeed, ForceMode2D.Impulse);
+                TripleBulletRigidR.AddForce(Vector2.up * _bulletSpeed, ForceMode2D.Impulse);
+                break;
+        }
         _curShotDelay = 0;
     }
 
