@@ -178,7 +178,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 1
-  _health: 150
+  _health: 50
   _sprites:
   - {fileID: -8421458170528590454, guid: 138040323294fd440a3a823e5d70ad01, type: 3}
   - {fileID: 3714015224569861163, guid: 138040323294fd440a3a823e5d70ad01, type: 3}
+  _curShotDelay: 0
+  _maxShotDelay: 1.5
+  _bulletObjA: {fileID: 3027874103879922781, guid: 83f27adcf666a3e41aa3fc1cc66c259f, type: 3}
+  _bulletObjB: {fileID: 3027874103879922781, guid: 72f307dcef7bf4746851a725a11d2ca2, type: 3}
+  _player: {fileID: 0}

@@ -139,3 +139,8 @@ MonoBehaviour:
   _sprites:
   - {fileID: 8414478535512612329, guid: 138040323294fd440a3a823e5d70ad01, type: 3}
   - {fileID: 4326287474489854147, guid: 138040323294fd440a3a823e5d70ad01, type: 3}
+  _curShotDelay: 0
+  _maxShotDelay: 1
+  _bulletObjA: {fileID: 3027874103879922781, guid: 83f27adcf666a3e41aa3fc1cc66c259f, type: 3}
+  _bulletObjB: {fileID: 3027874103879922781, guid: 72f307dcef7bf4746851a725a11d2ca2, type: 3}
+  _player: {fileID: 0}

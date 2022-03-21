@@ -154,7 +154,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _moveSpeed: 2
-  _health: 50
+  _health: 15
   _sprites:
   - {fileID: -1147401495359466748, guid: 138040323294fd440a3a823e5d70ad01, type: 3}
   - {fileID: -7844560889915226194, guid: 138040323294fd440a3a823e5d70ad01, type: 3}
+  _curShotDelay: 0
+  _maxShotDelay: 0
+  _bulletObjA: {fileID: 0}
+  _bulletObjB: {fileID: 0}
+  _player: {fileID: 0}
