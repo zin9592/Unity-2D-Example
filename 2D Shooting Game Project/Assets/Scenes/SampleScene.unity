@@ -1186,7 +1186,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1282335146}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -3.94, z: 0}
+  m_LocalPosition: {x: 0, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -1215,6 +1215,7 @@ MonoBehaviour:
   _maxShotDelay: 0.2
   _bulletObjA: {fileID: 6563133423818644745, guid: ddd73ed40e3587e40a8b69cb8c9c8650, type: 3}
   _bulletObjB: {fileID: 3027874103879922781, guid: 301ebad42b5371f4e9524b24030cee2a, type: 3}
+  _manager: {fileID: 648819062}
 --- !u!61 &1282335150
 BoxCollider2D:
   m_ObjectHideFlags: 0

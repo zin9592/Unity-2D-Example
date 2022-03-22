@@ -50,4 +50,14 @@ public class GameManager : MonoBehaviour
             rigid.velocity = new Vector2(0, enemyLogic._moveSpeed * (-1));
         }
     }
+
+    public void RespawnPlayer()
+    {
+        Invoke("RespawnPlayerExe", 2f);
+    }
+    void RespawnPlayerExe()
+    {
+        _player.transform.position = Vector3.down * 4f;
+        _player.SetActive(true);
+    }
 }

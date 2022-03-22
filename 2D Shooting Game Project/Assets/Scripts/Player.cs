@@ -23,6 +23,8 @@ public class Player : MonoBehaviour
     public GameObject _bulletObjA;
     public GameObject _bulletObjB;
 
+    public GameManager _manager;
+
     Animator _animator;
 
     void Awake()
@@ -130,6 +132,14 @@ public class Player : MonoBehaviour
                     _isTouchRight = true;
                     break;
             }
+        }
+        else if (collision.gameObject.tag == "Enemy" || 
+                collision.gameObject.tag == "EnemyBullet")
+        {
+            _manager.RespawnPlayer();
+            gameObject.SetActive(false);
+            // Invoke는 SetActive가 활성화되어야 가능하므로 GameManager로 넘겨준다.
+
         }
     }
 
