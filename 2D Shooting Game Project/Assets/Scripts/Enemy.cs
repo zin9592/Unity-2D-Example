@@ -2,8 +2,12 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
+    // 적 기체
+    public string _enemyName;
+    public int _enemyScore;
     public float _moveSpeed;
     public int _health;
+
     public Sprite[] _sprites;    // 기본 이미지, 피격 이미지
 
     // 발사체
@@ -35,7 +39,7 @@ public class Enemy : MonoBehaviour
         {
             return;
         }
-        if (gameObject.name == "Enemy S(Clone)")
+        if (_enemyName == "S")
         {
             GameObject bullet = Instantiate(_bulletObjA, transform.position, transform.rotation);
             Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
@@ -43,7 +47,7 @@ public class Enemy : MonoBehaviour
             Vector3 dirVec = _player.transform.position - transform.position;
             rigid.AddForce(dirVec.normalized * 10, ForceMode2D.Impulse);
         }
-        else if (gameObject.name == "Enemy L(Clone)")
+        else if (_enemyName == "L")
         {
             GameObject bulletL = Instantiate(_bulletObjB, transform.position + Vector3.left * 0.3f, transform.rotation);
             GameObject bulletR = Instantiate(_bulletObjB, transform.position + Vector3.right * 0.3f, transform.rotation);
@@ -74,6 +78,8 @@ public class Enemy : MonoBehaviour
 
         if (_health <= 0)
         {
+            Player playerLogic = _player.GetComponent<Player>();
+            playerLogic._score += _enemyScore;
             Destroy(gameObject);
         }
     }

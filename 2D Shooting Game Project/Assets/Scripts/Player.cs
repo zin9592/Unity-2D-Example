@@ -4,8 +4,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // 플레이어 기체
+    // 플레이어
     public float _moveSpeed;
+    public int _life;
+    public int _score;
+    public bool _isHit;
 
     // 경계선
     public bool _isTouchTop;
@@ -136,10 +139,25 @@ public class Player : MonoBehaviour
         else if (collision.gameObject.tag == "Enemy" || 
                 collision.gameObject.tag == "EnemyBullet")
         {
-            _manager.RespawnPlayer();
+            if (_isHit)
+            {
+                return;
+            }
+            _isHit = true;
+            _life--;
+            _manager.UpdateLifeIcon(_life);
+            
+            if(_life == 0)
+            {
+                _manager.GameOver();
+            }
+            else
+            {
+                _manager.RespawnPlayer();
+            }
             gameObject.SetActive(false);
             // Invoke는 SetActive가 활성화되어야 가능하므로 GameManager로 넘겨준다.
-
+            Destroy(collision.gameObject);
         }
     }
 

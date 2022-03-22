@@ -153,6 +153,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cbf403231d6fb0f4aadf92c0ae8eb127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enemyName: M
+  _enemyScore: 30
   _moveSpeed: 2
   _health: 15
   _sprites:

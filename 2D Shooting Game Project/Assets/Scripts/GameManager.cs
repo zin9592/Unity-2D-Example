@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +12,9 @@ public class GameManager : MonoBehaviour
     public float _curSpawnDelay;
 
     public GameObject _player;
+    public Text _scoreText;
+    public Image[] _lifeImage;
+    public GameObject _gameOverSet;
 
     void Update()
     {
@@ -21,6 +26,11 @@ public class GameManager : MonoBehaviour
             _maxSpawnDelay = Random.Range(0.5f, 3f);
             _curSpawnDelay = 0;
         }
+
+        // #. UI Score Update
+        Player playerLogic = _player.GetComponent<Player>();
+        // {0:n0} : 세자리마다 쉼표로 나눠주는 숫자 양식
+        _scoreText.text = string.Format("{0:n0}",playerLogic._score);
     }
 
     void SpawnEnemy()
@@ -51,6 +61,20 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void UpdateLifeIcon(int life)
+    {
+        // #.Ui Life Init Disable
+        for (int idx = 0; idx < 3; idx++)
+        {
+            _lifeImage[idx].color = new Color(1, 1, 1, 0);
+        }
+        // #.Ui Life Active
+        for (int idx = 0; idx < life; idx++)
+        {
+            _lifeImage[idx].color = new Color(1, 1, 1, 1);
+        }
+    }
+
     public void RespawnPlayer()
     {
         Invoke("RespawnPlayerExe", 2f);
@@ -59,5 +83,18 @@ public class GameManager : MonoBehaviour
     {
         _player.transform.position = Vector3.down * 4f;
         _player.SetActive(true);
+
+        Player playerLogic = _player.GetComponent<Player>();
+        playerLogic._isHit = false;
+    }
+
+    public void GameOver()
+    {
+        _gameOverSet.SetActive(true);
+    }
+
+    public void GameRetry()
+    {
+        SceneManager.LoadScene(0);
     }
 }
