@@ -18,7 +18,8 @@ public class Player : MonoBehaviour
 
     // 발사체
     public float _bulletSpeed;
-    public float _bulletPower;
+    public int _bulletPower;
+    public int _bulletMaxPower;
     public float _curShotDelay;         // 한발쏜 다음 충전되기 위한 딜레이
     public float _maxShotDelay;         // 실제 딜레이
 
@@ -136,7 +137,7 @@ public class Player : MonoBehaviour
                     break;
             }
         }
-        else if (collision.gameObject.tag == "Enemy" || 
+        else if (collision.gameObject.tag == "Enemy" ||
                 collision.gameObject.tag == "EnemyBullet")
         {
             if (_isHit)
@@ -146,8 +147,8 @@ public class Player : MonoBehaviour
             _isHit = true;
             _life--;
             _manager.UpdateLifeIcon(_life);
-            
-            if(_life == 0)
+
+            if (_life == 0)
             {
                 _manager.GameOver();
             }
@@ -158,6 +159,28 @@ public class Player : MonoBehaviour
             gameObject.SetActive(false);
             // Invoke는 SetActive가 활성화되어야 가능하므로 GameManager로 넘겨준다.
             Destroy(collision.gameObject);
+        }
+        else if (collision.gameObject.tag == "Item")
+        {
+            Item item = collision.gameObject.GetComponent<Item>();
+            switch (item._type)
+            {
+                case "Coin":
+                    _score += 1000;
+                    break;
+                case "Power":
+                    if (_bulletPower == _bulletMaxPower)
+                    {
+                        _score += 500;
+                    }
+                    else
+                    {
+                        _bulletPower++;
+                    }
+                    break;
+                case "Boom":
+                    break;
+            }
         }
     }
 
