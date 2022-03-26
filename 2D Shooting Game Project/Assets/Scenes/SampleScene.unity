@@ -1591,12 +1591,13 @@ MonoBehaviour:
   _isTouchLeft: 0
   _isTouchRight: 0
   _bulletSpeed: 15
-  _bulletPower: 0
-  _bulletMaxPower: 0
+  _bulletPower: 1
+  _bulletMaxPower: 3
   _curShotDelay: 0
   _maxShotDelay: 0.2
   _bulletObjA: {fileID: 6563133423818644745, guid: ddd73ed40e3587e40a8b69cb8c9c8650, type: 3}
   _bulletObjB: {fileID: 3027874103879922781, guid: 301ebad42b5371f4e9524b24030cee2a, type: 3}
+  _boomEffect: {fileID: 1662888256}
   _manager: {fileID: 648819062}
 --- !u!61 &1282335150
 BoxCollider2D:

@@ -27,6 +27,9 @@ public class Player : MonoBehaviour
     public GameObject _bulletObjA;
     public GameObject _bulletObjB;
 
+    // Boom 오브젝트
+    public GameObject _boomEffect;
+
     public GameManager _manager;
 
     Animator _animator;
@@ -179,9 +182,38 @@ public class Player : MonoBehaviour
                     }
                     break;
                 case "Boom":
+                    // #1, Effect visible
+                    _boomEffect.SetActive(true);
+                    Invoke("OffBoomEffect", 3f);
+                    Invoke("BoomDamage", 0.2f);
                     break;
             }
+            Destroy(collision.gameObject);
         }
+    }
+
+    void BoomDamage()
+    {
+        // #2. Remove Enemy
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        foreach (GameObject enemy in enemies)
+        {
+            Enemy enemyLogic = enemy.GetComponent<Enemy>();
+            enemyLogic.OnHit(5);
+        }
+        // #3. Remove Enemy Bullet
+        GameObject[] bullets = GameObject.FindGameObjectsWithTag("EnemyBullet");
+        foreach (GameObject bullet in bullets)
+        {
+            Destroy(bullet);
+        }
+        Invoke("BoomDamage", 0.2f);
+    }
+
+    void OffBoomEffect()
+    {
+        _boomEffect.SetActive(false);
+        CancelInvoke("BoomDamage");
     }
 
     void OnTriggerExit2D(Collider2D collision)

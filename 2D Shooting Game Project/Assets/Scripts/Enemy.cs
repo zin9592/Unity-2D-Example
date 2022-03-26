@@ -45,7 +45,7 @@ public class Enemy : MonoBehaviour
             Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
             // 바라보는 각도
             Vector3 dirVec = _player.transform.position - transform.position;
-            rigid.AddForce(dirVec.normalized * 10, ForceMode2D.Impulse);
+            rigid.AddForce(dirVec.normalized * 3, ForceMode2D.Impulse);
         }
         else if (_enemyName == "L")
         {
@@ -58,8 +58,8 @@ public class Enemy : MonoBehaviour
             Vector3 dirVecL = _player.transform.position - transform.position + Vector3.left * 0.3f;
             Vector3 dirVecR = _player.transform.position - transform.position + Vector3.right * 0.3f;
 
-            rigidL.AddForce(dirVecL.normalized * 10, ForceMode2D.Impulse);
-            rigidR.AddForce(dirVecR.normalized * 10, ForceMode2D.Impulse);
+            rigidL.AddForce(dirVecL.normalized * 3, ForceMode2D.Impulse);
+            rigidR.AddForce(dirVecR.normalized * 3, ForceMode2D.Impulse);
         }
         _curShotDelay = 0;
     }
@@ -70,7 +70,7 @@ public class Enemy : MonoBehaviour
     }
 
     // 피격
-    void OnHit(int damamge)
+    public void OnHit(int damamge)
     {
         _health -= damamge;
         _spriteRenderer.sprite = _sprites[1];
