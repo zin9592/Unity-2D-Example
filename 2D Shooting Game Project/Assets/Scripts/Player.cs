@@ -27,6 +27,11 @@ public class Player : MonoBehaviour
     public GameObject _bulletObjA;
     public GameObject _bulletObjB;
 
+    // Boom
+    public int _boom;
+    public int _maxBoom;
+    public bool _isBoomTime;
+
     // Boom 오브젝트
     public GameObject _boomEffect;
 
@@ -37,12 +42,14 @@ public class Player : MonoBehaviour
     void Awake()
     {
         _animator = GetComponent<Animator>();
+        _manager.UpdateBoomIcon(_boom);
     }
 
     void Update()
     {
         Move();
         Fire();
+        Boom();
         Reload();
     }
 
@@ -115,6 +122,35 @@ public class Player : MonoBehaviour
         _curShotDelay = 0;
     }
 
+    void Boom()
+    {
+        // Fire2 버튼을 안눌렀는가?
+        if (!Input.GetButton("Fire2"))
+        {
+            return;
+        }
+
+        // 폭탄을 이미 사용중인가?
+        if (_isBoomTime)
+        {
+            return;
+        }
+
+        if(_boom == 0)
+        {
+            return;
+        }
+
+        // #1, Effect visible
+        _boomEffect.SetActive(true);
+        _isBoomTime = true;
+        _boom--;
+        _manager.UpdateBoomIcon(_boom);
+        Invoke("OffBoomEffect", 3f);
+        Invoke("BoomDamage", 0.2f);
+
+    }
+
     void Reload()
     {
         _curShotDelay += Time.deltaTime;
@@ -182,10 +218,15 @@ public class Player : MonoBehaviour
                     }
                     break;
                 case "Boom":
-                    // #1, Effect visible
-                    _boomEffect.SetActive(true);
-                    Invoke("OffBoomEffect", 3f);
-                    Invoke("BoomDamage", 0.2f);
+                    if (_boom == _maxBoom)
+                    {
+                        _score += 1000;
+                    }
+                    else
+                    {
+                        _boom++;
+                        _manager.UpdateBoomIcon(_boom);
+                    }
                     break;
             }
             Destroy(collision.gameObject);
@@ -213,6 +254,7 @@ public class Player : MonoBehaviour
     void OffBoomEffect()
     {
         _boomEffect.SetActive(false);
+        _isBoomTime = false;
         CancelInvoke("BoomDamage");
     }
 

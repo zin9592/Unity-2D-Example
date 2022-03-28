@@ -164,4 +164,7 @@ MonoBehaviour:
   _maxShotDelay: 0
   _bulletObjA: {fileID: 0}
   _bulletObjB: {fileID: 0}
+  _itemCoin: {fileID: 9191533126369556465, guid: 88fc5504667fad0449b5b01225c9ac47, type: 3}
+  _itemPower: {fileID: 3543270374899468336, guid: 371c4324f014a1b41801c3e58bfe93d5, type: 3}
+  _itemBoom: {fileID: 2260384002231864834, guid: 379bc4e26e661e14a98cdd687033df93, type: 3}
   _player: {fileID: 0}

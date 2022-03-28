@@ -18,6 +18,11 @@ public class Enemy : MonoBehaviour
     public GameObject _bulletObjA;
     public GameObject _bulletObjB;
 
+    // 아이템 드롭
+    public GameObject _itemCoin;
+    public GameObject _itemPower;
+    public GameObject _itemBoom;
+
     public GameObject _player;
 
     SpriteRenderer _spriteRenderer;
@@ -72,6 +77,10 @@ public class Enemy : MonoBehaviour
     // 피격
     public void OnHit(int damamge)
     {
+        if (_health <= 0)
+        {
+            return;
+        }
         _health -= damamge;
         _spriteRenderer.sprite = _sprites[1];
         Invoke("ReturnSprite", 0.1f);
@@ -80,6 +89,29 @@ public class Enemy : MonoBehaviour
         {
             Player playerLogic = _player.GetComponent<Player>();
             playerLogic._score += _enemyScore;
+
+            //#.Random Ratio Item Drop
+            int ran = Random.Range(0,10);
+            
+            if(ran < 5)
+            {
+                // None Item
+            }
+            else if(ran < 8)
+            {
+                // Coin
+                Instantiate(_itemCoin, transform.position, _itemCoin.transform.rotation);
+            }
+            else if (ran < 9)
+            {
+                // Power
+                Instantiate(_itemPower, transform.position, _itemPower.transform.rotation);
+            }
+            else if (ran < 10)
+            {
+                // Boom
+                Instantiate(_itemBoom, transform.position, _itemBoom.transform.rotation);
+            }
             Destroy(gameObject);
         }
     }
