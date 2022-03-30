@@ -180,7 +180,8 @@ MonoBehaviour:
   _enemyName: L
   _enemyScore: 50
   _moveSpeed: 1
-  _health: 50
+  _health: 25
+  _maxHealth: 25
   _sprites:
   - {fileID: -8421458170528590454, guid: 138040323294fd440a3a823e5d70ad01, type: 3}
   - {fileID: 3714015224569861163, guid: 138040323294fd440a3a823e5d70ad01, type: 3}
@@ -192,3 +193,4 @@ MonoBehaviour:
   _itemPower: {fileID: 3543270374899468336, guid: 371c4324f014a1b41801c3e58bfe93d5, type: 3}
   _itemBoom: {fileID: 2260384002231864834, guid: 379bc4e26e661e14a98cdd687033df93, type: 3}
   _player: {fileID: 0}
+  _objectManager: {fileID: 0}

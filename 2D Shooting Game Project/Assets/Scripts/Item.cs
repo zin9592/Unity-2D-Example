@@ -5,12 +5,15 @@ using UnityEngine;
 public class Item : MonoBehaviour
 {
     public string _type;
-    public float _moveSpeed;
-    Rigidbody2D _rigid;
+    Rigidbody2D rigidbody;
 
     void Awake()
     {
-        _rigid = GetComponent<Rigidbody2D>();
-        _rigid.velocity = Vector2.down * _moveSpeed;
+        rigidbody = GetComponent<Rigidbody2D>();
+    }
+
+    void OnEnable()
+    {
+        rigidbody.velocity = Vector2.down * 1.5f;    
     }
 }

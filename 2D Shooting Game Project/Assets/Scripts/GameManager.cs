@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public GameObject[] _enemyObjects;   // 스폰되는 적들의 종류
+    public string[] _enemyObjects;   // 스폰되는 적들의 종류
     public Transform[] _spawnPoints;     // 적들의 스폰위치
     public float _maxSpawnDelay;
     public float _curSpawnDelay;
@@ -16,6 +16,13 @@ public class GameManager : MonoBehaviour
     public Image[] _lifeImage;
     public Image[] _boomImage;
     public GameObject _gameOverSet;
+    public ObjectManager _objectManager;
+
+    void Awake()
+    {
+        _enemyObjects = new string[] {"EnemyS", "EnemyM", "EnemyL"};
+    }
+
 
     void Update()
     {
@@ -38,13 +45,13 @@ public class GameManager : MonoBehaviour
     {
         int randomEnemy = Random.Range(0, _enemyObjects.Length);
         int randomPoint = Random.Range(0, _spawnPoints.Length);
-        GameObject enemy = Instantiate(_enemyObjects[randomEnemy],
-                            _spawnPoints[randomPoint].position,
-                            _spawnPoints[randomPoint].rotation);
+        GameObject enemy = _objectManager.MakeObject(_enemyObjects[randomEnemy]);
+        enemy.transform.position = _spawnPoints[randomPoint].position;
 
         Rigidbody2D rigid = enemy.GetComponent<Rigidbody2D>();
         Enemy enemyLogic = enemy.GetComponent<Enemy>();
         enemyLogic._player = _player;
+        enemyLogic._objectManager = _objectManager;
 
         if (randomPoint == 5 || randomPoint == 6)   // Left Spawn
         {

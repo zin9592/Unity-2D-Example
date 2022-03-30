@@ -7,6 +7,7 @@ public class Enemy : MonoBehaviour
     public int _enemyScore;
     public float _moveSpeed;
     public int _health;
+    public int _maxHealth;
 
     public Sprite[] _sprites;    // 기본 이미지, 피격 이미지
 
@@ -25,11 +26,18 @@ public class Enemy : MonoBehaviour
 
     public GameObject _player;
 
+    public ObjectManager _objectManager;
+
     SpriteRenderer _spriteRenderer;
 
     void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+    }
+
+    void OnEnable()
+    {
+        _health = _maxHealth;     
     }
 
     void Update()
@@ -46,7 +54,8 @@ public class Enemy : MonoBehaviour
         }
         if (_enemyName == "S")
         {
-            GameObject bullet = Instantiate(_bulletObjA, transform.position, transform.rotation);
+            GameObject bullet = _objectManager.MakeObject("BulletEnemyA");
+            bullet.transform.position = transform.position;
             Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
             // 바라보는 각도
             Vector3 dirVec = _player.transform.position - transform.position;
@@ -54,8 +63,11 @@ public class Enemy : MonoBehaviour
         }
         else if (_enemyName == "L")
         {
-            GameObject bulletL = Instantiate(_bulletObjB, transform.position + Vector3.left * 0.3f, transform.rotation);
-            GameObject bulletR = Instantiate(_bulletObjB, transform.position + Vector3.right * 0.3f, transform.rotation);
+            GameObject bulletL = _objectManager.MakeObject("BulletEnemyB");
+            bulletL.transform.position = transform.position + Vector3.left * 0.3f;
+
+            GameObject bulletR = _objectManager.MakeObject("BulletEnemyB");
+            bulletR.transform.position = transform.position + Vector3.right * 0.3f;
 
             Rigidbody2D rigidL = bulletL.GetComponent<Rigidbody2D>();
             Rigidbody2D rigidR = bulletR.GetComponent<Rigidbody2D>();
@@ -100,19 +112,23 @@ public class Enemy : MonoBehaviour
             else if(ran < 8)
             {
                 // Coin
-                Instantiate(_itemCoin, transform.position, _itemCoin.transform.rotation);
+                GameObject itemCoin = _objectManager.MakeObject("ItemCoin");
+                itemCoin.transform.position = transform.position;
             }
             else if (ran < 9)
             {
                 // Power
-                Instantiate(_itemPower, transform.position, _itemPower.transform.rotation);
+                GameObject itemPower = _objectManager.MakeObject("ItemPower");
+                itemPower.transform.position = transform.position;
             }
             else if (ran < 10)
             {
                 // Boom
-                Instantiate(_itemBoom, transform.position, _itemBoom.transform.rotation);
+                GameObject itemBoom = _objectManager.MakeObject("ItemBoom");
+                itemBoom.transform.position = transform.position;
             }
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            transform.rotation = Quaternion.identity;
         }
     }
 
@@ -126,13 +142,14 @@ public class Enemy : MonoBehaviour
         // 맵 밖으로 나간 일반기체는 삭제
         if (collision.gameObject.tag == "BorderBullet")
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
+            transform.rotation = Quaternion.identity;
         }
         else if (collision.gameObject.tag == "PlayerBullet")
         {
             Bullet bullet = collision.gameObject.GetComponent<Bullet>();
             OnHit(bullet._damage);
-            Destroy(collision.gameObject);
+            collision.gameObject.SetActive(false);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -35,14 +36,16 @@ public class Player : MonoBehaviour
     // Boom 오브젝트
     public GameObject _boomEffect;
 
-    public GameManager _manager;
+    // Manager
+    public GameManager _gameManager;
+    public ObjectManager _objectManager;
 
     Animator _animator;
 
     void Awake()
     {
         _animator = GetComponent<Animator>();
-        _manager.UpdateBoomIcon(_boom);
+        _gameManager.UpdateBoomIcon(_boom);
     }
 
     void Update()
@@ -93,14 +96,19 @@ public class Player : MonoBehaviour
         {
             case 1:
                 // Power 1
-                GameObject bullet = Instantiate(_bulletObjA, transform.position, transform.rotation);
+
+                GameObject bullet = _objectManager.MakeObject("BulletPlayerA");
+                bullet.transform.position = transform.position;
+
                 Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
                 rigid.AddForce(Vector2.up * _bulletSpeed, ForceMode2D.Impulse);
                 break;
             case 2:
                 // Power 2 : Double Shot
-                GameObject doubleBulletL = Instantiate(_bulletObjA, transform.position + Vector3.left * 0.1f, transform.rotation);
-                GameObject doubleBulletR = Instantiate(_bulletObjA, transform.position + Vector3.right * 0.1f, transform.rotation);
+                GameObject doubleBulletL = _objectManager.MakeObject("BulletPlayerA");
+                doubleBulletL.transform.position = transform.position + Vector3.left * 0.1f;
+                GameObject doubleBulletR = _objectManager.MakeObject("BulletPlayerA");
+                doubleBulletR.transform.position = transform.position + Vector3.right * 0.1f;
                 Rigidbody2D doubleBulletRigidL = doubleBulletL.GetComponent<Rigidbody2D>();
                 Rigidbody2D doubleBulletRigidR = doubleBulletR.GetComponent<Rigidbody2D>();
                 doubleBulletRigidL.AddForce(Vector2.up * _bulletSpeed, ForceMode2D.Impulse);
@@ -108,10 +116,13 @@ public class Player : MonoBehaviour
                 break;
             case 3:
                 // Power 3 : Triple Shot
-                GameObject TriplebulletL = Instantiate(_bulletObjA, transform.position + Vector3.left * 0.4f, transform.rotation);
-                GameObject TripleBulletC = Instantiate(_bulletObjB, transform.position, transform.rotation);
-                GameObject TripleBulletR = Instantiate(_bulletObjA, transform.position + Vector3.right * 0.4f, transform.rotation);
-                Rigidbody2D TripleBulletRigidL = TriplebulletL.GetComponent<Rigidbody2D>();
+                GameObject TripleBulletL = _objectManager.MakeObject("BulletPlayerA");
+                TripleBulletL.transform.position = transform.position + Vector3.left * 0.4f;
+                GameObject TripleBulletC = _objectManager.MakeObject("BulletPlayerB");
+                TripleBulletC.transform.position = transform.position;
+                GameObject TripleBulletR = _objectManager.MakeObject("BulletPlayerA");
+                TripleBulletR.transform.position = transform.position + Vector3.right * 0.4f;
+                Rigidbody2D TripleBulletRigidL = TripleBulletL.GetComponent<Rigidbody2D>();
                 Rigidbody2D TripleBulletRigidC = TripleBulletC.GetComponent<Rigidbody2D>();
                 Rigidbody2D TripleBulletRigidR = TripleBulletR.GetComponent<Rigidbody2D>();
                 TripleBulletRigidL.AddForce(Vector2.up * _bulletSpeed, ForceMode2D.Impulse);
@@ -136,7 +147,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        if(_boom == 0)
+        if (_boom == 0)
         {
             return;
         }
@@ -145,7 +156,7 @@ public class Player : MonoBehaviour
         _boomEffect.SetActive(true);
         _isBoomTime = true;
         _boom--;
-        _manager.UpdateBoomIcon(_boom);
+        _gameManager.UpdateBoomIcon(_boom);
         Invoke("OffBoomEffect", 3f);
         Invoke("BoomDamage", 0.2f);
 
@@ -185,19 +196,19 @@ public class Player : MonoBehaviour
             }
             _isHit = true;
             _life--;
-            _manager.UpdateLifeIcon(_life);
+            _gameManager.UpdateLifeIcon(_life);
 
             if (_life == 0)
             {
-                _manager.GameOver();
+                _gameManager.GameOver();
             }
             else
             {
-                _manager.RespawnPlayer();
+                _gameManager.RespawnPlayer();
             }
             gameObject.SetActive(false);
             // Invoke는 SetActive가 활성화되어야 가능하므로 GameManager로 넘겨준다.
-            Destroy(collision.gameObject);
+            collision.gameObject.SetActive(false);
         }
         else if (collision.gameObject.tag == "Item")
         {
@@ -225,28 +236,51 @@ public class Player : MonoBehaviour
                     else
                     {
                         _boom++;
-                        _manager.UpdateBoomIcon(_boom);
+                        _gameManager.UpdateBoomIcon(_boom);
                     }
                     break;
             }
-            Destroy(collision.gameObject);
+            collision.gameObject.SetActive(false);
         }
     }
 
     void BoomDamage()
     {
         // #2. Remove Enemy
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        GameObject[] enemiesL = _objectManager.GetPool("EnemyL");
+        GameObject[] enemiesM = _objectManager.GetPool("EnemyM");
+        GameObject[] enemiesS = _objectManager.GetPool("EnemyS");
+
+        var tempList = new List<GameObject>();
+        tempList.AddRange(enemiesL);
+        tempList.AddRange(enemiesM);
+        tempList.AddRange(enemiesS);
+
+        GameObject[] enemies = tempList.ToArray();
+
         foreach (GameObject enemy in enemies)
         {
-            Enemy enemyLogic = enemy.GetComponent<Enemy>();
-            enemyLogic.OnHit(5);
+            if (enemy.activeSelf)
+            {
+                Enemy enemyLogic = enemy.GetComponent<Enemy>();
+                enemyLogic.OnHit(5);
+            }
         }
         // #3. Remove Enemy Bullet
-        GameObject[] bullets = GameObject.FindGameObjectsWithTag("EnemyBullet");
+        GameObject[] bulletsA = _objectManager.GetPool("BulletEnemyA");
+        GameObject[] bulletsB = _objectManager.GetPool("BulletEnemyB");
+
+        var tempList2 = new List<GameObject>();
+        tempList2.AddRange(bulletsA);
+        tempList2.AddRange(bulletsB);
+
+        GameObject[] bullets = tempList2.ToArray();
         foreach (GameObject bullet in bullets)
         {
-            Destroy(bullet);
+            if (bullet.activeSelf)
+            {
+                bullet.SetActive(false);
+            }
         }
         Invoke("BoomDamage", 0.2f);
     }
