@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
 
 public class GameManager : MonoBehaviour
 {
     public string[] _enemyObjects;   // 스폰되는 적들의 종류
     public Transform[] _spawnPoints;     // 적들의 스폰위치
-    public float _maxSpawnDelay;
+    public float _nextSpawnDelay;
     public float _curSpawnDelay;
 
     public GameObject _player;
@@ -18,20 +19,58 @@ public class GameManager : MonoBehaviour
     public GameObject _gameOverSet;
     public ObjectManager _objectManager;
 
+    public List<Spawn> _spawnList;  // 적 스폰 목록
+    public int _spawnIndex;         // 적 스폰 인덱스
+    public bool _isSpawnEnd;        // 모든 리스폰이 끝났나요?
+
     void Awake()
     {
+        _spawnList = new List<Spawn>();
         _enemyObjects = new string[] {"EnemyS", "EnemyM", "EnemyL"};
+        ReadSpawnFile();
     }
+    void ReadSpawnFile()
+    {
+        //1. 변수 초기화
+        _spawnList.Clear();
+        _spawnIndex = 0;
+        _isSpawnEnd = false;
 
+        //2. 리스폰 파일 읽기
+        TextAsset textFile = Resources.Load("Stage0") as TextAsset;
+        //파일 내의 문자열 데이터 읽기 클래스
+        StringReader stringReader = new StringReader(textFile.text);
+
+        while (stringReader != null)
+        {
+            string line = stringReader.ReadLine();
+            Debug.Log(line);
+            if(line == null)
+            {
+                break;
+            }
+            //3. 리스폰 데이터 생성
+            Spawn spawnData = new Spawn();
+            spawnData._delay = float.Parse(line.Split(',')[0]);
+            spawnData._type = line.Split(',')[1];
+            spawnData._point = int.Parse(line.Split(',')[2]);
+            _spawnList.Add(spawnData);
+        }
+
+        //4. 텍스트 파일 닫기
+        stringReader.Close();
+
+        //5. 다음번째 스폰 딜레이 적용
+        _nextSpawnDelay = _spawnList[0]._delay;
+    }
 
     void Update()
     {
         _curSpawnDelay += Time.deltaTime;
 
-        if (_curSpawnDelay > _maxSpawnDelay)
+        if (_curSpawnDelay > _nextSpawnDelay && !_isSpawnEnd)
         {
             SpawnEnemy();
-            _maxSpawnDelay = Random.Range(0.5f, 3f);
             _curSpawnDelay = 0;
         }
 
@@ -43,22 +82,34 @@ public class GameManager : MonoBehaviour
 
     void SpawnEnemy()
     {
-        int randomEnemy = Random.Range(0, _enemyObjects.Length);
-        int randomPoint = Random.Range(0, _spawnPoints.Length);
-        GameObject enemy = _objectManager.MakeObject(_enemyObjects[randomEnemy]);
-        enemy.transform.position = _spawnPoints[randomPoint].position;
+        int enemyIndex = 0;
+        switch (_spawnList[_spawnIndex]._type)
+        {
+            case "S":
+                enemyIndex = 0;
+                break;
+            case "M":
+                enemyIndex = 1;
+                break;
+            case "L":
+                enemyIndex = 2;
+                break;
+        }
+        int enemyPoint = _spawnList[_spawnIndex]._point;
+        GameObject enemy = _objectManager.MakeObject(_enemyObjects[enemyIndex]);
+        enemy.transform.position = _spawnPoints[enemyPoint].position;
 
         Rigidbody2D rigid = enemy.GetComponent<Rigidbody2D>();
         Enemy enemyLogic = enemy.GetComponent<Enemy>();
         enemyLogic._player = _player;
         enemyLogic._objectManager = _objectManager;
 
-        if (randomPoint == 5 || randomPoint == 6)   // Left Spawn
+        if (enemyPoint == 5 || enemyPoint == 6)   // Left Spawn
         {
             rigid.velocity = new Vector2(enemyLogic._moveSpeed, -1);
             enemy.transform.Rotate(Vector3.forward * 90);
         }
-        else if (randomPoint == 7 || randomPoint == 8)  // Right Spawn
+        else if (enemyPoint == 7 || enemyPoint == 8)  // Right Spawn
         {
             rigid.velocity = new Vector2(enemyLogic._moveSpeed * (-1), -1);
             enemy.transform.Rotate(Vector3.back * 90);
@@ -67,6 +118,16 @@ public class GameManager : MonoBehaviour
         {
             rigid.velocity = new Vector2(0, enemyLogic._moveSpeed * (-1));
         }
+
+        //#. 리스폰 인덱스 증가
+        _spawnIndex++;
+        if(_spawnIndex == _spawnList.Count)
+        {
+            _isSpawnEnd = true;
+            return;
+        }
+        //#. 다음 리스폰 딜레이 갱신
+        _nextSpawnDelay = _spawnList[_spawnIndex]._delay;
     }
 
     public void UpdateLifeIcon(int life)
