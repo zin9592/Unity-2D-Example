@@ -26,7 +26,6 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         _spawnList = new List<Spawn>();
-        _enemyObjects = new string[] {"EnemyS", "EnemyM", "EnemyL"};
         ReadSpawnFile();
     }
     void ReadSpawnFile()
@@ -44,7 +43,6 @@ public class GameManager : MonoBehaviour
         while (stringReader != null)
         {
             string line = stringReader.ReadLine();
-            Debug.Log(line);
             if(line == null)
             {
                 break;
@@ -82,21 +80,21 @@ public class GameManager : MonoBehaviour
 
     void SpawnEnemy()
     {
-        int enemyIndex = 0;
+        ObjectManager.Type enemyType = 0;
         switch (_spawnList[_spawnIndex]._type)
         {
             case "S":
-                enemyIndex = 0;
+                enemyType = ObjectManager.Type.EnemyS;
                 break;
             case "M":
-                enemyIndex = 1;
+                enemyType = ObjectManager.Type.EnemyM;
                 break;
             case "L":
-                enemyIndex = 2;
+                enemyType = ObjectManager.Type.EnemyL;
                 break;
         }
         int enemyPoint = _spawnList[_spawnIndex]._point;
-        GameObject enemy = _objectManager.MakeObject(_enemyObjects[enemyIndex]);
+        GameObject enemy = _objectManager.MakeObject(enemyType);
         enemy.transform.position = _spawnPoints[enemyPoint].position;
 
         Rigidbody2D rigid = enemy.GetComponent<Rigidbody2D>();

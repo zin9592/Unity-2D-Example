@@ -2,6 +2,21 @@ using UnityEngine;
 
 public class ObjectManager : MonoBehaviour
 {
+    public enum Type
+    {
+        EnemyL,
+        EnemyM,
+        EnemyS,
+        ItemCoin,
+        ItemPower,
+        ItemBoom,
+        BulletPlayerA,
+        BulletPlayerB,
+        BulletEnemyA,
+        BulletEnemyB,
+        BulletFollwer
+    }
+
     public GameObject _enemyLPrefab;
     public GameObject _enemyMPrefab;
     public GameObject _enemySPrefab;
@@ -12,6 +27,7 @@ public class ObjectManager : MonoBehaviour
     public GameObject _bulletPlayerBPrefab;
     public GameObject _bulletEnemyAPrefab;
     public GameObject _bulletEnemyBPrefab;
+    public GameObject _bulletFollwerPrefab;
 
     GameObject[] _enemyL;
     GameObject[] _enemyM;
@@ -25,6 +41,7 @@ public class ObjectManager : MonoBehaviour
     GameObject[] _bulletPlayerB;
     GameObject[] _bulletEnemyA;
     GameObject[] _bulletEnemyB;
+    GameObject[] _bulletFollwer;
 
     GameObject[] _targetPool;
 
@@ -42,6 +59,7 @@ public class ObjectManager : MonoBehaviour
         _bulletPlayerB = new GameObject[100];
         _bulletEnemyA = new GameObject[100];
         _bulletEnemyB = new GameObject[100];
+        _bulletFollwer = new GameObject[100];
 
         Generate();
     }
@@ -107,42 +125,51 @@ public class ObjectManager : MonoBehaviour
             _bulletEnemyB[i] = Instantiate(_bulletEnemyBPrefab);
             _bulletEnemyB[i].SetActive(false);
         }
+        for (int i = 0; i < _bulletFollwer.Length; i++)
+        {
+            _bulletFollwer[i] = Instantiate(_bulletFollwerPrefab);
+            _bulletFollwer[i].SetActive(false);
+        }
     }
 
-    public GameObject MakeObject(string type)
+    public GameObject MakeObject(Type type)
     {
         switch (type)
         {
-            case "EnemyL":
+            case Type.EnemyL:
                 _targetPool = _enemyL;
                 break;
-            case "EnemyM":
+            case Type.EnemyM:
                 _targetPool = _enemyM;
                 break;
-            case "EnemyS":
+            case Type.EnemyS:
                 _targetPool = _enemyS;
                 break;
-            case "ItemCoin":
+            case Type.ItemCoin:
                 _targetPool = _itemCoin;
                 break;
-            case "ItemPower":
+            case Type.ItemPower:
                 _targetPool = _itemPower;
                 break;
-            case "ItemBoom":
+            case Type.ItemBoom:
                 _targetPool = _itemBoom;
                 break;
-            case "BulletPlayerA":
+            case Type.BulletPlayerA:
                 _targetPool = _bulletPlayerA;
                 break;
-            case "BulletPlayerB":
+            case Type.BulletPlayerB:
                 _targetPool = _bulletPlayerB;
                 break;
-            case "BulletEnemyA":
+            case Type.BulletEnemyA:
                 _targetPool = _bulletEnemyA;
                 break;
-            case "BulletEnemyB":
+            case Type.BulletEnemyB:
                 _targetPool = _bulletEnemyB;
                 break;
+            case Type.BulletFollwer:
+                _targetPool = _bulletFollwer;
+                break;
+
         }
 
         for (int i = 0; i < _targetPool.Length; i++)
@@ -158,39 +185,42 @@ public class ObjectManager : MonoBehaviour
         return null;
     }
 
-    public GameObject[] GetPool(string type)
+    public GameObject[] GetPool(Type type)
     {
         switch (type)
         {
-            case "EnemyL":
+            case Type.EnemyL:
                 _targetPool = _enemyL;
                 break;
-            case "EnemyM":
+            case Type.EnemyM:
                 _targetPool = _enemyM;
                 break;
-            case "EnemyS":
+            case Type.EnemyS:
                 _targetPool = _enemyS;
                 break;
-            case "ItemCoin":
+            case Type.ItemCoin:
                 _targetPool = _itemCoin;
                 break;
-            case "ItemPower":
+            case Type.ItemPower:
                 _targetPool = _itemPower;
                 break;
-            case "ItemBoom":
+            case Type.ItemBoom:
                 _targetPool = _itemBoom;
                 break;
-            case "BulletPlayerA":
+            case Type.BulletPlayerA:
                 _targetPool = _bulletPlayerA;
                 break;
-            case "BulletPlayerB":
+            case Type.BulletPlayerB:
                 _targetPool = _bulletPlayerB;
                 break;
-            case "BulletEnemyA":
+            case Type.BulletEnemyA:
                 _targetPool = _bulletEnemyA;
                 break;
-            case "BulletEnemyB":
+            case Type.BulletEnemyB:
                 _targetPool = _bulletEnemyB;
+                break;
+            case Type.BulletFollwer:
+                _targetPool = _bulletFollwer;
                 break;
         }
 

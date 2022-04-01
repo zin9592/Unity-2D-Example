@@ -36,6 +36,10 @@ public class Player : MonoBehaviour
     // Boom 오브젝트
     public GameObject _boomEffect;
 
+    // 팔로워
+    public GameObject[] _followers;
+
+
     // Manager
     public GameManager _gameManager;
     public ObjectManager _objectManager;
@@ -97,7 +101,7 @@ public class Player : MonoBehaviour
             case 1:
                 // Power 1
 
-                GameObject bullet = _objectManager.MakeObject("BulletPlayerA");
+                GameObject bullet = _objectManager.MakeObject(ObjectManager.Type.BulletPlayerA);
                 bullet.transform.position = transform.position;
 
                 Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
@@ -105,9 +109,9 @@ public class Player : MonoBehaviour
                 break;
             case 2:
                 // Power 2 : Double Shot
-                GameObject doubleBulletL = _objectManager.MakeObject("BulletPlayerA");
+                GameObject doubleBulletL = _objectManager.MakeObject(ObjectManager.Type.BulletPlayerA);
                 doubleBulletL.transform.position = transform.position + Vector3.left * 0.1f;
-                GameObject doubleBulletR = _objectManager.MakeObject("BulletPlayerA");
+                GameObject doubleBulletR = _objectManager.MakeObject(ObjectManager.Type.BulletPlayerA);
                 doubleBulletR.transform.position = transform.position + Vector3.right * 0.1f;
                 Rigidbody2D doubleBulletRigidL = doubleBulletL.GetComponent<Rigidbody2D>();
                 Rigidbody2D doubleBulletRigidR = doubleBulletR.GetComponent<Rigidbody2D>();
@@ -115,12 +119,15 @@ public class Player : MonoBehaviour
                 doubleBulletRigidR.AddForce(Vector2.up * _bulletSpeed, ForceMode2D.Impulse);
                 break;
             case 3:
+            case 4:
+            case 5:
+            case 6:
                 // Power 3 : Triple Shot
-                GameObject TripleBulletL = _objectManager.MakeObject("BulletPlayerA");
+                GameObject TripleBulletL = _objectManager.MakeObject(ObjectManager.Type.BulletPlayerA);
                 TripleBulletL.transform.position = transform.position + Vector3.left * 0.4f;
-                GameObject TripleBulletC = _objectManager.MakeObject("BulletPlayerB");
+                GameObject TripleBulletC = _objectManager.MakeObject(ObjectManager.Type.BulletPlayerB);
                 TripleBulletC.transform.position = transform.position;
-                GameObject TripleBulletR = _objectManager.MakeObject("BulletPlayerA");
+                GameObject TripleBulletR = _objectManager.MakeObject(ObjectManager.Type.BulletPlayerA);
                 TripleBulletR.transform.position = transform.position + Vector3.right * 0.4f;
                 Rigidbody2D TripleBulletRigidL = TripleBulletL.GetComponent<Rigidbody2D>();
                 Rigidbody2D TripleBulletRigidC = TripleBulletC.GetComponent<Rigidbody2D>();
@@ -226,6 +233,7 @@ public class Player : MonoBehaviour
                     else
                     {
                         _bulletPower++;
+                        AddFollwer();
                     }
                     break;
                 case "Boom":
@@ -244,12 +252,27 @@ public class Player : MonoBehaviour
         }
     }
 
+    void AddFollwer()
+    {
+        if(_bulletPower == 4)
+        {
+            _followers[0].SetActive(true);
+        }else if (_bulletPower == 5)
+        {
+            _followers[1].SetActive(true);
+        }
+        else if (_bulletPower == 6)
+        {
+            _followers[2].SetActive(true);
+        }
+    }
+
     void BoomDamage()
     {
         // #2. Remove Enemy
-        GameObject[] enemiesL = _objectManager.GetPool("EnemyL");
-        GameObject[] enemiesM = _objectManager.GetPool("EnemyM");
-        GameObject[] enemiesS = _objectManager.GetPool("EnemyS");
+        GameObject[] enemiesL = _objectManager.GetPool(ObjectManager.Type.EnemyL);
+        GameObject[] enemiesM = _objectManager.GetPool(ObjectManager.Type.EnemyM);
+        GameObject[] enemiesS = _objectManager.GetPool(ObjectManager.Type.EnemyS);
 
         var tempList = new List<GameObject>();
         tempList.AddRange(enemiesL);
@@ -267,8 +290,8 @@ public class Player : MonoBehaviour
             }
         }
         // #3. Remove Enemy Bullet
-        GameObject[] bulletsA = _objectManager.GetPool("BulletEnemyA");
-        GameObject[] bulletsB = _objectManager.GetPool("BulletEnemyB");
+        GameObject[] bulletsA = _objectManager.GetPool(ObjectManager.Type.BulletEnemyA);
+        GameObject[] bulletsB = _objectManager.GetPool(ObjectManager.Type.BulletEnemyB);
 
         var tempList2 = new List<GameObject>();
         tempList2.AddRange(bulletsA);

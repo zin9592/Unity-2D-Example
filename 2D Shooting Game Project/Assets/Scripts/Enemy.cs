@@ -54,7 +54,7 @@ public class Enemy : MonoBehaviour
         }
         if (_enemyName == "S")
         {
-            GameObject bullet = _objectManager.MakeObject("BulletEnemyA");
+            GameObject bullet = _objectManager.MakeObject(ObjectManager.Type.BulletEnemyA);
             bullet.transform.position = transform.position;
             Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
             // 바라보는 각도
@@ -63,10 +63,10 @@ public class Enemy : MonoBehaviour
         }
         else if (_enemyName == "L")
         {
-            GameObject bulletL = _objectManager.MakeObject("BulletEnemyB");
+            GameObject bulletL = _objectManager.MakeObject(ObjectManager.Type.BulletEnemyB);
             bulletL.transform.position = transform.position + Vector3.left * 0.3f;
 
-            GameObject bulletR = _objectManager.MakeObject("BulletEnemyB");
+            GameObject bulletR = _objectManager.MakeObject(ObjectManager.Type.BulletEnemyB);
             bulletR.transform.position = transform.position + Vector3.right * 0.3f;
 
             Rigidbody2D rigidL = bulletL.GetComponent<Rigidbody2D>();
@@ -112,19 +112,19 @@ public class Enemy : MonoBehaviour
             else if(ran < 8)
             {
                 // Coin
-                GameObject itemCoin = _objectManager.MakeObject("ItemCoin");
+                GameObject itemCoin = _objectManager.MakeObject(ObjectManager.Type.ItemCoin);
                 itemCoin.transform.position = transform.position;
             }
             else if (ran < 9)
             {
                 // Power
-                GameObject itemPower = _objectManager.MakeObject("ItemPower");
+                GameObject itemPower = _objectManager.MakeObject(ObjectManager.Type.ItemPower);
                 itemPower.transform.position = transform.position;
             }
             else if (ran < 10)
             {
                 // Boom
-                GameObject itemBoom = _objectManager.MakeObject("ItemBoom");
+                GameObject itemBoom = _objectManager.MakeObject(ObjectManager.Type.ItemBoom);
                 itemBoom.transform.position = transform.position;
             }
             gameObject.SetActive(false);
