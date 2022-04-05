@@ -92,6 +92,9 @@ public class GameManager : MonoBehaviour
             case "L":
                 enemyType = ObjectManager.Type.EnemyL;
                 break;
+            case "B":
+                enemyType = ObjectManager.Type.EnemyB;
+                break;
         }
         int enemyPoint = _spawnList[_spawnIndex]._point;
         GameObject enemy = _objectManager.MakeObject(enemyType);

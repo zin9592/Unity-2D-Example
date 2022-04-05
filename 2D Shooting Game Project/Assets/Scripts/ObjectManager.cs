@@ -7,6 +7,7 @@ public class ObjectManager : MonoBehaviour
         EnemyL,
         EnemyM,
         EnemyS,
+        EnemyB,
         ItemCoin,
         ItemPower,
         ItemBoom,
@@ -14,9 +15,12 @@ public class ObjectManager : MonoBehaviour
         BulletPlayerB,
         BulletEnemyA,
         BulletEnemyB,
+        BulletBossA,
+        BulletBossB,
         BulletFollwer
     }
 
+    public GameObject _enemyBPrefab;
     public GameObject _enemyLPrefab;
     public GameObject _enemyMPrefab;
     public GameObject _enemySPrefab;
@@ -27,8 +31,11 @@ public class ObjectManager : MonoBehaviour
     public GameObject _bulletPlayerBPrefab;
     public GameObject _bulletEnemyAPrefab;
     public GameObject _bulletEnemyBPrefab;
+    public GameObject _bulletBossAPrefab;
+    public GameObject _bulletBossBPrefab;
     public GameObject _bulletFollwerPrefab;
 
+    GameObject[] _enemyB;
     GameObject[] _enemyL;
     GameObject[] _enemyM;
     GameObject[] _enemyS;
@@ -41,12 +48,15 @@ public class ObjectManager : MonoBehaviour
     GameObject[] _bulletPlayerB;
     GameObject[] _bulletEnemyA;
     GameObject[] _bulletEnemyB;
+    GameObject[] _bulletBossA;
+    GameObject[] _bulletBossB;
     GameObject[] _bulletFollwer;
 
     GameObject[] _targetPool;
 
     void Awake()
     {
+        _enemyB = new GameObject[5];
         _enemyL = new GameObject[10];
         _enemyM = new GameObject[10];
         _enemyS = new GameObject[20];
@@ -59,6 +69,8 @@ public class ObjectManager : MonoBehaviour
         _bulletPlayerB = new GameObject[100];
         _bulletEnemyA = new GameObject[100];
         _bulletEnemyB = new GameObject[100];
+        _bulletBossA = new GameObject[100];
+        _bulletBossB = new GameObject[100];
         _bulletFollwer = new GameObject[100];
 
         Generate();
@@ -71,6 +83,11 @@ public class ObjectManager : MonoBehaviour
         // 2. 첫 로딩시간 = 장면 배치 + 오브젝트 풀 생성
 
         // 1. Enemy
+        for (int i = 0; i < _enemyB.Length; i++)
+        {
+            _enemyB[i] = Instantiate(_enemyBPrefab);
+            _enemyB[i].SetActive(false);
+        }
         for (int i = 0; i < _enemyL.Length; i++)
         {
             _enemyL[i] = Instantiate(_enemyLPrefab);
@@ -125,6 +142,16 @@ public class ObjectManager : MonoBehaviour
             _bulletEnemyB[i] = Instantiate(_bulletEnemyBPrefab);
             _bulletEnemyB[i].SetActive(false);
         }
+        for (int i = 0; i < _bulletBossA.Length; i++)
+        {
+            _bulletBossA[i] = Instantiate(_bulletBossAPrefab);
+            _bulletBossA[i].SetActive(false);
+        }
+        for (int i = 0; i < _bulletBossB.Length; i++)
+        {
+            _bulletBossB[i] = Instantiate(_bulletBossBPrefab);
+            _bulletBossB[i].SetActive(false);
+        }
         for (int i = 0; i < _bulletFollwer.Length; i++)
         {
             _bulletFollwer[i] = Instantiate(_bulletFollwerPrefab);
@@ -136,6 +163,9 @@ public class ObjectManager : MonoBehaviour
     {
         switch (type)
         {
+            case Type.EnemyB:
+                _targetPool = _enemyB;
+                break;
             case Type.EnemyL:
                 _targetPool = _enemyL;
                 break;
@@ -165,6 +195,12 @@ public class ObjectManager : MonoBehaviour
                 break;
             case Type.BulletEnemyB:
                 _targetPool = _bulletEnemyB;
+                break;
+            case Type.BulletBossA:
+                _targetPool = _bulletBossA;
+                break;
+            case Type.BulletBossB:
+                _targetPool = _bulletBossB;
                 break;
             case Type.BulletFollwer:
                 _targetPool = _bulletFollwer;
@@ -189,6 +225,9 @@ public class ObjectManager : MonoBehaviour
     {
         switch (type)
         {
+            case Type.EnemyB:
+                _targetPool = _enemyB;
+                break;
             case Type.EnemyL:
                 _targetPool = _enemyL;
                 break;
@@ -218,6 +257,12 @@ public class ObjectManager : MonoBehaviour
                 break;
             case Type.BulletEnemyB:
                 _targetPool = _bulletEnemyB;
+                break;
+            case Type.BulletBossA:
+                _targetPool = _bulletBossA;
+                break;
+            case Type.BulletBossB:
+                _targetPool = _bulletBossB;
                 break;
             case Type.BulletFollwer:
                 _targetPool = _bulletFollwer;

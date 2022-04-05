@@ -29,10 +29,16 @@ public class Enemy : MonoBehaviour
     public ObjectManager _objectManager;
 
     SpriteRenderer _spriteRenderer;
+    Animator _anim;
 
     void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
+
+        if(_enemyName == "B")
+        {
+            _anim = GetComponent<Animator>();
+        }
     }
 
     void OnEnable()
@@ -42,6 +48,10 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
+        if(_enemyName == "B")
+        {
+            return;
+        }
         Fire();
         Reload();
     }
@@ -94,16 +104,22 @@ public class Enemy : MonoBehaviour
             return;
         }
         _health -= damamge;
-        _spriteRenderer.sprite = _sprites[1];
-        Invoke("ReturnSprite", 0.1f);
-
+        if (_enemyName == "B")
+        {
+            _anim.SetTrigger("OnHit");
+        }
+        else
+        {
+            _spriteRenderer.sprite = _sprites[1];
+            Invoke("ReturnSprite", 0.1f);
+        }
         if (_health <= 0)
         {
             Player playerLogic = _player.GetComponent<Player>();
             playerLogic._score += _enemyScore;
 
             //#.Random Ratio Item Drop
-            int ran = Random.Range(0,10);
+            int ran = _enemyName == "B" ? 0 : Random.Range(0,10);
             
             if(ran < 5)
             {
@@ -140,7 +156,7 @@ public class Enemy : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         // 맵 밖으로 나간 일반기체는 삭제
-        if (collision.gameObject.tag == "BorderBullet")
+        if (collision.gameObject.tag == "BorderBullet" && _enemyName != "B")
         {
             gameObject.SetActive(false);
             transform.rotation = Quaternion.identity;
