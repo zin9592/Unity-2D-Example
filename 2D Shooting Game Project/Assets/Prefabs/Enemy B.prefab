@@ -157,8 +157,8 @@ MonoBehaviour:
   _enemyName: B
   _enemyScore: 5000
   _moveSpeed: 1.5
-  _health: 10000
-  _maxHealth: 10000
+  _health: 3000
+  _maxHealth: 3000
   _sprites: []
   _curShotDelay: 0
   _maxShotDelay: 0

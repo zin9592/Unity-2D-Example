@@ -31,6 +31,10 @@ public class Enemy : MonoBehaviour
     SpriteRenderer _spriteRenderer;
     Animator _anim;
 
+    public int patternIndex;
+    public int curPatternCount;
+    public int[] maxPatternCount;
+
     void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
@@ -43,7 +47,64 @@ public class Enemy : MonoBehaviour
 
     void OnEnable()
     {
-        _health = _maxHealth;     
+        _health = _maxHealth;
+        if(_enemyName == "B")
+        {
+            Invoke("Stop", 2);
+        }
+    }
+
+    void Stop()
+    {
+        // 오브젝트 풀링으로 OnEnable이 두번 호출되기 때문에 조건을 추가
+        if (!gameObject.activeSelf)
+        {
+            return;
+        }
+        Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
+        rigidbody.velocity = Vector2.zero;
+
+    }
+
+    void Think()
+    {
+        patternIndex = patternIndex == 3 ? 0 : patternIndex + 1;
+
+        switch (patternIndex)
+        {
+            case 0:
+                FireFoward();
+                break;
+            case 1:
+                FireShot();
+                break;
+            case 2:
+                FireArc();
+                break;
+            case 3:
+                FireAround();
+                break;
+        }
+    }
+
+    void FireFoward()
+    {
+
+    }
+
+    void FireShot()
+    {
+
+    }
+
+    void FireArc()
+    {
+
+    }
+
+    void FireAround()
+    {
+
     }
 
     void Update()
