@@ -70,7 +70,7 @@ public class ObjectManager : MonoBehaviour
         _bulletEnemyA = new GameObject[100];
         _bulletEnemyB = new GameObject[100];
         _bulletBossA = new GameObject[100];
-        _bulletBossB = new GameObject[100];
+        _bulletBossB = new GameObject[300];
         _bulletFollwer = new GameObject[100];
 
         Generate();

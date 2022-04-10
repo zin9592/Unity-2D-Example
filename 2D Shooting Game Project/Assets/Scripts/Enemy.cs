@@ -39,7 +39,7 @@ public class Enemy : MonoBehaviour
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
 
-        if(_enemyName == "B")
+        if (_enemyName == "B")
         {
             _anim = GetComponent<Animator>();
         }
@@ -48,7 +48,7 @@ public class Enemy : MonoBehaviour
     void OnEnable()
     {
         _health = _maxHealth;
-        if(_enemyName == "B")
+        if (_enemyName == "B")
         {
             Invoke("Stop", 2);
         }
@@ -64,11 +64,14 @@ public class Enemy : MonoBehaviour
         Rigidbody2D rigidbody = GetComponent<Rigidbody2D>();
         rigidbody.velocity = Vector2.zero;
 
+        Invoke("Think", 2);
+
     }
 
     void Think()
     {
         patternIndex = patternIndex == 3 ? 0 : patternIndex + 1;
+        curPatternCount = 0;
 
         switch (patternIndex)
         {
@@ -89,27 +92,121 @@ public class Enemy : MonoBehaviour
 
     void FireFoward()
     {
+        //#. Fire 4 Bullet Foward
+        GameObject bulletR = _objectManager.MakeObject(ObjectManager.Type.BulletBossA);
+        GameObject bulletRR = _objectManager.MakeObject(ObjectManager.Type.BulletBossA);
+        GameObject bulletL = _objectManager.MakeObject(ObjectManager.Type.BulletBossA);
+        GameObject bulletLL = _objectManager.MakeObject(ObjectManager.Type.BulletBossA);
 
+        bulletR.transform.position = transform.position + Vector3.right * 0.3f;
+        bulletRR.transform.position = transform.position + Vector3.right * 0.45f;
+        bulletL.transform.position = transform.position + Vector3.left * 0.3f;
+        bulletLL.transform.position = transform.position + Vector3.left * 0.45f;
+
+        Rigidbody2D rigidR = bulletR.GetComponent<Rigidbody2D>();
+        Rigidbody2D rigidRR = bulletRR.GetComponent<Rigidbody2D>();
+        Rigidbody2D rigidL = bulletL.GetComponent<Rigidbody2D>();
+        Rigidbody2D rigidLL = bulletLL.GetComponent<Rigidbody2D>();
+
+        rigidR.AddForce(Vector2.down * 8, ForceMode2D.Impulse);
+        rigidRR.AddForce(Vector2.down * 8, ForceMode2D.Impulse);
+        rigidL.AddForce(Vector2.down * 8, ForceMode2D.Impulse);
+        rigidLL.AddForce(Vector2.down * 8, ForceMode2D.Impulse);
+
+        //#.Pattern Counting
+        curPatternCount++;
+        if (curPatternCount < maxPatternCount[patternIndex])
+        {
+            Invoke("FireFoward", 0.15f);
+        }
+        else
+        {
+            Invoke("Think", 3);
+        }
     }
 
     void FireShot()
     {
-
+        //#.Fire Shot
+        for (int i = 0; i < 5; i++)
+        {
+            GameObject bullet = _objectManager.MakeObject(ObjectManager.Type.BulletEnemyB);
+            bullet.transform.position = transform.position;
+            Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
+            Vector2 dirVec = _player.transform.position - transform.position;
+            Vector2 ranVec = new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(0f, 2f));
+            dirVec += ranVec;
+            rigid.AddForce(dirVec.normalized * 3, ForceMode2D.Impulse);
+        }
+        //#.Pattern Counting
+        curPatternCount++;
+        if (curPatternCount < maxPatternCount[patternIndex])
+        {
+            Invoke("FireShot", 0.7f);
+        }
+        else
+        {
+            Invoke("Think", 3);
+        }
     }
 
     void FireArc()
     {
+        //#.Fire Arc Continue Fire
+        GameObject bullet = _objectManager.MakeObject(ObjectManager.Type.BulletEnemyA);
+        bullet.transform.position = transform.position;
+        bullet.transform.rotation = Quaternion.identity;
 
+        Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
+        Vector3 dirVec = new Vector2(Mathf.Cos(Mathf.PI * 10 * curPatternCount / maxPatternCount[patternIndex]), -1);
+        rigid.AddForce(dirVec.normalized * 5, ForceMode2D.Impulse);
+
+        //#.Pattern Counting
+        curPatternCount++;
+        if (curPatternCount < maxPatternCount[patternIndex])
+        {
+            Invoke("FireArc", 0.15f);
+        }
+        else
+        {
+            Invoke("Think", 3);
+        }
     }
 
     void FireAround()
     {
+        //#.Fire Around
+        int roundNum = curPatternCount % 2 == 0 ? 50 : 40;
+        for(int i = 0; i < roundNum; i++)
+        {
+            GameObject bullet = _objectManager.MakeObject(ObjectManager.Type.BulletBossB);
+            bullet.transform.position = transform.position;
+            bullet.transform.rotation = Quaternion.identity;
 
+            Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
+            Vector2 dirVec = new Vector2(Mathf.Cos(Mathf.PI * 2 * i / roundNum)
+                                        ,Mathf.Sin(Mathf.PI * 2 * i / roundNum));
+            rigid.AddForce(dirVec.normalized * 2, ForceMode2D.Impulse);
+
+            Vector3 rotVec = Vector3.forward * 360 * i / roundNum + Vector3.forward * 90;
+            bullet.transform.Rotate(rotVec);
+        }
+
+        //#.Pattern Counting
+        curPatternCount++;
+        if (curPatternCount < maxPatternCount[patternIndex])
+        {
+            Invoke("FireAround", 0.7f);
+        }
+        else
+        {
+            Invoke("Think", 3);
+        }
     }
 
     void Update()
     {
-        if(_enemyName == "B")
+        if (_enemyName == "B")
         {
             return;
         }
@@ -128,7 +225,6 @@ public class Enemy : MonoBehaviour
             GameObject bullet = _objectManager.MakeObject(ObjectManager.Type.BulletEnemyA);
             bullet.transform.position = transform.position;
             Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
-            // 바라보는 각도
             Vector3 dirVec = _player.transform.position - transform.position;
             rigid.AddForce(dirVec.normalized * 3, ForceMode2D.Impulse);
         }
@@ -180,13 +276,13 @@ public class Enemy : MonoBehaviour
             playerLogic._score += _enemyScore;
 
             //#.Random Ratio Item Drop
-            int ran = _enemyName == "B" ? 0 : Random.Range(0,10);
-            
-            if(ran < 5)
+            int ran = _enemyName == "B" ? 0 : Random.Range(0, 10);
+
+            if (ran < 5)
             {
                 // None Item
             }
-            else if(ran < 8)
+            else if (ran < 8)
             {
                 // Coin
                 GameObject itemCoin = _objectManager.MakeObject(ObjectManager.Type.ItemCoin);
