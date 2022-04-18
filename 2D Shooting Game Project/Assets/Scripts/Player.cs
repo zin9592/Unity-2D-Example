@@ -39,17 +39,60 @@ public class Player : MonoBehaviour
     // 팔로워
     public GameObject[] _followers;
 
+    // 리스폰
+    public bool _isRespawnTime;
+    SpriteRenderer _sprite;
 
     // Manager
     public GameManager _gameManager;
     public ObjectManager _objectManager;
 
+    // Anim
     Animator _animator;
+
+    // JoyControl
+    public bool[] _joyControl;   //어느 버튼을 눌렀나요?
+    public bool _isControl;      //지금 버튼을 눌렀나요?
+
+    // Button A,B
+    public bool _isButtonA;
+    public bool _isButtonB;
 
     void Awake()
     {
         _animator = GetComponent<Animator>();
+        _sprite = GetComponent<SpriteRenderer>();
         _gameManager.UpdateBoomIcon(_boom);
+    }
+
+    void OnEnable()
+    {
+        Unbeatable();
+    }
+
+    void Unbeatable()
+    {
+        _isRespawnTime = !_isRespawnTime;
+        if (_isRespawnTime) // #. 무적 타임 이펙트(투명)
+        {
+            _sprite.color = new Color(1, 1, 1, 0.5f);
+
+            for (int i = 0; i < _followers.Length; i++)
+            {
+                _followers[i].GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
+            }
+
+            Invoke("Unbeatable", 3);
+        }
+        else // #. 무적 타임 종료 (원래대로)
+        {
+            _sprite.color = new Color(1, 1, 1, 1);
+
+            for (int i = 0; i < _followers.Length; i++)
+            {
+                _followers[i].GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+            }
+        }
     }
 
     void Update()
@@ -60,15 +103,47 @@ public class Player : MonoBehaviour
         Reload();
     }
 
+    public void JoyPanel(int type)
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            _joyControl[i] = i == type;
+            // 만약 5번을 눌렀으면 5번만 true 나머지는 false가 된다.
+        }
+    }
+
+    public void JoyDown()
+    {
+        _isControl = true;
+    }
+
+    public void JoyUp()
+    {
+        _isControl = false;
+    }
+
     void Move()
     {
-        float h = Input.GetAxisRaw("Horizontal");   // 수평
-        if ((_isTouchRight && h == 1) || (_isTouchLeft && h == -1))
+        //#.Keyboard Control Value
+        float h = Input.GetAxisRaw("Horizontal");
+        float v = Input.GetAxisRaw("Vertical");
+
+        //#.Joy Control Value
+        if (_joyControl[0]) { h = -1; v = 1; }
+        if (_joyControl[1]) { h = 0; v = 1; }
+        if (_joyControl[2]) { h = 1; v = 1; }
+        if (_joyControl[3]) { h = -1; v = 0; }
+        if (_joyControl[4]) { h = 0; v = 0; }
+        if (_joyControl[5]) { h = 1; v = 0; }
+        if (_joyControl[6]) { h = -1; v = -1; }
+        if (_joyControl[7]) { h = 0; v = -1; }
+        if (_joyControl[8]) { h = 1; v = -1; }
+
+        if ((_isTouchRight && h == 1) || (_isTouchLeft && h == -1) || !_isControl)
         {
             h = 0;
         }
-        float v = Input.GetAxisRaw("Vertical");     // 수직
-        if ((_isTouchTop && v == 1) || (_isTouchBottom && v == -1))
+        if ((_isTouchTop && v == 1) || (_isTouchBottom && v == -1) || !_isControl)
         {
             v = 0;
         }
@@ -83,10 +158,32 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void ButtonAUp()
+    {
+        _isButtonA = false;
+    }
+    public void ButtonADown()
+    {
+        _isButtonA = true;
+    }
+    public void ButtonBUp()
+    {
+        _isButtonB = false;
+    }
+    public void ButtonBDown()
+    {
+        _isButtonB = true;
+    }
+
     void Fire()
     {
-
+        /*
         if (!Input.GetButton("Fire1"))
+        {
+            return;
+        }*/
+
+        if (!_isButtonA)
         {
             return;
         }
@@ -142,8 +239,14 @@ public class Player : MonoBehaviour
 
     void Boom()
     {
+        /*
         // Fire2 버튼을 안눌렀는가?
         if (!Input.GetButton("Fire2"))
+        {
+            return;
+        }*/
+
+        if (!_isButtonB)
         {
             return;
         }
@@ -197,6 +300,10 @@ public class Player : MonoBehaviour
         else if (collision.gameObject.tag == "Enemy" ||
                 collision.gameObject.tag == "EnemyBullet")
         {
+            if (_isRespawnTime)
+            {
+                return;
+            }
             if (_isHit)
             {
                 return;
@@ -204,6 +311,7 @@ public class Player : MonoBehaviour
             _isHit = true;
             _life--;
             _gameManager.UpdateLifeIcon(_life);
+            _gameManager.CallExplosion(transform.position, Explosion.Type.Player);
 
             if (_life == 0)
             {
@@ -215,7 +323,10 @@ public class Player : MonoBehaviour
             }
             gameObject.SetActive(false);
             // Invoke는 SetActive가 활성화되어야 가능하므로 GameManager로 넘겨준다.
-            collision.gameObject.SetActive(false);
+            if (collision.gameObject.tag == "EnemyBullet")
+            {
+                collision.gameObject.SetActive(false);
+            }
         }
         else if (collision.gameObject.tag == "Item")
         {
@@ -254,10 +365,11 @@ public class Player : MonoBehaviour
 
     void AddFollwer()
     {
-        if(_bulletPower == 4)
+        if (_bulletPower == 4)
         {
             _followers[0].SetActive(true);
-        }else if (_bulletPower == 5)
+        }
+        else if (_bulletPower == 5)
         {
             _followers[1].SetActive(true);
         }
@@ -270,11 +382,13 @@ public class Player : MonoBehaviour
     void BoomDamage()
     {
         // #2. Remove Enemy
+        GameObject[] enemiesB = _objectManager.GetPool(ObjectManager.Type.EnemyB);
         GameObject[] enemiesL = _objectManager.GetPool(ObjectManager.Type.EnemyL);
         GameObject[] enemiesM = _objectManager.GetPool(ObjectManager.Type.EnemyM);
         GameObject[] enemiesS = _objectManager.GetPool(ObjectManager.Type.EnemyS);
 
         var tempList = new List<GameObject>();
+        tempList.AddRange(enemiesB);
         tempList.AddRange(enemiesL);
         tempList.AddRange(enemiesM);
         tempList.AddRange(enemiesS);
@@ -292,10 +406,14 @@ public class Player : MonoBehaviour
         // #3. Remove Enemy Bullet
         GameObject[] bulletsA = _objectManager.GetPool(ObjectManager.Type.BulletEnemyA);
         GameObject[] bulletsB = _objectManager.GetPool(ObjectManager.Type.BulletEnemyB);
+        GameObject[] bulletsBossA = _objectManager.GetPool(ObjectManager.Type.BulletBossA);
+        GameObject[] bulletsBossB = _objectManager.GetPool(ObjectManager.Type.BulletBossB);
 
         var tempList2 = new List<GameObject>();
         tempList2.AddRange(bulletsA);
         tempList2.AddRange(bulletsB);
+        tempList2.AddRange(bulletsBossA);
+        tempList2.AddRange(bulletsBossB);
 
         GameObject[] bullets = tempList2.ToArray();
         foreach (GameObject bullet in bullets)

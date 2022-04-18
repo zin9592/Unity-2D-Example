@@ -7,10 +7,18 @@ using System.IO;
 
 public class GameManager : MonoBehaviour
 {
+    // Stage
+    public int _stage;
+    public Animator _stageAnim;
+    public Animator _clearAnim;
+    public Animator _fadeAnim;
+    public Transform _playerPos;
+
     public string[] _enemyObjects;   // 스폰되는 적들의 종류
     public Transform[] _spawnPoints;     // 적들의 스폰위치
     public float _nextSpawnDelay;
     public float _curSpawnDelay;
+
 
     public GameObject _player;
     public Text _scoreText;
@@ -26,8 +34,40 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         _spawnList = new List<Spawn>();
-        ReadSpawnFile();
+        StageStart();
     }
+
+    public void StageStart()
+    {
+        //#.Stage UI Load
+        _stageAnim.SetTrigger("OnTrigger");
+        _stageAnim.GetComponent<Text>().text = "STAGE" + _stage + "\nStart";
+        _clearAnim.GetComponent<Text>().text = "STAGE" + _stage + "\nClear";
+        //#.Enemy Spawn File Read
+        ReadSpawnFile();
+        //#.Fade In
+        _fadeAnim.SetTrigger("In");
+    }
+    public void StageEnd()
+    {
+        //#.Clear UI Load
+        _clearAnim.SetTrigger("OnTrigger");
+        //#.Fade Out
+        _fadeAnim.SetTrigger("Out");
+        //#.Player Repos
+        _player.transform.position = _playerPos.transform.position;
+        //#.Stage Increament
+        _stage++;
+        if (_stage > 3)
+        {
+            Invoke("GameOver", 7);
+        }
+        else
+        {
+            Invoke("StageStart", 5);
+        }
+    }
+
     void ReadSpawnFile()
     {
         //1. 변수 초기화
@@ -36,14 +76,14 @@ public class GameManager : MonoBehaviour
         _isSpawnEnd = false;
 
         //2. 리스폰 파일 읽기
-        TextAsset textFile = Resources.Load("Stage0") as TextAsset;
+        TextAsset textFile = Resources.Load("Stage" + _stage) as TextAsset;
         //파일 내의 문자열 데이터 읽기 클래스
         StringReader stringReader = new StringReader(textFile.text);
 
         while (stringReader != null)
         {
             string line = stringReader.ReadLine();
-            if(line == null)
+            if (line == null)
             {
                 break;
             }
@@ -75,7 +115,7 @@ public class GameManager : MonoBehaviour
         // #. UI Score Update
         Player playerLogic = _player.GetComponent<Player>();
         // {0:n0} : 세자리마다 쉼표로 나눠주는 숫자 양식
-        _scoreText.text = string.Format("{0:n0}",playerLogic._score);
+        _scoreText.text = string.Format("{0:n0}", playerLogic._score);
     }
 
     void SpawnEnemy()
@@ -104,6 +144,7 @@ public class GameManager : MonoBehaviour
         Enemy enemyLogic = enemy.GetComponent<Enemy>();
         enemyLogic._player = _player;
         enemyLogic._objectManager = _objectManager;
+        enemyLogic._gameManager = this;
 
         if (enemyPoint == 5 || enemyPoint == 6)   // Left Spawn
         {
@@ -122,7 +163,7 @@ public class GameManager : MonoBehaviour
 
         //#. 리스폰 인덱스 증가
         _spawnIndex++;
-        if(_spawnIndex == _spawnList.Count)
+        if (_spawnIndex == _spawnList.Count)
         {
             _isSpawnEnd = true;
             return;
@@ -180,5 +221,14 @@ public class GameManager : MonoBehaviour
     public void GameRetry()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void CallExplosion(Vector3 pos, Explosion.Type type)
+    {
+        GameObject explosion = _objectManager.MakeObject(ObjectManager.Type.Explosion);
+        Explosion explosionLogic = explosion.GetComponent<Explosion>();
+
+        explosion.transform.position = pos;
+        explosionLogic.StartExplosion(type);
     }
 }

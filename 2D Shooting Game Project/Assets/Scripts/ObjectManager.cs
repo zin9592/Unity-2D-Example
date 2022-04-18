@@ -17,7 +17,8 @@ public class ObjectManager : MonoBehaviour
         BulletEnemyB,
         BulletBossA,
         BulletBossB,
-        BulletFollwer
+        BulletFollwer,
+        Explosion
     }
 
     public GameObject _enemyBPrefab;
@@ -34,6 +35,7 @@ public class ObjectManager : MonoBehaviour
     public GameObject _bulletBossAPrefab;
     public GameObject _bulletBossBPrefab;
     public GameObject _bulletFollwerPrefab;
+    public GameObject _explosionPrefab;
 
     GameObject[] _enemyB;
     GameObject[] _enemyL;
@@ -51,6 +53,7 @@ public class ObjectManager : MonoBehaviour
     GameObject[] _bulletBossA;
     GameObject[] _bulletBossB;
     GameObject[] _bulletFollwer;
+    GameObject[] _explosion;
 
     GameObject[] _targetPool;
 
@@ -72,6 +75,7 @@ public class ObjectManager : MonoBehaviour
         _bulletBossA = new GameObject[100];
         _bulletBossB = new GameObject[300];
         _bulletFollwer = new GameObject[100];
+        _explosion = new GameObject[100];
 
         Generate();
     }
@@ -157,6 +161,12 @@ public class ObjectManager : MonoBehaviour
             _bulletFollwer[i] = Instantiate(_bulletFollwerPrefab);
             _bulletFollwer[i].SetActive(false);
         }
+
+        for (int i = 0; i < _explosion.Length; i++)
+        {
+            _explosion[i] = Instantiate(_explosionPrefab);
+            _explosion[i].SetActive(false);
+        }
     }
 
     public GameObject MakeObject(Type type)
@@ -205,7 +215,9 @@ public class ObjectManager : MonoBehaviour
             case Type.BulletFollwer:
                 _targetPool = _bulletFollwer;
                 break;
-
+            case Type.Explosion:
+                _targetPool = _explosion;
+                break;
         }
 
         for (int i = 0; i < _targetPool.Length; i++)
@@ -267,8 +279,35 @@ public class ObjectManager : MonoBehaviour
             case Type.BulletFollwer:
                 _targetPool = _bulletFollwer;
                 break;
+            case Type.Explosion:
+                _targetPool = _explosion;
+                break;
         }
 
         return _targetPool;
+    }
+    public void DeleteAllObj(Type type)
+    {
+        if (type == Type.EnemyB)
+        {
+            for (int index = 0; index < _bulletBossA.Length; index++)
+            {
+                _bulletBossA[index].SetActive(false);
+            }
+
+            for (int index = 0; index < _bulletBossB.Length; index++)
+            {
+                _bulletBossB[index].SetActive(false);
+            }
+            for (int index = 0; index < _bulletEnemyA.Length; index++)
+            {
+                _bulletEnemyA[index].SetActive(false);
+            }
+
+            for (int index = 0; index < _bulletEnemyB.Length; index++)
+            {
+                _bulletEnemyB[index].SetActive(false);
+            }
+        }
     }
 }

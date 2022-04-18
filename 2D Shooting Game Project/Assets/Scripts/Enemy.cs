@@ -27,6 +27,7 @@ public class Enemy : MonoBehaviour
     public GameObject _player;
 
     public ObjectManager _objectManager;
+    public GameManager _gameManager;
 
     SpriteRenderer _spriteRenderer;
     Animator _anim;
@@ -92,6 +93,8 @@ public class Enemy : MonoBehaviour
 
     void FireFoward()
     {
+        if (_health <= 0) return;
+
         //#. Fire 4 Bullet Foward
         GameObject bulletR = _objectManager.MakeObject(ObjectManager.Type.BulletBossA);
         GameObject bulletRR = _objectManager.MakeObject(ObjectManager.Type.BulletBossA);
@@ -127,6 +130,8 @@ public class Enemy : MonoBehaviour
 
     void FireShot()
     {
+        if (_health <= 0) return;
+
         //#.Fire Shot
         for (int i = 0; i < 5; i++)
         {
@@ -152,6 +157,8 @@ public class Enemy : MonoBehaviour
 
     void FireArc()
     {
+        if (_health <= 0) return;
+
         //#.Fire Arc Continue Fire
         GameObject bullet = _objectManager.MakeObject(ObjectManager.Type.BulletEnemyA);
         bullet.transform.position = transform.position;
@@ -175,6 +182,8 @@ public class Enemy : MonoBehaviour
 
     void FireAround()
     {
+        if (_health <= 0) return;
+
         //#.Fire Around
         int roundNum = curPatternCount % 2 == 0 ? 50 : 40;
         for(int i = 0; i < roundNum; i++)
@@ -275,6 +284,26 @@ public class Enemy : MonoBehaviour
             Player playerLogic = _player.GetComponent<Player>();
             playerLogic._score += _enemyScore;
 
+            //#.Explosion
+            Explosion.Type type = Explosion.Type.Null;
+
+            switch (_enemyName)
+            {
+                case "S":
+                    type = Explosion.Type.Small;
+                    break;
+                case "M":
+                    type = Explosion.Type.Midium;
+                    break;
+                case "L":
+                    type = Explosion.Type.Large;
+                    break;
+                case "B":
+                    type = Explosion.Type.Boss;
+                    break;
+            }
+            _gameManager.CallExplosion(transform.position, type);
+
             //#.Random Ratio Item Drop
             int ran = _enemyName == "B" ? 0 : Random.Range(0, 10);
 
@@ -300,6 +329,14 @@ public class Enemy : MonoBehaviour
                 GameObject itemBoom = _objectManager.MakeObject(ObjectManager.Type.ItemBoom);
                 itemBoom.transform.position = transform.position;
             }
+            //#.Boss Kill
+            if (_enemyName == "B")
+            {
+                _objectManager.DeleteAllObj(ObjectManager.Type.EnemyB);
+                CancelInvoke();
+                _gameManager.StageEnd();
+            }
+
             gameObject.SetActive(false);
             transform.rotation = Quaternion.identity;
         }
