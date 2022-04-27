@@ -5,7 +5,7 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637864522577072991
+      ticks: 637865343068591768
     m_Hash: 2524672637
   m_LockFileStatus:
     m_FilePath: E:/Project/Unity/Quad Action/Packages/packages-lock.json
@@ -13,7 +13,7 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637864522577072991
+      ticks: 637865343068601769
     m_Hash: 69311165
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
@@ -2951,4 +2951,4 @@ m_PackageAssets:
   m_LocalPackages:
     m_LocalFileStatus: []
 m_ProjectPath: E:/Project/Unity/Quad Action/Packages
-m_EditorVersion: 2020.3.26f1 (7298b473bc1a)
+m_EditorVersion: 2020.3.27f1 (e759542391ea)
