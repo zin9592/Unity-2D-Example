@@ -6,10 +6,14 @@ public class Player : MonoBehaviour
 {
     public float _speed;
     public float _jumpPower;
+    public GameObject[] _weapon;
+    public bool[] _hasWeapons;
+
     float _hAxis;
     float _vAxis;
     bool _wDown;
     bool _jDown;
+    bool _iDown;
     bool _isJump;
     bool _isDodge;
 
@@ -17,6 +21,8 @@ public class Player : MonoBehaviour
     Vector3 _dodgeVector;
     Animator _animator;
     Rigidbody _rigidbody;
+
+    GameObject _nearObject;
 
     void Awake()
     {
@@ -32,6 +38,7 @@ public class Player : MonoBehaviour
         Turn();
         Jump();
         Dodge();
+        Interaction();
     }
 
     void GetInput()
@@ -41,6 +48,7 @@ public class Player : MonoBehaviour
         _vAxis = Input.GetAxisRaw("Vertical");
         _wDown = Input.GetButton("Walk");
         _jDown = Input.GetButtonDown("Jump");
+        _iDown = Input.GetButtonDown("Interaction");
     }
 
     void Move()
@@ -106,6 +114,26 @@ public class Player : MonoBehaviour
         _isDodge = false;
     }
 
+    // 상호작용
+    void Interaction()
+    {
+        if (_iDown && _nearObject != null && !_isJump && !_isDodge)
+        {
+            if(_nearObject.tag == "Weapon")
+            {
+                //Item Information
+                Item item = _nearObject.GetComponent<Item>();
+                int weaponIndex = item.value;
+
+                //Get Weapon
+                _hasWeapons[weaponIndex] = true;
+                
+                //Field Item Destroy
+                Destroy(_nearObject);
+            }
+        }
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Floor")
@@ -116,6 +144,22 @@ public class Player : MonoBehaviour
             // Land
             _isJump = false;
 
+        }
+    }
+
+    void OnTriggerStay(Collider other)
+    {
+        if(other.tag == "Weapon")
+        {
+            _nearObject = other.gameObject;
+        }
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Weapon")
+        {
+            _nearObject = null;
         }
     }
 }
