@@ -30,6 +30,7 @@ public class Player : MonoBehaviour
     //Input
     bool _wDown;
     bool _jDown;
+    bool _fDown;
     bool _iDown;
     bool _sDown1;
     bool _sDown2;
@@ -39,16 +40,20 @@ public class Player : MonoBehaviour
     bool _isJump;
     bool _isDodge;
     bool _isSwap;
-
-    //Equip Weapon Index
-    int _equipWeaponIndex = -1;
+    bool _isFireReady = true;
 
     Vector3 _moveVector;
     Vector3 _dodgeVector;
     Animator _animator;
     Rigidbody _rigidbody;
     GameObject _nearObject;
-    GameObject _equipWeapon;
+    Weapon _equipWeapon;
+
+    //Equip Weapon Index
+    int _equipWeaponIndex = -1;
+
+    //Fire Delay;
+    float _fireDelay;
 
     void Awake()
     {
@@ -63,6 +68,7 @@ public class Player : MonoBehaviour
         Move();
         Turn();
         Jump();
+        Attack();
         Dodge();
         Swap();
         Interaction();
@@ -75,6 +81,7 @@ public class Player : MonoBehaviour
         _vAxis = Input.GetAxisRaw("Vertical");
         _wDown = Input.GetButton("Walk");
         _jDown = Input.GetButtonDown("Jump");
+        _fDown = Input.GetButtonDown("Fire1");
         _iDown = Input.GetButtonDown("Interaction");
         _sDown1 = Input.GetButtonDown("Swap1");
         _sDown2 = Input.GetButtonDown("Swap2");
@@ -92,7 +99,7 @@ public class Player : MonoBehaviour
             _moveVector = _dodgeVector;
         }
 
-        if (_isSwap)
+        if (_isSwap || !_isFireReady)
         {
             _moveVector = Vector3.zero;
         }
@@ -126,6 +133,25 @@ public class Player : MonoBehaviour
 
             // Jump
             _isJump = true;
+        }
+    }
+
+    void Attack()
+    {
+        if (_equipWeapon == null)
+        {
+            return;
+        }
+
+        _fireDelay += Time.deltaTime;
+
+        _isFireReady = _equipWeapon._rate < _fireDelay;
+
+        if(_fDown && _isFireReady && !_isDodge && !_isSwap)
+        {
+            _equipWeapon.Use();
+            _animator.SetTrigger("doSwing");
+            _fireDelay = 0;
         }
     }
 
@@ -173,11 +199,11 @@ public class Player : MonoBehaviour
         {
             if (_equipWeapon != null)
             {
-                _equipWeapon.SetActive(false);
+                _equipWeapon.gameObject.SetActive(false);
             }
-            _equipWeapon = _weapons[weaponIndex];
+            _equipWeapon = _weapons[weaponIndex].GetComponent<Weapon>();
             _equipWeaponIndex = weaponIndex;
-            _equipWeapon.SetActive(true);
+            _equipWeapon.gameObject.SetActive(true);
 
             _animator.SetTrigger("doSwap");
             _isSwap = true;
