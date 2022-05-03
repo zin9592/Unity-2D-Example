@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public GameObject[] _weapons;
     public bool[] _hasWeapons;
     public GameObject[] _grenades;
+    public Camera followCamera;
 
     //Item
     public int _ammo;
@@ -31,6 +32,7 @@ public class Player : MonoBehaviour
     bool _wDown;
     bool _jDown;
     bool _fDown;
+    bool _rDown;
     bool _iDown;
     bool _sDown1;
     bool _sDown2;
@@ -40,6 +42,7 @@ public class Player : MonoBehaviour
     bool _isJump;
     bool _isDodge;
     bool _isSwap;
+    bool _isReload;
     bool _isFireReady = true;
 
     Vector3 _moveVector;
@@ -69,6 +72,7 @@ public class Player : MonoBehaviour
         Turn();
         Jump();
         Attack();
+        Reload();
         Dodge();
         Swap();
         Interaction();
@@ -81,7 +85,8 @@ public class Player : MonoBehaviour
         _vAxis = Input.GetAxisRaw("Vertical");
         _wDown = Input.GetButton("Walk");
         _jDown = Input.GetButtonDown("Jump");
-        _fDown = Input.GetButtonDown("Fire1");
+        _fDown = Input.GetButton("Fire1");
+        _rDown = Input.GetButtonDown("Reload");
         _iDown = Input.GetButtonDown("Interaction");
         _sDown1 = Input.GetButtonDown("Swap1");
         _sDown2 = Input.GetButtonDown("Swap2");
@@ -99,7 +104,7 @@ public class Player : MonoBehaviour
             _moveVector = _dodgeVector;
         }
 
-        if (_isSwap || !_isFireReady)
+        if (_isSwap || !_isFireReady || _isReload)
         {
             _moveVector = Vector3.zero;
         }
@@ -114,8 +119,21 @@ public class Player : MonoBehaviour
 
     void Turn()
     {
-        // Turn Player
+        // 1. 키보드에 의한 회전
         transform.LookAt(transform.position + _moveVector);
+
+        // 2. 마우스에 의한 회전
+        if (_fDown)
+        {
+            Ray ray = followCamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit raycastHit;
+            if (Physics.Raycast(ray, out raycastHit, 100))
+            {
+                Vector3 nextVec = raycastHit.point - transform.position;
+                nextVec.y = 0;
+                transform.LookAt(transform.position + nextVec);
+            }
+        }
     }
 
     // 조건
@@ -150,9 +168,43 @@ public class Player : MonoBehaviour
         if(_fDown && _isFireReady && !_isDodge && !_isSwap)
         {
             _equipWeapon.Use();
-            _animator.SetTrigger("doSwing");
+            _animator.SetTrigger(_equipWeapon._type == Weapon.Type.Melee ? "doSwing" : "doShot");
             _fireDelay = 0;
         }
+    }
+
+    void Reload()
+    {
+        // Limit 1. No Weapon
+        if(_equipWeapon == null)
+        {
+            return;
+        }
+        // Limit 2. Melee Weapon
+        if(_equipWeapon._type == Weapon.Type.Melee)
+        {
+            return;
+        }
+        // Limit 3. No Ammo
+        if(_ammo == 0)
+        {
+            return;
+        }
+
+        if (_rDown && !_isJump && !_isDodge && !_isSwap && _isFireReady)
+        {
+            _animator.SetTrigger("doReload");
+            _isReload = true;
+            Invoke("ReloadOut", 3f);
+        }
+    }
+
+    void ReloadOut()
+    {
+        int reloadAmmo = _equipWeapon._maxAmmo > _ammo ? _ammo : _equipWeapon._maxAmmo;
+        _equipWeapon._curAmmo = reloadAmmo;
+        _ammo -= reloadAmmo;
+        _isReload = false;
     }
 
     // 조건
