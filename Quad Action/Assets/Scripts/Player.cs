@@ -44,6 +44,7 @@ public class Player : MonoBehaviour
     bool _isSwap;
     bool _isReload;
     bool _isFireReady = true;
+    bool _isBorder;
 
     Vector3 _moveVector;
     Vector3 _dodgeVector;
@@ -78,6 +79,25 @@ public class Player : MonoBehaviour
         Interaction();
     }
 
+    void FreezeRotation()
+    {
+        // 캐릭터가 물리충돌시 무한회전 해버리는 버그 방지용
+        _rigidbody.angularVelocity = Vector3.zero;
+    }
+
+    void StopToWall()
+    {
+        // 캐릭터가 벽을 뚫는 것을 방지
+        Debug.DrawRay(transform.position, transform.forward * 5, Color.green);
+        _isBorder = Physics.Raycast(transform.position, transform.forward, 5, LayerMask.GetMask("Wall"));
+    }
+
+    void FixedUpdate()
+    {
+        FreezeRotation();
+        StopToWall();
+    }
+
     void GetInput()
     {
         // Get Input
@@ -109,9 +129,11 @@ public class Player : MonoBehaviour
             _moveVector = Vector3.zero;
         }
 
-        // Move
-        transform.position += _moveVector * _speed * (_wDown == true ? 0.3f : 1) * Time.deltaTime;
-
+        if (!_isBorder)
+        {
+            // Move
+            transform.position += _moveVector * _speed * (_wDown == true ? 0.3f : 1) * Time.deltaTime;
+        }
         // Animator Trigger
         _animator.SetBool("isRun", _moveVector != Vector3.zero);
         _animator.SetBool("isWalk", _wDown);
@@ -165,7 +187,7 @@ public class Player : MonoBehaviour
 
         _isFireReady = _equipWeapon._rate < _fireDelay;
 
-        if(_fDown && _isFireReady && !_isDodge && !_isSwap)
+        if (_fDown && _isFireReady && !_isDodge && !_isSwap)
         {
             _equipWeapon.Use();
             _animator.SetTrigger(_equipWeapon._type == Weapon.Type.Melee ? "doSwing" : "doShot");
@@ -176,17 +198,17 @@ public class Player : MonoBehaviour
     void Reload()
     {
         // Limit 1. No Weapon
-        if(_equipWeapon == null)
+        if (_equipWeapon == null)
         {
             return;
         }
         // Limit 2. Melee Weapon
-        if(_equipWeapon._type == Weapon.Type.Melee)
+        if (_equipWeapon._type == Weapon.Type.Melee)
         {
             return;
         }
         // Limit 3. No Ammo
-        if(_ammo == 0)
+        if (_ammo == 0)
         {
             return;
         }
@@ -278,7 +300,7 @@ public class Player : MonoBehaviour
             {
                 //Item Information
                 Item item = _nearObject.GetComponent<Item>();
-                int weaponIndex = item.value;
+                int weaponIndex = item._value;
 
                 //Get Weapon
                 _hasWeapons[weaponIndex] = true;
@@ -304,28 +326,28 @@ public class Player : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Item")
+        if (other.tag == "Item")
         {
             Item item = other.GetComponent<Item>();
-            switch (item.type)
+            switch (item._type)
             {
                 case Item.Type.Ammo:
-                    _ammo += item.value;
-                    if(_ammo > _maxAmmo)
+                    _ammo += item._value;
+                    if (_ammo > _maxAmmo)
                     {
                         _ammo = _maxAmmo;
                     }
                     break;
                 case Item.Type.Coin:
-                    _coin += item.value;
-                    if(_coin > _maxCoin)
+                    _coin += item._value;
+                    if (_coin > _maxCoin)
                     {
                         _coin = _maxCoin;
                     }
                     break;
                 case Item.Type.Heart:
-                    _health += item.value;
-                    if(_health > _maxHealth)
+                    _health += item._value;
+                    if (_health > _maxHealth)
                     {
                         _health = _maxHealth;
                     }
@@ -336,11 +358,11 @@ public class Player : MonoBehaviour
                         break;
                     }
                     _grenades[_hasGrenades].SetActive(true);
-                    _hasGrenades += item.value;
+                    _hasGrenades += item._value;
                     break;
             }
             Destroy(other.gameObject);
-        }    
+        }
     }
 
     void OnTriggerStay(Collider other)
