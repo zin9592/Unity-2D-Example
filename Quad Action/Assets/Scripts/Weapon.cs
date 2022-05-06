@@ -39,11 +39,11 @@ public class Weapon : MonoBehaviour
         _trailEffect.enabled = true;
 
         //2. 충돌범위 off
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.4f);
         _meleeArea.enabled = false;
 
         //3. 효과 off
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.4f);
         _trailEffect.enabled = false;
         
     }

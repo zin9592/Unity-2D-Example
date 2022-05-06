@@ -6,13 +6,18 @@ public class Bullet : MonoBehaviour
 {
     public int _damage;
 
-    private void OnCollisionEnter(Collision collision)
+    void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Floor")
         {
             // 탄피 삭제 (3초후)
             Destroy(gameObject, 3f);
-        } else if (collision.gameObject.tag == "Wall")
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+         if (other.gameObject.tag == "Wall")
         {
             // 총알 삭제
             Destroy(gameObject);
