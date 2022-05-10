@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,6 +11,7 @@ public class Player : MonoBehaviour
     public GameObject[] _weapons;
     public bool[] _hasWeapons;
     public GameObject[] _grenades;
+    public GameObject _grenadeObject;
     public Camera followCamera;
 
     //Item
@@ -34,6 +36,7 @@ public class Player : MonoBehaviour
     bool _fDown;
     bool _rDown;
     bool _iDown;
+    bool _gDown;
     bool _sDown1;
     bool _sDown2;
     bool _sDown3;
@@ -72,11 +75,39 @@ public class Player : MonoBehaviour
         Move();
         Turn();
         Jump();
+        Grenade();
         Attack();
         Reload();
         Dodge();
         Swap();
         Interaction();
+    }
+
+    void Grenade()
+    {
+        if (_hasGrenades == 0)
+        {
+            return;
+        }
+
+        if(_gDown && !_isReload && !_isSwap)
+        {
+            Ray ray = followCamera.ScreenPointToRay(Input.mousePosition);
+            RaycastHit raycastHit;
+            if (Physics.Raycast(ray, out raycastHit, 100))
+            {
+                Vector3 nextVec = raycastHit.point - transform.position;
+                nextVec.y = 10;
+
+                GameObject instantGrenade = Instantiate(_grenadeObject, transform.position, transform.rotation);
+                Rigidbody rigidbody = instantGrenade.GetComponent<Rigidbody>();
+                rigidbody.AddForce(nextVec, ForceMode.Impulse);
+                rigidbody.AddTorque(Vector3.back * 10, ForceMode.Impulse);
+
+                _hasGrenades--;
+                _grenades[_hasGrenades].SetActive(false);
+            }
+        }
     }
 
     void FreezeRotation()
@@ -106,6 +137,7 @@ public class Player : MonoBehaviour
         _wDown = Input.GetButton("Walk");
         _jDown = Input.GetButtonDown("Jump");
         _fDown = Input.GetButton("Fire1");
+        _gDown = Input.GetButtonDown("Fire2");
         _rDown = Input.GetButtonDown("Reload");
         _iDown = Input.GetButtonDown("Interaction");
         _sDown1 = Input.GetButtonDown("Swap1");
