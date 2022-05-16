@@ -49,12 +49,16 @@ public class Player : MonoBehaviour
     bool _isFireReady = true;
     bool _isBorder;
 
+    //무적타임
+    bool _isDamage;
+
     Vector3 _moveVector;
     Vector3 _dodgeVector;
     Animator _animator;
     Rigidbody _rigidbody;
     GameObject _nearObject;
     Weapon _equipWeapon;
+    MeshRenderer[] _meshRenderers;
 
     //Equip Weapon Index
     int _equipWeaponIndex = -1;
@@ -66,6 +70,7 @@ public class Player : MonoBehaviour
     {
         _animator = GetComponentInChildren<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
+        _meshRenderers = GetComponentsInChildren<MeshRenderer>();
     }
 
 
@@ -90,7 +95,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        if(_gDown && !_isReload && !_isSwap)
+        if (_gDown && !_isReload && !_isSwap)
         {
             Ray ray = followCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit raycastHit;
@@ -394,6 +399,34 @@ public class Player : MonoBehaviour
                     break;
             }
             Destroy(other.gameObject);
+        }
+        else if (other.tag == "EnemyBullet")
+        {
+            if (!_isDamage)
+            {
+                Bullet enemyBullet = other.GetComponent<Bullet>();
+                _health -= enemyBullet._damage;
+                if(other.GetComponent<Rigidbody>() != null)
+                {
+                    Destroy(other.gameObject);
+                }
+                StartCoroutine(OnDamage());
+            }
+        }
+    }
+
+    IEnumerator OnDamage()
+    {
+        _isDamage = true;
+        foreach (MeshRenderer mesh in _meshRenderers)
+        {
+            mesh.material.color = Color.yellow;
+        }
+        yield return new WaitForSeconds(1f);
+        _isDamage = false;
+        foreach (MeshRenderer mesh in _meshRenderers)
+        {
+            mesh.material.color = Color.white;
         }
     }
 
