@@ -6,10 +6,11 @@ public class Bullet : MonoBehaviour
 {
     public int _damage;
     public bool _isMelee;
+    public bool _isRock;
 
-    void OnCollisionEnter(Collision collision)
+    public void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Floor")
+        if (!_isRock && collision.gameObject.tag == "Floor")
         {
             // 탄피 삭제 (3초후)
             Destroy(gameObject, 3f);

@@ -5,7 +5,7 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    public enum Type { A, B, C };
+    public enum Type { A, B, C, D };
     public Type _enemyType;
 
     public int _maxHealth;
@@ -15,22 +15,26 @@ public class Enemy : MonoBehaviour
     public GameObject _bullet;
     public bool _isChase;
     public bool _isAttack;
+    public bool _isDead;
 
-    Rigidbody _rigidbody;
-    BoxCollider _boxCollider;
-    Material _material;
-    NavMeshAgent _navMeshAgent;
-    Animator _animator;
+    protected Rigidbody _rigidbody;
+    protected BoxCollider _boxCollider;
+    protected MeshRenderer[] _meshRenderers;
+    protected NavMeshAgent _navMeshAgent;
+    protected Animator _animator;
 
     void Awake()
     {
         _rigidbody = GetComponent<Rigidbody>();
         _boxCollider = GetComponent<BoxCollider>();
-        _material = GetComponentInChildren<MeshRenderer>().material;
+        _meshRenderers = GetComponentsInChildren<MeshRenderer>();
         _navMeshAgent = GetComponent<NavMeshAgent>();
         _animator = GetComponentInChildren<Animator>();
 
-        Invoke("ChaseStart", 2);
+        if (_enemyType != Type.D)
+        {
+            Invoke("ChaseStart", 2);
+        }
     }
 
     void ChaseStart()
@@ -41,7 +45,7 @@ public class Enemy : MonoBehaviour
 
     void Update()
     {
-        if (_navMeshAgent.enabled)
+        if (_navMeshAgent.enabled && _enemyType != Type.D)
         {
             // 도착할 목표 위치 지정 함수
             _navMeshAgent.SetDestination(_target.position);
@@ -51,6 +55,10 @@ public class Enemy : MonoBehaviour
 
     void Targeting()
     {
+        if(!_isDead && _enemyType != Type.D)
+        {
+            return;
+        }
         float targetRadius = 0;
         float targetRange = 0;
 
@@ -174,18 +182,28 @@ public class Enemy : MonoBehaviour
 
     IEnumerator OnDamage(Vector3 reactVec, bool isGrenade)
     {
-        _material.color = Color.red;
+        foreach(MeshRenderer mesh in _meshRenderers)
+        {
+            mesh.material.color = Color.red;
+        }
         yield return new WaitForSeconds(0.1f);
 
         if (_curHealth > 0)
         {
-            _material.color = Color.white;
+            foreach (MeshRenderer mesh in _meshRenderers)
+            {
+                mesh.material.color = Color.white;
+            }
         }
         else
         {
             // Enemy Dead
-            _material.color = Color.gray;
+            foreach (MeshRenderer mesh in _meshRenderers)
+            {
+                mesh.material.color = Color.gray;
+            }
             gameObject.layer = 13;
+            _isDead = true;
             _isChase = false;
             _navMeshAgent.enabled = false;
             _rigidbody.isKinematic = false;
@@ -206,7 +224,11 @@ public class Enemy : MonoBehaviour
                 reactVec += Vector3.up;
                 _rigidbody.AddForce(reactVec * 10, ForceMode.Impulse);
             }
-            Destroy(gameObject, 4f);
+
+            if (_enemyType != Type.D)
+            {
+                Destroy(gameObject, 4f);
+            }
         }
 
     }
