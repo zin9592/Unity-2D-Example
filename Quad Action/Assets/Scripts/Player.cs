@@ -48,6 +48,7 @@ public class Player : MonoBehaviour
     bool _isReload;
     bool _isFireReady = true;
     bool _isBorder;
+    bool _isShop;
 
     //무적타임
     bool _isDamage;
@@ -199,7 +200,7 @@ public class Player : MonoBehaviour
     // 제자리에서 점프키를 누를 시 점프
     void Jump()
     {
-        if (_jDown && _moveVector == Vector3.zero && !_isJump && !_isDodge && !_isSwap)
+        if (_jDown && _moveVector == Vector3.zero && !_isJump && !_isDodge && !_isSwap && !_isShop)
         {
             // Jump Force
             _rigidbody.AddForce(Vector3.up * _jumpPower, ForceMode.Impulse);
@@ -224,7 +225,7 @@ public class Player : MonoBehaviour
 
         _isFireReady = _equipWeapon._rate < _fireDelay;
 
-        if (_fDown && _isFireReady && !_isDodge && !_isSwap)
+        if (_fDown && _isFireReady && !_isDodge && !_isSwap && !_isShop)
         {
             _equipWeapon.Use();
             _animator.SetTrigger(_equipWeapon._type == Weapon.Type.Melee ? "doSwing" : "doShot");
@@ -250,7 +251,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        if (_rDown && !_isJump && !_isDodge && !_isSwap && _isFireReady)
+        if (_rDown && !_isJump && !_isDodge && !_isSwap && _isFireReady && !_isShop)
         {
             _animator.SetTrigger("doReload");
             _isReload = true;
@@ -270,7 +271,7 @@ public class Player : MonoBehaviour
     // 방향키 + 점프키를 누를 시 회피
     void Dodge()
     {
-        if (_jDown && _moveVector != Vector3.zero && !_isJump && !_isDodge && !_isSwap)
+        if (_jDown && _moveVector != Vector3.zero && !_isJump && !_isDodge && !_isSwap && !_isShop)
         {
             _dodgeVector = _moveVector;
             _speed *= 2;
@@ -306,7 +307,7 @@ public class Player : MonoBehaviour
         if (_sDown2) weaponIndex = 1;
         if (_sDown3) weaponIndex = 2;
 
-        if ((_sDown1 || _sDown2 || _sDown3) && !_isJump && !_isDodge)
+        if ((_sDown1 || _sDown2 || _sDown3) && !_isJump && !_isDodge && !_isShop)
         {
             if (_equipWeapon != null)
             {
@@ -344,6 +345,12 @@ public class Player : MonoBehaviour
 
                 //Field Item Destroy
                 Destroy(_nearObject);
+            }
+            else if (_nearObject.tag == "Shop")
+            {
+                Shop shop = _nearObject.GetComponent<Shop>();
+                shop.Enter(this);
+                _isShop = true;
             }
         }
     }
@@ -445,7 +452,7 @@ public class Player : MonoBehaviour
 
     void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Weapon")
+        if (other.tag == "Weapon" || other.tag == "Shop")
         {
             _nearObject = other.gameObject;
         }
@@ -455,6 +462,13 @@ public class Player : MonoBehaviour
     {
         if (other.tag == "Weapon")
         {
+            _nearObject = null;
+        }
+        else if (other.tag == "Shop")
+        {
+            Shop shop = other.GetComponent<Shop>();
+            shop.Exit();
+            _isShop = false;
             _nearObject = null;
         }
     }
