@@ -16,6 +16,7 @@ public class Enemy : MonoBehaviour
     public bool _isChase;
     public bool _isAttack;
     public bool _isDead;
+    public GameManager _gameManager;
 
     protected Rigidbody _rigidbody;
     protected BoxCollider _boxCollider;
@@ -37,6 +38,12 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public void InitSetting(GameManager gameManager, Transform target)
+    {
+        _gameManager = gameManager;
+        _target = target;
+    }
+
     void ChaseStart()
     {
         _isChase = true;
@@ -55,7 +62,7 @@ public class Enemy : MonoBehaviour
 
     void Targeting()
     {
-        if(!_isDead && _enemyType != Type.D)
+        if(!_isDead && _enemyType == Type.D)
         {
             return;
         }
@@ -87,12 +94,12 @@ public class Enemy : MonoBehaviour
          * 쏠때 반지름 1.5f(targetRadius) 구체형(SphereCast)을 쏘고 
          * 감지(LayerMask.GetMask("Player"))가 되면 rayHits에 추가
          */
-
         RaycastHit[] rayHits = Physics.SphereCastAll(transform.position,
                                                 targetRadius,
                                                 transform.forward,
                                                 targetRange,
                                                 LayerMask.GetMask("Player"));
+
 
         // Player Detect
         if (rayHits.Length > 0 && !_isAttack)
@@ -182,6 +189,9 @@ public class Enemy : MonoBehaviour
 
     IEnumerator OnDamage(Vector3 reactVec, bool isGrenade)
     {
+        //현재 맞은 적이 누구인지 표시(체력바 갱신)
+        _gameManager._curHitEnemy = this;
+
         foreach(MeshRenderer mesh in _meshRenderers)
         {
             mesh.material.color = Color.red;
@@ -203,6 +213,7 @@ public class Enemy : MonoBehaviour
                 mesh.material.color = Color.gray;
             }
             gameObject.layer = 13;
+            _curHealth = 0;
             _isDead = true;
             _isChase = false;
             _navMeshAgent.enabled = false;

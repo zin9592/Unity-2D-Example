@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     public int _coin;
     public int _health;
     public int _hasGrenades;
+    public int _score;
 
     //Max Item
     public int _maxAmmo;
@@ -58,7 +59,7 @@ public class Player : MonoBehaviour
     Animator _animator;
     Rigidbody _rigidbody;
     GameObject _nearObject;
-    Weapon _equipWeapon;
+    public Weapon _equipWeapon;
     MeshRenderer[] _meshRenderers;
 
     //Equip Weapon Index
@@ -72,6 +73,8 @@ public class Player : MonoBehaviour
         _animator = GetComponentInChildren<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
         _meshRenderers = GetComponentsInChildren<MeshRenderer>();
+
+        PlayerPrefs.SetInt("MaxScore", 112500);
     }
 
 
