@@ -8,11 +8,22 @@ public class Enemy : MonoBehaviour
     public enum Type { A, B, C, D };
     public Type _enemyType;
 
+    //Status
     public int _maxHealth;
     public int _curHealth;
+    public int _score;
+    public GameObject[] _coins;
+
+    //Enemy Target
     public Transform _target;
+
+    //Enemy Melee Area
     public BoxCollider _meleeArea;
+
+    //Enemy Range Bullet
     public GameObject _bullet;
+    
+    //Flag
     public bool _isChase;
     public bool _isAttack;
     public bool _isDead;
@@ -23,6 +34,8 @@ public class Enemy : MonoBehaviour
     protected MeshRenderer[] _meshRenderers;
     protected NavMeshAgent _navMeshAgent;
     protected Animator _animator;
+
+
 
     void Awake()
     {
@@ -62,7 +75,7 @@ public class Enemy : MonoBehaviour
 
     void Targeting()
     {
-        if(!_isDead && _enemyType == Type.D)
+        if(_isDead || !_isChase || _enemyType == Type.D)
         {
             return;
         }
@@ -117,6 +130,7 @@ public class Enemy : MonoBehaviour
         switch (_enemyType)
         {
             case Type.A:
+                _rigidbody.isKinematic = true;
                 yield return new WaitForSeconds(0.2f);
                 _meleeArea.enabled = true;
 
@@ -124,6 +138,7 @@ public class Enemy : MonoBehaviour
                 _meleeArea.enabled = false;
 
                 yield return new WaitForSeconds(1f);
+                _rigidbody.isKinematic = false;
                 break;
 
             case Type.B:
@@ -169,12 +184,15 @@ public class Enemy : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
+        if (_isDead)
+        {
+            return;
+        }
         if (other.tag == "Melee")
         {
             Weapon weapon = other.GetComponent<Weapon>();
             _curHealth -= weapon._damage;
             Vector3 reactVec = transform.position - other.transform.position;
-
             StartCoroutine(OnDamage(reactVec, false));
         }
         else if (other.tag == "Bullet")
@@ -192,14 +210,15 @@ public class Enemy : MonoBehaviour
         //현재 맞은 적이 누구인지 표시(체력바 갱신)
         _gameManager._curHitEnemy = this;
 
-        foreach(MeshRenderer mesh in _meshRenderers)
-        {
-            mesh.material.color = Color.red;
-        }
-        yield return new WaitForSeconds(0.1f);
-
         if (_curHealth > 0)
         {
+            foreach (MeshRenderer mesh in _meshRenderers)
+            {
+                mesh.material.color = Color.red;
+            }
+
+            yield return new WaitForSeconds(0.1f);
+
             foreach (MeshRenderer mesh in _meshRenderers)
             {
                 mesh.material.color = Color.white;
@@ -208,36 +227,45 @@ public class Enemy : MonoBehaviour
         else
         {
             // Enemy Dead
-            foreach (MeshRenderer mesh in _meshRenderers)
+            if (!_isDead)
             {
-                mesh.material.color = Color.gray;
-            }
-            gameObject.layer = 13;
-            _curHealth = 0;
-            _isDead = true;
-            _isChase = false;
-            _navMeshAgent.enabled = false;
-            _rigidbody.isKinematic = false;
-            _animator.SetTrigger("doDie");
+                foreach (MeshRenderer mesh in _meshRenderers)
+                {
+                    mesh.material.color = Color.gray;
+                }
 
-            if (isGrenade)
-            {
-                reactVec = reactVec.normalized;
-                reactVec += Vector3.up * 3;
+                // Enemy Counting
+                _gameManager.EnemyCounting(((int)_enemyType), -1);
 
-                _rigidbody.freezeRotation = false;
-                _rigidbody.AddForce(reactVec * 5, ForceMode.Impulse);
-                _rigidbody.AddTorque(reactVec * 15, ForceMode.Impulse);
-            }
-            else
-            {
-                reactVec = reactVec.normalized;
-                reactVec += Vector3.up;
-                _rigidbody.AddForce(reactVec * 10, ForceMode.Impulse);
-            }
+                gameObject.layer = 13;
+                _curHealth = 0;
+                _isDead = true;
+                _isChase = false;
+                _navMeshAgent.enabled = false;
+                _rigidbody.isKinematic = false;
+                _animator.SetTrigger("doDie");
 
-            if (_enemyType != Type.D)
-            {
+                // 점수 추가 및 코인 드롭
+                Player player = _target.GetComponent<Player>();
+                player._score += _score;
+                int ranCoin = Random.Range(0, 3);
+                Instantiate(_coins[ranCoin], transform.position, Quaternion.identity);
+                if (isGrenade)
+                {
+                    reactVec = reactVec.normalized;
+                    reactVec += Vector3.up * 3;
+
+                    _rigidbody.freezeRotation = false;
+                    _rigidbody.AddForce(reactVec * 5, ForceMode.Impulse);
+                    _rigidbody.AddTorque(reactVec * 15, ForceMode.Impulse);
+                }
+                else
+                {
+                    reactVec = reactVec.normalized;
+                    reactVec += Vector3.up;
+                    _rigidbody.AddForce(reactVec * 10, ForceMode.Impulse);
+                }
+
                 Destroy(gameObject, 4f);
             }
         }

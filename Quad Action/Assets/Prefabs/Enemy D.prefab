@@ -104,6 +104,11 @@ MonoBehaviour:
   _enemyType: 3
   _maxHealth: 1000
   _curHealth: 1000
+  _score: 10000
+  _coins:
+  - {fileID: 3407439643995090213, guid: 05bb988da2507994b91af4142f5c88a7, type: 3}
+  - {fileID: 2475508841514753205, guid: ba2cad252d6a66a48b88c83e0c3fe543, type: 3}
+  - {fileID: 160346260702801496, guid: a70b9a1a6743b2d4d899ae8ba368b112, type: 3}
   _target: {fileID: 0}
   _meleeArea: {fileID: 7721956684710504746}
   _bullet: {fileID: 750130941374514310, guid: 2df893fec58a02d49b24777da02fed66, type: 3}

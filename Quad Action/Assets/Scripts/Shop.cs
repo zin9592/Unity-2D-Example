@@ -23,16 +23,22 @@ public class Shop : MonoBehaviour
     {
         _enterPlayer = player;
         _UIGroup.anchoredPosition = Vector3.zero;
+        _UIGroup.gameObject.SetActive(true);
     }
 
     public void Exit()
     {
         _animator.SetTrigger("doHello");
         _UIGroup.anchoredPosition = Vector3.down * 1000;
+        _UIGroup.gameObject.SetActive(false);
     }
 
     public void Buy(int index)
     {
+        if(_enterPlayer == null)
+        {
+            return;
+        }
         int price = _itemPrice[index];
 
         if (price > _enterPlayer._coin)

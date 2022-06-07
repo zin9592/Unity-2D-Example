@@ -74,6 +74,7 @@ public class Boss : Enemy
 
     IEnumerator MissileShot()
     {
+        _rigidbody.isKinematic = true;
         _animator.SetTrigger("doShot");
         // 첫번째 미사일 발사
         yield return new WaitForSeconds(0.2f);
@@ -88,16 +89,19 @@ public class Boss : Enemy
         bossMissileB._target = _target;
 
         yield return new WaitForSeconds(2.5f);
+        _rigidbody.isKinematic = false;
         StartCoroutine(Think());
     }
     IEnumerator RockShot()
     {
         // 마지막으로 타겟을 바라본 위치로 돌 굴림
+        _rigidbody.isKinematic = true;
         _isLook = false;
         _animator.SetTrigger("doBigShot");
         GameObject instantRock = Instantiate(_bullet, transform.position, transform.rotation);
         yield return new WaitForSeconds(3f);
         _isLook = true;
+        _rigidbody.isKinematic = false;
         StartCoroutine(Think());
     }
     IEnumerator Taunt()
@@ -116,11 +120,11 @@ public class Boss : Enemy
         _meleeArea.enabled = true;
         yield return new WaitForSeconds(0.5f);
         _meleeArea.enabled = false;
+        _boxCollider.enabled = true;
 
         yield return new WaitForSeconds(1f);
         _isLook = true;
         _navMeshAgent.isStopped = true;
-        _boxCollider.enabled = true;
         StartCoroutine(Think());
     }
 

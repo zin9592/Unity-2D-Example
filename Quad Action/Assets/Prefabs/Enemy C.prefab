@@ -27,14 +27,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6142855330846500945}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 3212767229020472565}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!54 &8875096488645253137
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -79,6 +79,11 @@ MonoBehaviour:
   _enemyType: 2
   _maxHealth: 200
   _curHealth: 200
+  _score: 500
+  _coins:
+  - {fileID: 3407439643995090213, guid: 05bb988da2507994b91af4142f5c88a7, type: 3}
+  - {fileID: 2475508841514753205, guid: ba2cad252d6a66a48b88c83e0c3fe543, type: 3}
+  - {fileID: 160346260702801496, guid: a70b9a1a6743b2d4d899ae8ba368b112, type: 3}
   _target: {fileID: 0}
   _meleeArea: {fileID: 0}
   _bullet: {fileID: 5575484871046002489, guid: 46c28c551f5a2fb469aa079d13225282, type: 3}

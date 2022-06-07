@@ -13,6 +13,25 @@ public class Player : MonoBehaviour
     public GameObject[] _grenades;
     public GameObject _grenadeObject;
     public Camera followCamera;
+    public GameManager _gameManager;
+
+    //Sound
+    public AudioSource _WalkSound;
+    public AudioSource _jumpSound;
+    public AudioSource _damagedSound;
+    public AudioSource _hammerSound;
+    public AudioSource _handGunSound;
+    public AudioSource _subMachineGunSound;
+    public AudioSource _coinSound;
+    public AudioSource _menuSound;
+    public AudioSource _ShopOpenSound;
+    public AudioSource _stageClearSound;
+    public bool _isWalk;
+
+    public enum SoundType
+    {
+        Walk, Jump, Damage, Hammer, HandGun, SubMachineGun, Coin, Menu, Shop, StageClear
+    }
 
     //Item
     public int _ammo;
@@ -50,6 +69,7 @@ public class Player : MonoBehaviour
     bool _isFireReady = true;
     bool _isBorder;
     bool _isShop;
+    bool _isDead;
 
     //무적타임
     bool _isDamage;
@@ -73,8 +93,6 @@ public class Player : MonoBehaviour
         _animator = GetComponentInChildren<Animator>();
         _rigidbody = GetComponent<Rigidbody>();
         _meshRenderers = GetComponentsInChildren<MeshRenderer>();
-
-        PlayerPrefs.SetInt("MaxScore", 112500);
     }
 
 
@@ -92,6 +110,44 @@ public class Player : MonoBehaviour
         Interaction();
     }
 
+    public void SoundPlay(SoundType _type)
+    {
+        switch (_type)
+        {
+            case SoundType.Jump:
+                _jumpSound.Play();
+                break;
+            case SoundType.Walk:
+                _WalkSound.Play();
+                break;
+            case SoundType.Damage:
+                _damagedSound.Play();
+                break;
+            case SoundType.Hammer:
+                _hammerSound.Play();
+                break;
+            case SoundType.HandGun:
+                _handGunSound.Play();
+                break;
+            case SoundType.SubMachineGun:
+                _subMachineGunSound.Play();
+                break;
+            case SoundType.Coin:
+                _coinSound.Play();
+                break;
+            case SoundType.Shop:
+                _ShopOpenSound.Play();
+                break;
+            case SoundType.Menu:
+                _menuSound.Play();
+                break;
+            case SoundType.StageClear:
+                _stageClearSound.Play();
+                break;
+
+        }
+    }
+
     void Grenade()
     {
         if (_hasGrenades == 0)
@@ -99,7 +155,7 @@ public class Player : MonoBehaviour
             return;
         }
 
-        if (_gDown && !_isReload && !_isSwap)
+        if (_gDown && !_isReload && !_isSwap && !_isDead)
         {
             Ray ray = followCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit raycastHit;
@@ -165,7 +221,7 @@ public class Player : MonoBehaviour
             _moveVector = _dodgeVector;
         }
 
-        if (_isSwap || !_isFireReady || _isReload)
+        if (_isSwap || !_isFireReady || _isReload || _isDead)
         {
             _moveVector = Vector3.zero;
         }
@@ -178,6 +234,22 @@ public class Player : MonoBehaviour
         // Animator Trigger
         _animator.SetBool("isRun", _moveVector != Vector3.zero);
         _animator.SetBool("isWalk", _wDown);
+        if (!_isWalk && _wDown && _moveVector != Vector3.zero && !_isJump && !_isDodge)
+        {
+            Invoke("WalkOut", 0.8f);
+            _isWalk = true;
+            SoundPlay(SoundType.Walk);
+        }else if (!_isWalk && !_wDown && _moveVector != Vector3.zero && !_isJump && !_isDodge)
+        {
+            Invoke("WalkOut", 0.2f);
+            _isWalk = true;
+            SoundPlay(SoundType.Walk);
+        }
+    }
+
+    void WalkOut()
+    {
+        _isWalk = false;
     }
 
     void Turn()
@@ -186,8 +258,12 @@ public class Player : MonoBehaviour
         transform.LookAt(transform.position + _moveVector);
 
         // 2. 마우스에 의한 회전
-        if (_fDown)
+        if (_fDown && !_isDead)
         {
+            if (!_isFireReady && _equipWeapon._type == Weapon.Type.Melee)
+            {
+                return;
+            }
             Ray ray = followCamera.ScreenPointToRay(Input.mousePosition);
             RaycastHit raycastHit;
             if (Physics.Raycast(ray, out raycastHit, 100))
@@ -203,7 +279,7 @@ public class Player : MonoBehaviour
     // 제자리에서 점프키를 누를 시 점프
     void Jump()
     {
-        if (_jDown && _moveVector == Vector3.zero && !_isJump && !_isDodge && !_isSwap && !_isShop)
+        if (_jDown && _moveVector == Vector3.zero && !_isJump && !_isDodge && !_isSwap && !_isReload && !_isShop && !_isDead)
         {
             // Jump Force
             _rigidbody.AddForce(Vector3.up * _jumpPower, ForceMode.Impulse);
@@ -214,6 +290,8 @@ public class Player : MonoBehaviour
 
             // Jump
             _isJump = true;
+
+            SoundPlay(SoundType.Jump);
         }
     }
 
@@ -228,8 +306,26 @@ public class Player : MonoBehaviour
 
         _isFireReady = _equipWeapon._rate < _fireDelay;
 
-        if (_fDown && _isFireReady && !_isDodge && !_isSwap && !_isShop)
+        if (_fDown && _isFireReady && !_isDodge && !_isSwap && !_isShop && !_isDead)
         {
+            switch (_equipWeapon.gameObject.name)
+            {
+                case "Weapon Hammer":
+                    SoundPlay(SoundType.Hammer);
+                    break;
+                case "Weapon HandGun":
+                    if (_equipWeapon._curAmmo != 0)
+                    {
+                        SoundPlay(SoundType.HandGun);
+                    }
+                    break;
+                case "Weapon SubMachineGun":
+                    if (_equipWeapon._curAmmo != 0)
+                    {
+                        SoundPlay(SoundType.SubMachineGun);
+                    }
+                    break;
+            }
             _equipWeapon.Use();
             _animator.SetTrigger(_equipWeapon._type == Weapon.Type.Melee ? "doSwing" : "doShot");
             _fireDelay = 0;
@@ -254,11 +350,11 @@ public class Player : MonoBehaviour
             return;
         }
 
-        if (_rDown && !_isJump && !_isDodge && !_isSwap && _isFireReady && !_isShop)
+        if (_rDown && !_isJump && !_isDodge && !_isSwap && _isFireReady && !_isShop && !_isReload && !_isDead)
         {
             _animator.SetTrigger("doReload");
             _isReload = true;
-            Invoke("ReloadOut", 3f);
+            Invoke("ReloadOut", 1.5f);
         }
     }
 
@@ -274,7 +370,7 @@ public class Player : MonoBehaviour
     // 방향키 + 점프키를 누를 시 회피
     void Dodge()
     {
-        if (_jDown && _moveVector != Vector3.zero && !_isJump && !_isDodge && !_isSwap && !_isShop)
+        if (_jDown && _moveVector != Vector3.zero && !_isJump && !_isDodge && !_isSwap && !_isShop && !_isDead)
         {
             _dodgeVector = _moveVector;
             _speed *= 2;
@@ -310,7 +406,7 @@ public class Player : MonoBehaviour
         if (_sDown2) weaponIndex = 1;
         if (_sDown3) weaponIndex = 2;
 
-        if ((_sDown1 || _sDown2 || _sDown3) && !_isJump && !_isDodge && !_isShop)
+        if ((_sDown1 || _sDown2 || _sDown3) && !_isJump && !_isDodge && !_isShop && !_isDead)
         {
             if (_equipWeapon != null)
             {
@@ -335,7 +431,7 @@ public class Player : MonoBehaviour
     // 상호작용
     void Interaction()
     {
-        if (_iDown && _nearObject != null && !_isJump && !_isDodge)
+        if (_iDown && _nearObject != null && !_isJump && !_isDodge && !_isDead)
         {
             if (_nearObject.tag == "Weapon")
             {
@@ -354,6 +450,7 @@ public class Player : MonoBehaviour
                 Shop shop = _nearObject.GetComponent<Shop>();
                 shop.Enter(this);
                 _isShop = true;
+                SoundPlay(SoundType.Shop);
             }
         }
     }
@@ -387,6 +484,7 @@ public class Player : MonoBehaviour
                     break;
                 case Item.Type.Coin:
                     _coin += item._value;
+                    SoundPlay(SoundType.Coin);
                     if (_coin > _maxCoin)
                     {
                         _coin = _maxCoin;
@@ -417,19 +515,24 @@ public class Player : MonoBehaviour
                 Bullet enemyBullet = other.GetComponent<Bullet>();
                 _health -= enemyBullet._damage;
 
-                bool isBossAtk = other.name == "Boss Melee Area";
+                bool isBossAtk = other.gameObject.name == "Boss Melee Area";
+
                 StartCoroutine(OnDamage(isBossAtk));
             }
             if (other.GetComponent<Rigidbody>() != null)
             {
                 Destroy(other.gameObject);
             }
+
+
         }
     }
 
     IEnumerator OnDamage(bool isBoosAtk)
     {
         _isDamage = true;
+        SoundPlay(SoundType.Damage);
+
         foreach (MeshRenderer mesh in _meshRenderers)
         {
             mesh.material.color = Color.yellow;
@@ -438,6 +541,12 @@ public class Player : MonoBehaviour
         if (isBoosAtk)
         {
             _rigidbody.AddForce(transform.forward * -25, ForceMode.Impulse);
+        }
+
+        if (_health <= 0 && !_isDead)
+        {
+            //Game Over
+            OnDie();
         }
 
         yield return new WaitForSeconds(1f);
@@ -451,6 +560,14 @@ public class Player : MonoBehaviour
         {
             _rigidbody.velocity = Vector3.zero;
         }
+    }
+
+    void OnDie()
+    {
+        _animator.SetTrigger("doDie");
+        _isDead = true;
+        gameObject.layer = 16;
+        _gameManager.GameOver();
     }
 
     void OnTriggerStay(Collider other)
